@@ -6,7 +6,7 @@
 //! @brief 		Header file for Fp.cpp
 //! @details
 //!		<b>Last Modified:			</b> 04/11/2012					\n
-//!		<b>Version:					</b> v1.2.0						\n
+//!		<b>Version:					</b> v1.3.0						\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n
 //!		<b>Language:				</b> C++						\n
@@ -23,7 +23,9 @@
 //!			v1.1.1 -> Fixed filename errors. Attributed Markus
 //!				Trenkwalder as the original author.
 //!			v1.2.0 -> Made fp a class with public members, 
-//!				rather than structure
+//!				rather than structure.
+//!			v1.3.0 -> Added operator overload for '%'. Tested
+//!				and works fine.
 
 /*
 Copyright (c) 2007, Markus Trenkwalder
@@ -237,6 +239,15 @@ class fp {
 	fp operator - (fp r) const { fp x = *this; x -= r; return x;}
 	fp operator * (fp r) const { fp x = *this; x *= r; return x;}
 	fp operator / (fp r) const { fp x = *this; x /= r; return x;}
+	
+	//! Operator overload for '%'. Modulo works on bits as long
+	//! as fixed-point numbers are of the same precision.
+	const fp operator % (fp r) 
+	{
+		fp result;
+		result.intValue = intValue % r.intValue;
+		return result;
+	}
 	
 	bool operator == (fp r) const { return intValue == r.intValue; }
 	bool operator != (fp r) const { return !(*this == r); }
