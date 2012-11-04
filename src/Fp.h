@@ -17,6 +17,16 @@
 //!		<b>Documentation Format:	</b> Doxygen					\n
 //!		<b>License:					</b> (see below)				\n
 //!
+//!		Fixed-point library for fast arithmetic operations. Designed
+//!		for use on a 32-bit architecture. Fixed-point numbers are
+//!		signed. Class supports dynamic precision, determined
+//!		with variable p which denotes fractional precision. The
+//!		integer precision is (32 bits - p). Overflows will wrap. 
+//!		Support operator oveloading for most common fixed-point
+//!		arithemetic.
+//!
+//!		See below for original copyright notice.
+//!
 //!		CHANGELOG:
 //!			v1.1.0 -> Merged fixed_func.h into this file. Added
 //!				comments. Changed fixed_point to fp.
@@ -26,6 +36,7 @@
 //!				rather than structure.
 //!			v1.3.0 -> Added operator overload for '%'. Tested
 //!				and works fine.
+//!			v1.3.1 -> Added library description.
 
 /*
 Copyright (c) 2007, Markus Trenkwalder
