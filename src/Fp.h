@@ -6,7 +6,7 @@
 //! @brief 		Header file for Fp.cpp
 //! @details
 //!		<b>Last Modified:			</b> 04/11/2012					\n
-//!		<b>Version:					</b> v1.1.1						\n
+//!		<b>Version:					</b> v1.2.0						\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n
 //!		<b>Language:				</b> C++						\n
@@ -20,9 +20,10 @@
 //!		CHANGELOG:
 //!			v1.1.0 -> Merged fixed_func.h into this file. Added
 //!				comments. Changed fixed_point to fp.
-//!		
 //!			v1.1.1 -> Fixed filename errors. Attributed Markus
 //!				Trenkwalder as the original author.
+//!			v1.2.0 -> Made fp a class with public members, 
+//!				rather than structure
 
 /*
 Copyright (c) 2007, Markus Trenkwalder
@@ -212,7 +213,9 @@ int32_t fixsqrt16(int32_t a);
 //! fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
 //! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
 template <int p>
-struct fp {
+class fp {
+	
+	public:
 	
 	int32_t intValue;			//!< Access to raw value
 	
