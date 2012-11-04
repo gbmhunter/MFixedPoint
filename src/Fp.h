@@ -6,7 +6,7 @@
 //! @brief 		Header file for Fp.cpp
 //! @details
 //!		<b>Last Modified:			</b> 04/11/2012					\n
-//!		<b>Version:					</b> v1.3.0						\n
+//!		<b>Version:					</b> v1.3.1						\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n
 //!		<b>Language:				</b> C++						\n
