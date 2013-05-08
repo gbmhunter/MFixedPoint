@@ -2,11 +2,11 @@
 //! @file 		Fp.h
 //! @author 	Markus Trenkwalder
 //! @edited 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		2007
+//! @date 		23/10/2012
 //! @brief 		Header file for Fp.cpp
 //! @details
-//!		<b>Last Modified:			</b> 04/11/2012					\n
-//!		<b>Version:					</b> v1.3.1						\n
+//!		<b>Last Modified:			</b> 08/05/2013					\n
+//!		<b>Version:					</b> v1.3.1.1					\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n
 //!		<b>Language:				</b> C++						\n
@@ -28,15 +28,17 @@
 //!		See below for original copyright notice.
 //!
 //!		CHANGELOG:
-//!			v1.1.0 -> Merged fixed_func.h into this file. Added
+//!			v1.1.0 		-> Merged fixed_func.h into this file. Added
 //!				comments. Changed fixed_point to fp.
-//!			v1.1.1 -> Fixed filename errors. Attributed Markus
+//!			v1.1.1 		-> Fixed filename errors. Attributed Markus
 //!				Trenkwalder as the original author.
-//!			v1.2.0 -> Made fp a class with public members, 
+//!			v1.2.0 		-> Made fp a class with public members, 
 //!				rather than structure.
-//!			v1.3.0 -> Added operator overload for '%'. Tested
+//!			v1.3.0 		-> Added operator overload for '%'. Tested
 //!				and works fine.
-//!			v1.3.1 -> Added library description.
+//!			v1.3.1 		-> Added library description.
+//!			v1.3.1.1 	-> Moved Fp.h into ./src/include/. Changed to 4-digit
+//!				versioning system. Changed incorrect date.
 
 /*
 Copyright (c) 2007, Markus Trenkwalder
