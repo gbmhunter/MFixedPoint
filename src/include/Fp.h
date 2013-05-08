@@ -6,7 +6,7 @@
 //! @brief 		Header file for Fp.cpp
 //! @details
 //!		<b>Last Modified:			</b> 08/05/2013					\n
-//!		<b>Version:					</b> v1.3.1.1					\n
+//!		<b>Version:					</b> v1.3.1.2					\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n
 //!		<b>Language:				</b> C++						\n
@@ -39,6 +39,7 @@
 //!			v1.3.1 		-> Added library description.
 //!			v1.3.1.1 	-> Moved Fp.h into ./src/include/. Changed to 4-digit
 //!				versioning system. Changed incorrect date.
+//!			v1.3.1.2	-> Indented all namespace objects (formatting issue).
 
 /*
 Copyright (c) 2007, Markus Trenkwalder
@@ -86,307 +87,307 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace Fp
 {
 
-// The template argument p in all of the following functions refers to the 
-// fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
+	// The template argument p in all of the following functions refers to the 
+	// fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
 
-//! @brief		Perform a fixed point multiplication without a 64-bit intermediate result.
-//!	@note 		This is fast but beware of intermediatry overflow!
-template <int p> 
-inline int32_t FixMulF(int32_t a, int32_t b)
-{
-	return (a * b) >> p;
-}
-
-//! @brief		Perform a fixed point multiplication using a 64-bit intermediate result to
-//! 			prevent intermediatry overflow problems.
-//! @note 		Slower than Fp::FixMulF()
-template <int p>
-inline int32_t FixMul(int32_t a, int32_t b)
-{
-	return (int32_t)(((int64_t)a * b) >> p);
-}
-
-// Fixed point division
-template <int p>
-inline int fixdiv(int32_t a, int32_t b)
-{
-	#if 0
-		return (int32_t)((((int64_t)a) << p) / b);
-	#else	
-		// The following produces the same results as the above but gcc 4.0.3 
-		// generates fewer instructions (at least on the ARM processor).
-		union {
-			int64_t a;
-			struct {
-				int32_t l;
-				int32_t h;
-			};
-		} x;
-
-		x.l = a << p;
-		x.h = a >> (sizeof(int32_t) * 8 - p);
-		return (int32_t)(x.a / b);
-	#endif
-}
-
-namespace detail {
-	inline uint32_t CountLeadingZeros(uint32_t x)
+	//! @brief		Perform a fixed point multiplication without a 64-bit intermediate result.
+	//!	@note 		This is fast but beware of intermediatry overflow!
+	template <int p> 
+	inline int32_t FixMulF(int32_t a, int32_t b)
 	{
-		uint32_t exp = 31;
-	
-		if (x & 0xffff0000) { 
-			exp -= 16; 
-			x >>= 16; 
-		}
-	
-		if (x & 0xff00) { 
-			exp -= 8; 
-			x >>= 8; 
-		}
-		
-		if (x & 0xf0) { 
-			exp -= 4; 
-			x >>= 4; 
-		}
-	
-		if (x & 0xc) { 
-			exp -= 2; 
-			x >>= 2; 
-		}
-		
-		if (x & 0x2) { 
-			exp -= 1; 
-		}
-	
-		return exp;
-	}
-}
-
-// q is the precision of the input
-// output has 32-q bits of fraction
-template <int q>
-inline int fixinv(int32_t a)
-{
-	int32_t x;
-
-	bool sign = false;
-
-	if (a < 0) {
-		sign = true;
-		a = -a;
+		return (a * b) >> p;
 	}
 
-	static const uint16_t rcp_tab[] = { 
-		0x8000, 0x71c7, 0x6666, 0x5d17, 0x5555, 0x4ec4, 0x4924, 0x4444
+	//! @brief		Perform a fixed point multiplication using a 64-bit intermediate result to
+	//! 			prevent intermediatry overflow problems.
+	//! @note 		Slower than Fp::FixMulF()
+	template <int p>
+	inline int32_t FixMul(int32_t a, int32_t b)
+	{
+		return (int32_t)(((int64_t)a * b) >> p);
+	}
+
+	// Fixed point division
+	template <int p>
+	inline int fixdiv(int32_t a, int32_t b)
+	{
+		#if 0
+			return (int32_t)((((int64_t)a) << p) / b);
+		#else	
+			// The following produces the same results as the above but gcc 4.0.3 
+			// generates fewer instructions (at least on the ARM processor).
+			union {
+				int64_t a;
+				struct {
+					int32_t l;
+					int32_t h;
+				};
+			} x;
+
+			x.l = a << p;
+			x.h = a >> (sizeof(int32_t) * 8 - p);
+			return (int32_t)(x.a / b);
+		#endif
+	}
+
+	namespace detail {
+		inline uint32_t CountLeadingZeros(uint32_t x)
+		{
+			uint32_t exp = 31;
+		
+			if (x & 0xffff0000) { 
+				exp -= 16; 
+				x >>= 16; 
+			}
+		
+			if (x & 0xff00) { 
+				exp -= 8; 
+				x >>= 8; 
+			}
+			
+			if (x & 0xf0) { 
+				exp -= 4; 
+				x >>= 4; 
+			}
+		
+			if (x & 0xc) { 
+				exp -= 2; 
+				x >>= 2; 
+			}
+			
+			if (x & 0x2) { 
+				exp -= 1; 
+			}
+		
+			return exp;
+		}
+	}
+
+	// q is the precision of the input
+	// output has 32-q bits of fraction
+	template <int q>
+	inline int fixinv(int32_t a)
+	{
+		int32_t x;
+
+		bool sign = false;
+
+		if (a < 0) {
+			sign = true;
+			a = -a;
+		}
+
+		static const uint16_t rcp_tab[] = { 
+			0x8000, 0x71c7, 0x6666, 0x5d17, 0x5555, 0x4ec4, 0x4924, 0x4444
+		};
+			
+		int32_t exp = detail::CountLeadingZeros(a);
+		x = ((int32_t)rcp_tab[(a>>(28-exp))&0x7]) << 2;
+		exp -= 16;
+
+		if (exp <= 0)
+			x >>= -exp;
+		else
+			x <<= exp;
+
+		// Two iterations of newton-raphson  x = x(2-ax)
+		x = FixMul<(32-q)>(x,((2<<(32-q)) - FixMul<q>(a,x)));
+		x = FixMul<(32-q)>(x,((2<<(32-q)) - FixMul<q>(a,x)));
+
+		if (sign)
+			return -x;
+		else
+			return x;
+	}
+
+
+	//! @brief		Conversion from fixed-point to float
+	//! @details	Good for debugging fixed-point arithmetic
+	//! @warning 	Slow!
+	//! @public
+	template <int p>
+	float Fix2Float(int32_t f)
+	{
+		return (float)f / (1 << p);
+	}
+
+	//! @brief		Converts from float to fixed-point
+	//! @details	Good for inputting values into fixed-point arithmetic
+	//! @warning	Slow!
+	template <int p>
+	int32_t Float2Fix(float f)
+	{
+		return (int32_t)(f * (1 << p));
+	}
+
+	int32_t fixcos16(int32_t a);
+	int32_t fixsin16(int32_t a);
+	int32_t fixrsqrt16(int32_t a);
+	int32_t fixsqrt16(int32_t a);
+
+	//! The template argument p in all of the following functions refers to the 
+	//! fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
+	//! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
+	template <int p>
+	class fp {
+		
+		public:
+		
+		int32_t intValue;			//!< Access to raw value
+		
+		fp() {}
+		/*explicit*/ fp(int32_t i) : intValue(i << p) {}
+		/*explicit*/ fp(float f) : intValue(Float2Fix<p>(f)) {}
+		/*explicit*/ fp(double f) : intValue(Float2Fix<p>((float)f)) {}
+		
+		fp& operator += (fp r) { intValue += r.intValue; return *this; }
+		fp& operator -= (fp r) { intValue -= r.intValue; return *this; }
+		fp& operator *= (fp r) { intValue = FixMul<p>(intValue, r.intValue); return *this; }
+		fp& operator /= (fp r) { intValue = fixdiv<p>(intValue, r.intValue); return *this; }
+		
+		fp& operator *= (int32_t r) { intValue *= r; return *this; }
+		fp& operator /= (int32_t r) { intValue /= r; return *this; }
+		
+		fp operator - () const { fp x; x.intValue = -intValue; return x; }
+		fp operator + (fp r) const { fp x = *this; x += r; return x;}
+		fp operator - (fp r) const { fp x = *this; x -= r; return x;}
+		fp operator * (fp r) const { fp x = *this; x *= r; return x;}
+		fp operator / (fp r) const { fp x = *this; x /= r; return x;}
+		
+		//! Operator overload for '%'. Modulo works on bits as long
+		//! as fixed-point numbers are of the same precision.
+		const fp operator % (fp r) 
+		{
+			fp result;
+			result.intValue = intValue % r.intValue;
+			return result;
+		}
+		
+		bool operator == (fp r) const { return intValue == r.intValue; }
+		bool operator != (fp r) const { return !(*this == r); }
+		bool operator <  (fp r) const { return intValue < r.intValue; }
+		bool operator >  (fp r) const { return intValue > r.intValue; }
+		bool operator <= (fp r) const { return intValue <= r.intValue; }
+		bool operator >= (fp r) const { return intValue >= r.intValue; }
+
+		fp operator + (int32_t r) const { fp x = *this; x += r; return x;}
+		fp operator - (int32_t r) const { fp x = *this; x -= r; return x;}
+		fp operator * (int32_t r) const { fp x = *this; x *= r; return x;}
+		fp operator / (int32_t r) const { fp x = *this; x /= r; return x;}
 	};
-		
-	int32_t exp = detail::CountLeadingZeros(a);
-	x = ((int32_t)rcp_tab[(a>>(28-exp))&0x7]) << 2;
-	exp -= 16;
 
-	if (exp <= 0)
-		x >>= -exp;
-	else
-		x <<= exp;
+	// Specializations for use with plain integers
 
-	// Two iterations of newton-raphson  x = x(2-ax)
-	x = FixMul<(32-q)>(x,((2<<(32-q)) - FixMul<q>(a,x)));
-	x = FixMul<(32-q)>(x,((2<<(32-q)) - FixMul<q>(a,x)));
-
-	if (sign)
-		return -x;
-	else
-		return x;
-}
-
-
-//! @brief		Conversion from fixed-point to float
-//! @details	Good for debugging fixed-point arithmetic
-//! @warning 	Slow!
-//! @public
-template <int p>
-float Fix2Float(int32_t f)
-{
-	return (float)f / (1 << p);
-}
-
-//! @brief		Converts from float to fixed-point
-//! @details	Good for inputting values into fixed-point arithmetic
-//! @warning	Slow!
-template <int p>
-int32_t Float2Fix(float f)
-{
-	return (int32_t)(f * (1 << p));
-}
-
-int32_t fixcos16(int32_t a);
-int32_t fixsin16(int32_t a);
-int32_t fixrsqrt16(int32_t a);
-int32_t fixsqrt16(int32_t a);
-
-//! The template argument p in all of the following functions refers to the 
-//! fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
-//! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
-template <int p>
-class fp {
-	
-	public:
-	
-	int32_t intValue;			//!< Access to raw value
-	
-	fp() {}
-	/*explicit*/ fp(int32_t i) : intValue(i << p) {}
-	/*explicit*/ fp(float f) : intValue(Float2Fix<p>(f)) {}
-	/*explicit*/ fp(double f) : intValue(Float2Fix<p>((float)f)) {}
-	
-	fp& operator += (fp r) { intValue += r.intValue; return *this; }
-	fp& operator -= (fp r) { intValue -= r.intValue; return *this; }
-	fp& operator *= (fp r) { intValue = FixMul<p>(intValue, r.intValue); return *this; }
-	fp& operator /= (fp r) { intValue = fixdiv<p>(intValue, r.intValue); return *this; }
-	
-	fp& operator *= (int32_t r) { intValue *= r; return *this; }
-	fp& operator /= (int32_t r) { intValue /= r; return *this; }
-	
-	fp operator - () const { fp x; x.intValue = -intValue; return x; }
-	fp operator + (fp r) const { fp x = *this; x += r; return x;}
-	fp operator - (fp r) const { fp x = *this; x -= r; return x;}
-	fp operator * (fp r) const { fp x = *this; x *= r; return x;}
-	fp operator / (fp r) const { fp x = *this; x /= r; return x;}
-	
-	//! Operator overload for '%'. Modulo works on bits as long
-	//! as fixed-point numbers are of the same precision.
-	const fp operator % (fp r) 
-	{
-		fp result;
-		result.intValue = intValue % r.intValue;
-		return result;
+	//! @note 		Assumes integer has the same precision as fp
+	template <int p>
+	inline fp<p> operator + (int32_t a, fp<p> b)
+	{ 
+		return b + a; 
 	}
-	
-	bool operator == (fp r) const { return intValue == r.intValue; }
-	bool operator != (fp r) const { return !(*this == r); }
-	bool operator <  (fp r) const { return intValue < r.intValue; }
-	bool operator >  (fp r) const { return intValue > r.intValue; }
-	bool operator <= (fp r) const { return intValue <= r.intValue; }
-	bool operator >= (fp r) const { return intValue >= r.intValue; }
 
-	fp operator + (int32_t r) const { fp x = *this; x += r; return x;}
-	fp operator - (int32_t r) const { fp x = *this; x -= r; return x;}
-	fp operator * (int32_t r) const { fp x = *this; x *= r; return x;}
-	fp operator / (int32_t r) const { fp x = *this; x /= r; return x;}
-};
+	//! @note 		Assumes integer has the same precision as fp
+	template <int p>
+	inline fp<p> operator - (int32_t a, fp<p> b)
+	{
+		return -b + a;
+	}
 
-// Specializations for use with plain integers
+	//! @note 		Assumes integer has the same precision as fp
+	template <int p>
+	inline fp<p> operator * (int32_t a, fp<p> b)
+	{ return b * a; }
 
-//! @note 		Assumes integer has the same precision as fp
-template <int p>
-inline fp<p> operator + (int32_t a, fp<p> b)
-{ 
-	return b + a; 
-}
+	template <int p>
+	inline fp<p> operator / (int32_t a, fp<p> b)
+	{ 
+		fp<p> r(a); 
+		r /= b; 
+		return r;
+	}
 
-//! @note 		Assumes integer has the same precision as fp
-template <int p>
-inline fp<p> operator - (int32_t a, fp<p> b)
-{
-	return -b + a;
-}
+	// math functions
+	// no default implementation
 
-//! @note 		Assumes integer has the same precision as fp
-template <int p>
-inline fp<p> operator * (int32_t a, fp<p> b)
-{ return b * a; }
+	template <int p>
+	inline fp<p> sin(fp<p> a);
 
-template <int p>
-inline fp<p> operator / (int32_t a, fp<p> b)
-{ 
-	fp<p> r(a); 
-	r /= b; 
-	return r;
-}
+	template <int p>
+	inline fp<p> cos(fp<p> a);
 
-// math functions
-// no default implementation
+	template <int p>
+	inline fp<p> sqrt(fp<p> a);
 
-template <int p>
-inline fp<p> sin(fp<p> a);
+	template <int p>
+	inline fp<p> rsqrt(fp<p> a);
 
-template <int p>
-inline fp<p> cos(fp<p> a);
+	template <int p>
+	inline fp<p> inv(fp<p> a);
 
-template <int p>
-inline fp<p> sqrt(fp<p> a);
+	template <int p>
+	inline fp<p> abs(fp<p> a)
+	{ 
+		fp<p> r; 
+		r.intValue = a.intValue > 0 ? a.intValue : -a.intValue; 
+		return r; 
+	}
 
-template <int p>
-inline fp<p> rsqrt(fp<p> a);
+	// Specializations for 16.16 format
 
-template <int p>
-inline fp<p> inv(fp<p> a);
+	template <>
+	inline fp<16> sin(fp<16> a)
+	{
+		fp<16> r;
+		r.intValue = fixsin16(a.intValue);
+		return r;
+	}
 
-template <int p>
-inline fp<p> abs(fp<p> a)
-{ 
-	fp<p> r; 
-	r.intValue = a.intValue > 0 ? a.intValue : -a.intValue; 
-	return r; 
-}
-
-// Specializations for 16.16 format
-
-template <>
-inline fp<16> sin(fp<16> a)
-{
-	fp<16> r;
-	r.intValue = fixsin16(a.intValue);
-	return r;
-}
-
-template <>
-inline fp<16> cos(fp<16> a)
-{
-	fp<16> r;
-	r.intValue = fixcos16(a.intValue);
-	return r;
-}
+	template <>
+	inline fp<16> cos(fp<16> a)
+	{
+		fp<16> r;
+		r.intValue = fixcos16(a.intValue);
+		return r;
+	}
 
 
-template <>
-inline fp<16> sqrt(fp<16> a)
-{
-	fp<16> r;
-	r.intValue = fixsqrt16(a.intValue);
-	return r;
-}
+	template <>
+	inline fp<16> sqrt(fp<16> a)
+	{
+		fp<16> r;
+		r.intValue = fixsqrt16(a.intValue);
+		return r;
+	}
 
-template <>
-inline fp<16> rsqrt(fp<16> a)
-{
-	fp<16> r;
-	r.intValue = fixrsqrt16(a.intValue);
-	return r;
-}
+	template <>
+	inline fp<16> rsqrt(fp<16> a)
+	{
+		fp<16> r;
+		r.intValue = fixrsqrt16(a.intValue);
+		return r;
+	}
 
-template <>
-inline fp<16> inv(fp<16> a)
-{
-	fp<16> r;
-	r.intValue = fixinv<16>(a.intValue);
-	return r;
-}
+	template <>
+	inline fp<16> inv(fp<16> a)
+	{
+		fp<16> r;
+		r.intValue = fixinv<16>(a.intValue);
+		return r;
+	}
 
-// The multiply accumulate case can be optimized.
-template <int p>
-inline fp<p> multiply_accumulate(
-	int count, 
-	const fp<p> *a,
-	const fp<p> *b)
-{
-	long long result = 0;
-	for (int i = 0; i < count; ++i)
-		result += static_cast<long long>(a[i].intValue) * b[i].intValue;
-	fp<p> r;
-	r.intValue = static_cast<int>(result >> p);
-	return r;
-}
+	// The multiply accumulate case can be optimized.
+	template <int p>
+	inline fp<p> multiply_accumulate(
+		int count, 
+		const fp<p> *a,
+		const fp<p> *b)
+	{
+		long long result = 0;
+		for (int i = 0; i < count; ++i)
+			result += static_cast<long long>(a[i].intValue) * b[i].intValue;
+		fp<p> r;
+		r.intValue = static_cast<int>(result >> p);
+		return r;
+	}
 
 } // namespace Fp
 
