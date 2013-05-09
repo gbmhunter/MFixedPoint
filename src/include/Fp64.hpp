@@ -88,12 +88,17 @@ namespace Fp
 			//! @defgroup Constructors
 			//! @{
 			
+			//! @brief			Default constructor.
 			Fp64()
 			{
 				// nothing
 			}
 			
-			Fp64(int32_t i) : rawVal(i << p)
+			//! @brief			Constructor taking a int32_t.
+			//! @details		Uses initialiser lists. Make sure i is cast
+			//!					to 64-bit before shifting, overwise truncation
+			//!					will occur.
+			Fp64(int32_t i) : rawVal((int64_t)i << p)
 			{
 				// nothing
 			}
