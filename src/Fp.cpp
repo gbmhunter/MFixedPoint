@@ -2,10 +2,10 @@
 //! @file 		Fp.cpp
 //! @author 	Markus Trenkwalder
 //! @edited 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		23/10/2012
+//! @date 		2012/10/23
 //! @brief 		Fixed point mathematics library
 //! @details
-//!		<b>Last Modified:			</b> 08/05/13					\n
+//!		<b>Last Modified:			</b> 2013/05/08					\n
 //!		<b>Version:					</b> (see Fp.hpp)				\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n

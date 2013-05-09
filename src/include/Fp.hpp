@@ -2,11 +2,11 @@
 //! @file 		Fp.hpp
 //! @author 	Markus Trenkwalder
 //! @edited 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
-//! @date 		23/10/2012
+//! @date 		2012/10/23
 //! @brief 		Header file for Fp.cpp
 //! @details
-//!		<b>Last Modified:			</b> 09/05/2013					\n
-//!		<b>Version:					</b> v1.3.2.0					\n
+//!		<b>Last Modified:			</b> 2013/05/09				\n
+//!		<b>Version:					</b> v2.0.0.0					\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n
 //!		<b>Language:				</b> C++						\n
@@ -30,20 +30,21 @@
 //!		CHANGELOG:
 //!			v1.1.0 		-> (12/10/23) Merged fixed_func.h into this file. Added
 //!				comments. Changed fixed_point to fp.
-//!			v1.1.1 		-> Fixed filename errors. Attributed Markus
+//!			v1.1.1 		-> (12/11/04) Fixed filename errors. Attributed Markus
 //!				Trenkwalder as the original author.
-//!			v1.2.0 		-> Made fp a class with public members, 
+//!			v1.2.0 		-> (12/11/04) Made fp a class with public members, 
 //!				rather than structure.
-//!			v1.3.0 		-> Added operator overload for '%'. Tested
+//!			v1.3.0 		-> (12/11/05) Added operator overload for '%'. Tested
 //!				and works fine.
-//!			v1.3.1 		-> Added library description.
-//!			v1.3.1.1 	-> Moved Fp.h into ./src/include/. Changed to 4-digit
+//!			v1.3.1 		-> (12/11/05) Added library description.
+//!			v1.3.1.1 	-> (13/05/08) Moved Fp.h into ./src/include/. Changed to 4-digit
 //!				versioning system. Changed incorrect date.
 //!			v1.3.1.2	-> (13/05/08) Indented all namespace objects (formatting issue).
 //!			v1.3.2.0	-> (13/05/09) Renamed Fp.h to Fp.hpp. Removed doubling up of
 //!							version in both files, now just defined in Fp.hpp. Added dates
 //!							to version numbers. Added C++ guard at the start of both Fp.cpp
 //!							and Fp.hpp.
+//!			v2.0.0.0	-> (13/05/09) Added support for 64-bit fixed point numbers (Fp64.h).
 
 /*
 Copyright (c) 2007, Markus Trenkwalder
