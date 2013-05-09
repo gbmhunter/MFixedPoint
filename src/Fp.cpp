@@ -6,7 +6,7 @@
 //! @brief 		Fixed point mathematics library
 //! @details
 //!		<b>Last Modified:			</b> 08/05/13					\n
-//!		<b>Version:					</b> v1.3.1.2					\n
+//!		<b>Version:					</b> (see Fp.hpp)				\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free code libraries		\n
 //!		<b>Language:				</b> C++						\n
@@ -15,8 +15,12 @@
 //!		<b>Computer Architecture:	</b> ARM						\n
 //! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
 //!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> (see FP.h)					\n
+//!		<b>License:					</b> (see Fp.hpp)				\n
 //!	
+
+#ifndef __cplusplus
+	#error Please build with C++ compiler
+#endif
 
 //===============================================================================================//
 //========================================= INCLUDES ============================================//
