@@ -45,7 +45,7 @@
 //!							to version numbers. Added C++ guard at the start of both Fp.cpp
 //!							and Fp.hpp.
 //!			v2.0.0.0	-> (13/05/09) Added support for 64-bit fixed point numbers (Fp64.h).
-//!			v2.0.1.0	-> (13/05/10) Fixed bug in intialiser to Fp64 from int32_t. Added
+//!			v2.0.1.0	-> (13/05/10) Fixed bug in constructor to Fp64 from int32_t. Added
 //!							cast to int64_t before shifting to prevent truncation.
 
 /*
