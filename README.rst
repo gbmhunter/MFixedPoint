@@ -2,10 +2,10 @@
 Embedded Fixed-Point Library
 ============================
 
-- Author: gbmhunter (www.cladlab.com)
+- Author: gbmhunter (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/05/10
-- Version: v2.0.1.1
+- Version: v2.0.1.2
 - Company: CladLabs
 - Project: Free Embedded Code librarys.
 - Language: C++
@@ -19,13 +19,52 @@ Embedded Fixed-Point Library
 Description
 ===========
 
-Fixed-point library for fast arithmetic operations. Designed for use on a 32-bit architecture. 
+32-bit and 64-bit fixed-point library for fast arithmetic operations. Suitable for performing computationally intensive operations
+on a computing platform that does not have a floating-point unit (like most smaller embedded systems, such as Cortex-M3, CortexM0,
+ATmega, PSoC 5, PSoC 5 LP, PSoC 4, Arduino platforms e.t.c). Common applications include BLDC motor control and image processing.
+Best performance on a 32-bit or higher architecture (although 8-bit architectures should still be fine). 
 
-Fixed-point numbers aresigned. Class supports dynamic precision, determined with variable p which denotes fractional precision. 
+Fixed-point numbers are signed. Class supports dynamic precision, determined with variable p which denotes fractional precision. 
 
-The integer precision is (32 bits - p). Overflows will wrap. Support operator oveloading for most common fixed-point
-arithemetic.
+32-bit Fixed-Point Numbers
+--------------------------
 
+The integer precision is (32 bits - p). Intermediatary overflows are protected with int64 casting, end-result overflows will wrap like usual. 
+Support operator oveloading for most common fixed-point arithemetic.
+
+64-bit Fixed-Point Numbers
+--------------------------
+
+Intermediatary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
+On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
+the range/precision required.
+
+Usage
+=====
+
+::
+
+	// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
+	// This constructor converts from doubles.
+	fp<8> aFpNum1 = fp<8>(3.2);
+	fp<8> aFpNum2 = fp<8>(0.6);
+	
+	// Performing a quick fixed-point addition
+	fp<8> aFpNum3 = aFpNum1 + aFpNum2;
+	
+	// Performing a quick fixed-point multiplication
+	fp<8> aFpNm4 = aFpNum1 * aFpNum2;
+	
+	// Converting fixed-point back to double. Requires you
+	// to pass the raw value (which can be accessed with
+	// .intValue)
+	double result = Fix2Float<8>(aFpNum4.intValue);
+	
+	// Converting between different precisions. Requires access to raw value just like
+	// when doing fixed-point to double conversion.
+	fp<20> aHigherPrecisionNum = fp<20>(7.5);
+	fp<12> aLowerPrecisionNum.intValue = aHigherPrecisionNum.intValue >> (20 - 12)
+	
 Changelog
 =========
 
@@ -40,3 +79,4 @@ Changelog
 - v2.0.0.0	-> (13/05/09) Added support for 64-bit fixed point numbers (Fp64.h).
 - v2.0.1.0	-> (13/05/10) Fixed bug in constructor to Fp64 from int32_t. Added cast to int64_t before shifting to prevent truncation.
 - v2.0.1.1	-> (13/05/10) Added README.rst
+- v2.0.1.2 	-> (13/05/10) Improved README.rst with usage section, code examples, and better description.
