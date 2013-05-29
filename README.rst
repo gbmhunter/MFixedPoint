@@ -2,12 +2,12 @@
 Embedded Fixed-Point Library
 ============================
 
-- Author: gbmhunter (http://www.cladlab.com)
+- Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/05/10
-- Version: v2.0.1.2
+- Last Modified: 2013/05/30
+- Version: v2.1.0.0
 - Company: CladLabs
-- Project: Free Embedded Code librarys.
+- Project: Embedded Code Library
 - Language: C++
 - Compiler: GCC	
 - uC Model: n/a
@@ -29,13 +29,13 @@ Fixed-point numbers are signed. Class supports dynamic precision, determined wit
 32-bit Fixed-Point Numbers
 --------------------------
 
-The integer precision is (32 bits - p). Intermediatary overflows are protected with int64 casting, end-result overflows will wrap like usual. 
-Support operator oveloading for most common fixed-point arithemetic.
+The integer precision is (32 bits - p). Intermediary overflows are protected with int64 casting, end-result overflows will wrap like usual. 
+Support operator oveloading for most common fixed-point arithmetic.
 
 64-bit Fixed-Point Numbers
 --------------------------
 
-Intermediatary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
+Intermediary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
 On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
 the range/precision required.
 
@@ -46,14 +46,14 @@ Usage
 
 	// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
 	// This constructor converts from doubles.
-	fp<8> aFpNum1 = fp<8>(3.2);
-	fp<8> aFpNum2 = fp<8>(0.6);
+	Fp32<8> aFpNum1 = Fp32<8>(3.2);
+	Fp32<8> aFpNum2 = Fp32<8>(0.6);
 	
 	// Performing a quick fixed-point addition
-	fp<8> aFpNum3 = aFpNum1 + aFpNum2;
+	Fp32<8> aFpNum3 = aFpNum1 + aFpNum2;
 	
 	// Performing a quick fixed-point multiplication
-	fp<8> aFpNm4 = aFpNum1 * aFpNum2;
+	Fp32<8> aFpNm4 = aFpNum1 * aFpNum2;
 	
 	// Converting fixed-point back to double. Requires you
 	// to pass the raw value (which can be accessed with
@@ -62,8 +62,8 @@ Usage
 	
 	// Converting between different precisions. Requires access to raw value just like
 	// when doing fixed-point to double conversion.
-	fp<20> aHigherPrecisionNum = fp<20>(7.5);
-	fp<12> aLowerPrecisionNum.intValue = aHigherPrecisionNum.intValue >> (20 - 12)
+	Fp32<20> aHigherPrecisionNum = Fp32<20>(7.5);
+	Fp32<12> aLowerPrecisionNum.intValue = aHigherPrecisionNum.intValue >> (20 - 12)
 	
 Changelog
 =========
@@ -80,3 +80,4 @@ Changelog
 - v2.0.1.0	-> (13/05/10) Fixed bug in constructor to Fp64 from int32_t. Added cast to int64_t before shifting to prevent truncation.
 - v2.0.1.1	-> (13/05/10) Added README.rst
 - v2.0.1.2 	-> (13/05/10) Improved README.rst with usage section, code examples, and better description.
+- v2.1.0.0  -> (13/05/30) Renamed Fp.cpp to Fp32.cpp (and .h in include), since there is now a 64-bit version (Fp64.hpp). 32-bit FP Class renamed accordingly.

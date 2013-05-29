@@ -1,5 +1,5 @@
 //!
-//! @file 		Fp.hpp
+//! @file 		Fp32.hpp
 //! @author 	Markus Trenkwalder
 //! @edited 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2012/10/23
@@ -27,26 +27,6 @@
 //!
 //!		See below for original copyright notice.
 //!
-//!		CHANGELOG:
-//!			v1.1.0 		-> (12/10/23) Merged fixed_func.h into this file. Added
-//!				comments. Changed fixed_point to fp.
-//!			v1.1.1 		-> (12/11/04) Fixed filename errors. Attributed Markus
-//!				Trenkwalder as the original author.
-//!			v1.2.0 		-> (12/11/04) Made fp a class with public members, 
-//!				rather than structure.
-//!			v1.3.0 		-> (12/11/05) Added operator overload for '%'. Tested
-//!				and works fine.
-//!			v1.3.1 		-> (12/11/05) Added library description.
-//!			v1.3.1.1 	-> (13/05/08) Moved Fp.h into ./src/include/. Changed to 4-digit
-//!				versioning system. Changed incorrect date.
-//!			v1.3.1.2	-> (13/05/08) Indented all namespace objects (formatting issue).
-//!			v1.3.2.0	-> (13/05/09) Renamed Fp.h to Fp.hpp. Removed doubling up of
-//!							version in both files, now just defined in Fp.hpp. Added dates
-//!							to version numbers. Added C++ guard at the start of both Fp.cpp
-//!							and Fp.hpp.
-//!			v2.0.0.0	-> (13/05/09) Added support for 64-bit fixed point numbers (Fp64.h).
-//!			v2.0.1.0	-> (13/05/10) Fixed bug in constructor to Fp64 from int32_t. Added
-//!							cast to int64_t before shifting to prevent truncation.
 
 /*
 Copyright (c) 2007, Markus Trenkwalder
@@ -88,8 +68,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#error Please build with C++ compiler
 #endif
 
-#ifndef FP_H
-#define FP_H
+#ifndef FP32_H
+#define FP32_H
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -111,7 +91,7 @@ namespace Fp
 
 	//! @brief		Perform a fixed point multiplication using a 64-bit intermediate result to
 	//! 			prevent intermediatry overflow problems.
-	//! @note 		Slower than Fp::FixMulF()
+	//! @note 		Slower than Fp32::FixMulF()
 	template <int p>
 	inline int32_t FixMul(int32_t a, int32_t b)
 	{
@@ -240,78 +220,78 @@ namespace Fp
 	//! fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
 	//! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
 	template <int p>
-	class fp {
+	class Fp32 {
 		
 		public:
 		
 		int32_t intValue;			//!< Access to raw value
 		
-		fp() {}
-		/*explicit*/ fp(int32_t i) : intValue(i << p) {}
-		/*explicit*/ fp(float f) : intValue(Float2Fix<p>(f)) {}
-		/*explicit*/ fp(double f) : intValue(Float2Fix<p>((float)f)) {}
+		Fp32() {}
+		/*explicit*/ Fp32(int32_t i) : intValue(i << p) {}
+		/*explicit*/ Fp32(float f) : intValue(Float2Fix<p>(f)) {}
+		/*explicit*/ Fp32(double f) : intValue(Float2Fix<p>((float)f)) {}
 		
-		fp& operator += (fp r) { intValue += r.intValue; return *this; }
-		fp& operator -= (fp r) { intValue -= r.intValue; return *this; }
-		fp& operator *= (fp r) { intValue = FixMul<p>(intValue, r.intValue); return *this; }
-		fp& operator /= (fp r) { intValue = fixdiv<p>(intValue, r.intValue); return *this; }
+		Fp32& operator += (Fp32 r) { intValue += r.intValue; return *this; }
+		Fp32& operator -= (Fp32 r) { intValue -= r.intValue; return *this; }
+		Fp32& operator *= (Fp32 r) { intValue = FixMul<p>(intValue, r.intValue); return *this; }
+		Fp32& operator /= (Fp32 r) { intValue = fixdiv<p>(intValue, r.intValue); return *this; }
 		
-		fp& operator *= (int32_t r) { intValue *= r; return *this; }
-		fp& operator /= (int32_t r) { intValue /= r; return *this; }
+		Fp32& operator *= (int32_t r) { intValue *= r; return *this; }
+		Fp32& operator /= (int32_t r) { intValue /= r; return *this; }
 		
-		fp operator - () const { fp x; x.intValue = -intValue; return x; }
-		fp operator + (fp r) const { fp x = *this; x += r; return x;}
-		fp operator - (fp r) const { fp x = *this; x -= r; return x;}
-		fp operator * (fp r) const { fp x = *this; x *= r; return x;}
-		fp operator / (fp r) const { fp x = *this; x /= r; return x;}
+		Fp32 operator - () const { Fp32 x; x.intValue = -intValue; return x; }
+		Fp32 operator + (Fp32 r) const { Fp32 x = *this; x += r; return x;}
+		Fp32 operator - (Fp32 r) const { Fp32 x = *this; x -= r; return x;}
+		Fp32 operator * (Fp32 r) const { Fp32 x = *this; x *= r; return x;}
+		Fp32 operator / (Fp32 r) const { Fp32 x = *this; x /= r; return x;}
 		
 		//! Operator overload for '%'. Modulo works on bits as long
 		//! as fixed-point numbers are of the same precision.
-		const fp operator % (fp r) 
+		const Fp32 operator % (Fp32 r) 
 		{
-			fp result;
+			Fp32 result;
 			result.intValue = intValue % r.intValue;
 			return result;
 		}
 		
-		bool operator == (fp r) const { return intValue == r.intValue; }
-		bool operator != (fp r) const { return !(*this == r); }
-		bool operator <  (fp r) const { return intValue < r.intValue; }
-		bool operator >  (fp r) const { return intValue > r.intValue; }
-		bool operator <= (fp r) const { return intValue <= r.intValue; }
-		bool operator >= (fp r) const { return intValue >= r.intValue; }
+		bool operator == (Fp32 r) const { return intValue == r.intValue; }
+		bool operator != (Fp32 r) const { return !(*this == r); }
+		bool operator <  (Fp32 r) const { return intValue < r.intValue; }
+		bool operator >  (Fp32 r) const { return intValue > r.intValue; }
+		bool operator <= (Fp32 r) const { return intValue <= r.intValue; }
+		bool operator >= (Fp32 r) const { return intValue >= r.intValue; }
 
-		fp operator + (int32_t r) const { fp x = *this; x += r; return x;}
-		fp operator - (int32_t r) const { fp x = *this; x -= r; return x;}
-		fp operator * (int32_t r) const { fp x = *this; x *= r; return x;}
-		fp operator / (int32_t r) const { fp x = *this; x /= r; return x;}
+		Fp32 operator + (int32_t r) const { Fp32 x = *this; x += r; return x;}
+		Fp32 operator - (int32_t r) const { Fp32 x = *this; x -= r; return x;}
+		Fp32 operator * (int32_t r) const { Fp32 x = *this; x *= r; return x;}
+		Fp32 operator / (int32_t r) const { Fp32 x = *this; x /= r; return x;}
 	};
 
 	// Specializations for use with plain integers
 
-	//! @note 		Assumes integer has the same precision as fp
+	//! @note 		Assumes integer has the same precision as Fp32
 	template <int p>
-	inline fp<p> operator + (int32_t a, fp<p> b)
+	inline Fp32<p> operator + (int32_t a, Fp32<p> b)
 	{ 
 		return b + a; 
 	}
 
-	//! @note 		Assumes integer has the same precision as fp
+	//! @note 		Assumes integer has the same precision as Fp32
 	template <int p>
-	inline fp<p> operator - (int32_t a, fp<p> b)
+	inline Fp32<p> operator - (int32_t a, Fp32<p> b)
 	{
 		return -b + a;
 	}
 
-	//! @note 		Assumes integer has the same precision as fp
+	//! @note 		Assumes integer has the same precision as Fp32
 	template <int p>
-	inline fp<p> operator * (int32_t a, fp<p> b)
+	inline Fp32<p> operator * (int32_t a, Fp32<p> b)
 	{ return b * a; }
 
 	template <int p>
-	inline fp<p> operator / (int32_t a, fp<p> b)
+	inline Fp32<p> operator / (int32_t a, Fp32<p> b)
 	{ 
-		fp<p> r(a); 
+		Fp32<p> r(a); 
 		r /= b; 
 		return r;
 	}
@@ -320,24 +300,24 @@ namespace Fp
 	// no default implementation
 
 	template <int p>
-	inline fp<p> sin(fp<p> a);
+	inline Fp32<p> sin(Fp32<p> a);
 
 	template <int p>
-	inline fp<p> cos(fp<p> a);
+	inline Fp32<p> cos(Fp32<p> a);
 
 	template <int p>
-	inline fp<p> sqrt(fp<p> a);
+	inline Fp32<p> sqrt(Fp32<p> a);
 
 	template <int p>
-	inline fp<p> rsqrt(fp<p> a);
+	inline Fp32<p> rsqrt(Fp32<p> a);
 
 	template <int p>
-	inline fp<p> inv(fp<p> a);
+	inline Fp32<p> inv(Fp32<p> a);
 
 	template <int p>
-	inline fp<p> abs(fp<p> a)
+	inline Fp32<p> abs(Fp32<p> a)
 	{ 
-		fp<p> r; 
+		Fp32<p> r; 
 		r.intValue = a.intValue > 0 ? a.intValue : -a.intValue; 
 		return r; 
 	}
@@ -345,63 +325,63 @@ namespace Fp
 	// Specializations for 16.16 format
 
 	template <>
-	inline fp<16> sin(fp<16> a)
+	inline Fp32<16> sin(Fp32<16> a)
 	{
-		fp<16> r;
+		Fp32<16> r;
 		r.intValue = fixsin16(a.intValue);
 		return r;
 	}
 
 	template <>
-	inline fp<16> cos(fp<16> a)
+	inline Fp32<16> cos(Fp32<16> a)
 	{
-		fp<16> r;
+		Fp32<16> r;
 		r.intValue = fixcos16(a.intValue);
 		return r;
 	}
 
 
 	template <>
-	inline fp<16> sqrt(fp<16> a)
+	inline Fp32<16> sqrt(Fp32<16> a)
 	{
-		fp<16> r;
+		Fp32<16> r;
 		r.intValue = fixsqrt16(a.intValue);
 		return r;
 	}
 
 	template <>
-	inline fp<16> rsqrt(fp<16> a)
+	inline Fp32<16> rsqrt(Fp32<16> a)
 	{
-		fp<16> r;
+		Fp32<16> r;
 		r.intValue = fixrsqrt16(a.intValue);
 		return r;
 	}
 
 	template <>
-	inline fp<16> inv(fp<16> a)
+	inline Fp32<16> inv(Fp32<16> a)
 	{
-		fp<16> r;
+		Fp32<16> r;
 		r.intValue = fixinv<16>(a.intValue);
 		return r;
 	}
 
 	// The multiply accumulate case can be optimized.
 	template <int p>
-	inline fp<p> multiply_accumulate(
+	inline Fp32<p> multiply_accumulate(
 		int count, 
-		const fp<p> *a,
-		const fp<p> *b)
+		const Fp32<p> *a,
+		const Fp32<p> *b)
 	{
 		long long result = 0;
 		for (int i = 0; i < count; ++i)
 			result += static_cast<long long>(a[i].intValue) * b[i].intValue;
-		fp<p> r;
+		Fp32<p> r;
 		r.intValue = static_cast<int>(result >> p);
 		return r;
 	}
 
 } // namespace Fp
 
-#endif // #ifndef FIXEDP_CLASS_H_INCLUDED
+#endif // #ifndef FP32_H
 
 // EOF
