@@ -3,30 +3,10 @@
 //! @author 	Markus Trenkwalder
 //! @edited 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2012/10/23
-//! @brief 		Header file for Fp.cpp
+//! @brief 		32-bit fixed point library.
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/10					\n
-//!		<b>Version:					</b> v2.0.1.0					\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free code libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> (see below)				\n
-//!
-//!		Fixed-point library for fast arithmetic operations. Designed
-//!		for use on a 32-bit architecture. Fixed-point numbers are
-//!		signed. Class supports dynamic precision, determined
-//!		with variable p which denotes fractional precision. The
-//!		integer precision is (32 bits - p). Overflows will wrap. 
-//!		Support operator oveloading for most common fixed-point
-//!		arithemetic.
-//!
-//!		See below for original copyright notice.
-//!
+//!				See README.rst
+
 
 /*
 Copyright (c) 2007, Markus Trenkwalder

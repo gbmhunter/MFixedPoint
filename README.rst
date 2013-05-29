@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/05/30
-- Version: v2.1.0.0
+- Version: v3.0.0.0
 - Company: CladLabs
 - Project: Embedded Code Library
 - Language: C++
@@ -30,7 +30,7 @@ Fixed-point numbers are signed. Class supports dynamic precision, determined wit
 --------------------------
 
 The integer precision is (32 bits - p). Intermediary overflows are protected with int64 casting, end-result overflows will wrap like usual. 
-Support operator oveloading for most common fixed-point arithmetic.
+Support operator overloading for most common fixed-point arithmetic.
 
 64-bit Fixed-Point Numbers
 --------------------------
@@ -81,3 +81,4 @@ Changelog
 - v2.0.1.1	-> (13/05/10) Added README.rst
 - v2.0.1.2 	-> (13/05/10) Improved README.rst with usage section, code examples, and better description.
 - v2.1.0.0  -> (13/05/30) Renamed Fp.cpp to Fp32.cpp (and .h in include), since there is now a 64-bit version (Fp64.hpp). 32-bit FP Class renamed accordingly.
+- v3.0.0.0  -> (13/05/30) Added unit tests in './test' to verify libraries are working correctly. Uses UnitTest++ library.
