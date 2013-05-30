@@ -37,24 +37,18 @@ MAIN = test/Fp32Test.o
 .PHONY: depend clean
 
 # Run UnitTest++ makefile
-all:
-	# Compile UnitTest++ library (has it's own Makefile)
-	$(MAKE) -C ./test/UnitTest++/ all
+all: UnitTestLib ./test/Fp32Test.o
 	
-	# Compile fixed point library
+	# Run Fp32 unit tests:
+	@./test/Fp32Test.o
 	
+./test/Fp32Test.o : ./test/Fp32Test.cpp ./src/include/Fp32.hpp UnitTestLib
 	# Compile unit tests
 	g++ ./test/Fp32Test.cpp -L./test/UnitTest++ -lUnitTest++ -o ./test/Fp32Test.o
 	
-	# Run unit tests
-	
-	# Fp32 unit tests:
-	@./test/Fp32Test.o
-./test/Fp32Test.o : ./test/Fp32Test.cpp ./src/include/Fp32.hpp
-	
-	
-$(MAIN): $(OBJS) 
-	@echo " CC $<"; $(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
+UnitTestLib :
+	# Compile UnitTest++ library (has it's own Makefile)
+	$(MAKE) -C ./test/UnitTest++/ all
 	
 	
 # this is a suffix replacement rule for building .o's from .c's

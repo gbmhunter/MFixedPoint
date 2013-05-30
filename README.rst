@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/05/30
-- Version: v3.0.0.0
+- Version: v3.1.0.0
 - Company: CladLabs
 - Project: Embedded Code Library
 - Language: C++
@@ -88,3 +88,4 @@ Changelog
 - v2.1.0.0  -> (13/05/30) Renamed Fp.cpp to Fp32.cpp (and .h in include), since there is now a 64-bit version (Fp64.hpp). 32-bit FP Class renamed accordingly.
 - v3.0.0.0  -> (13/05/30) Added unit tests in './test' to verify libraries are working correctly. Uses UnitTest++ library.
 - v3.0.1.0  -> (13/05/30) Added Makefile to root directory. Fixed syntax error in basic unit test. Added 'Compiling' section to README.
+- v3.1.0.0	-> (13/05/30) Added more unit tests for basic operator overloads (now 21 in total).
