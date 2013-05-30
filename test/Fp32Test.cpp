@@ -1,5 +1,5 @@
 //!
-//! @file 		Fp32Test.h
+//! @file 		Fp32Test.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/05/30
@@ -8,9 +8,11 @@
 //!				See README.rst
 
 // 32-bit fixed-point library
-#include "../src/include/Fp32.h"
+#include "../src/include/Fp32.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
+
+using namespace Fp;
 
 TEST(BasicTest)
 {
@@ -19,7 +21,7 @@ TEST(BasicTest)
 	Fp32<8> fp1 = Fp32<8>(3.2);
 	Fp32<8> fp2 = Fp32<8>(0.6);
 	
-	Fp32<8> fp3 = Fp1 + Fp2;
+	Fp32<8> fp3 = fp1 + fp2;
 	// Performing a quick fixed-point addition
 	CHECK_CLOSE(3.8, Fix2Float<8>(fp3.intValue), 0.1);
 }

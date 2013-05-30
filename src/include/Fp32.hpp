@@ -51,9 +51,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef FP32_H
 #define FP32_H
 
-#ifndef __cplusplus
-	#error Please build with C++ compiler
-#endif
+#include <stdint.h>
 
 namespace Fp
 {

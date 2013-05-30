@@ -39,6 +39,11 @@ Intermediary overflows are **NOT** protected from overflowing, due to the inabil
 On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
 the range/precision required.
 
+Compiling
+=========
+
+Either use provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point library and automatically runs unit tests.
+
 Usage
 =====
 
@@ -82,3 +87,4 @@ Changelog
 - v2.0.1.2 	-> (13/05/10) Improved README.rst with usage section, code examples, and better description.
 - v2.1.0.0  -> (13/05/30) Renamed Fp.cpp to Fp32.cpp (and .h in include), since there is now a 64-bit version (Fp64.hpp). 32-bit FP Class renamed accordingly.
 - v3.0.0.0  -> (13/05/30) Added unit tests in './test' to verify libraries are working correctly. Uses UnitTest++ library.
+- v3.0.1.0  -> (13/05/30) Added Makefile to root directory. Fixed syntax error in basic unit test. Added 'Compiling' section to README.
