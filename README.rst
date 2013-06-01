@@ -4,10 +4,10 @@ Embedded Fixed-Point Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/05/30
-- Version: v3.1.0.0
+- Last Modified: 2013/06/02
+- Version: v3.1.0.1
 - Company: CladLabs
-- Project: Embedded Code Library
+- Project: Open-source Embedded Code Libraries
 - Language: C++
 - Compiler: GCC	
 - uC Model: n/a
@@ -23,6 +23,10 @@ Description
 on a computing platform that does not have a floating-point unit (like most smaller embedded systems, such as Cortex-M3, CortexM0,
 ATmega, PSoC 5, PSoC 5 LP, PSoC 4, Arduino platforms e.t.c). Common applications include BLDC motor control and image processing.
 Best performance on a 32-bit or higher architecture (although 8-bit architectures should still be fine). 
+
+Designed to be a fully-functional data type (e.g. supports operator overloads and implicit/explicit casting). Can be used with
+most other CladLabs C++ libraries that use data type templates (e.g. the PID library: Cpp-Pid, or the
+linear interpolation library: Cpp-LinInterp).
 
 Fixed-point numbers are signed. Class supports dynamic precision, determined with variable p which denotes fractional precision. 
 
@@ -88,4 +92,5 @@ Changelog
 - v2.1.0.0  -> (13/05/30) Renamed Fp.cpp to Fp32.cpp (and .h in include), since there is now a 64-bit version (Fp64.hpp). 32-bit FP Class renamed accordingly.
 - v3.0.0.0  -> (13/05/30) Added unit tests in './test' to verify libraries are working correctly. Uses UnitTest++ library.
 - v3.0.1.0  -> (13/05/30) Added Makefile to root directory. Fixed syntax error in basic unit test. Added 'Compiling' section to README.
-- v3.1.0.0	-> (13/05/30) Added more unit tests for basic operator overloads (now 21 in total).
+- v3.1.0.0	-> (13/05/30) Added more unit tests for basic operator overloads (now 21 in total). Improved Makefile.
+- v3.1.0.1  -> (13/06/02) Added more info to README about using this library as a data type.
