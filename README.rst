@@ -77,20 +77,25 @@ Usage
 Changelog
 =========
 
-- v1.1.0 		-> (12/10/23) Merged fixed_func.h into this file. Added	comments. Changed fixed_point to fp.
-- v1.1.1 		-> (12/11/04) Fixed filename errors. Attributed Markus Trenkwalder as the original author.
-- v1.2.0 		-> (12/11/04) Made fp a class with public members, rather than structure.
-- v1.3.0 		-> (12/11/05) Added operator overload for '%'. Tested and works fine.
-- v1.3.1 		-> (12/11/05) Added library description.
-- v1.3.1.1 	-> (13/05/08) Moved Fp.h into ./src/include/. Changed to 4-digit versioning system. Changed incorrect date.
-- v1.3.1.2	-> (13/05/08) Indented all namespace objects (formatting issue).
-- v1.3.2.0	-> (13/05/09) Renamed Fp.h to Fp.hpp. Removed doubling up of version in both files, now just defined in Fp.hpp. Added dates	to version numbers. Added C++ guard at the start of both Fp.cpp and Fp.hpp.
-- v2.0.0.0	-> (13/05/09) Added support for 64-bit fixed point numbers (Fp64.h).
-- v2.0.1.0	-> (13/05/10) Fixed bug in constructor to Fp64 from int32_t. Added cast to int64_t before shifting to prevent truncation.
-- v2.0.1.1	-> (13/05/10) Added README.rst
-- v2.0.1.2 	-> (13/05/10) Improved README.rst with usage section, code examples, and better description.
-- v2.1.0.0  -> (13/05/30) Renamed Fp.cpp to Fp32.cpp (and .h in include), since there is now a 64-bit version (Fp64.hpp). 32-bit FP Class renamed accordingly.
-- v3.0.0.0  -> (13/05/30) Added unit tests in './test' to verify libraries are working correctly. Uses UnitTest++ library.
-- v3.0.1.0  -> (13/05/30) Added Makefile to root directory. Fixed syntax error in basic unit test. Added 'Compiling' section to README.
-- v3.1.0.0	-> (13/05/30) Added more unit tests for basic operator overloads (now 21 in total). Improved Makefile.
-- v3.1.0.1  -> (13/06/02) Added more info to README about using this library as a data type.
+======== ========== ===================================================================================================
+Version  Date       Comment
+======== ========== ===================================================================================================
+v3.1.0.2 2013/06/08 README changelog is now in reverse chronological order and in table format.
+v3.1.0.1 2013/06/02 Added more info to README about using this library as a data type.
+v3.1.0.0 2013/05/30 Added more unit tests for basic operator overloads (now 21 in total). Improved Makefile.
+v3.0.1.0 2013/05/30 Added Makefile to root directory. Fixed syntax error in basic unit test. Added 'Compiling' section to README.
+v3.0.0.0 2013/05/30 Added unit tests in './test' to verify libraries are working correctly. Uses UnitTest++ library.
+v2.1.0.0 2013/05/30 Renamed Fp.cpp to Fp32.cpp (and .h in include), since there is now a 64-bit version (Fp64.hpp). 32-bit FP Class renamed accordingly.
+v2.0.1.2 2013/05/10 Improved README.rst with usage section, code examples, and better description.
+v2.0.1.1 2013/05/10 Added README.rst.
+v2.0.1.0 2013/05/10 Fixed bug in constructor to Fp64 from int32_t. Added cast to int64_t before shifting to prevent truncation.
+v2.0.0.0 2013/05/09 Added support for 64-bit fixed point numbers (Fp64.h).
+v1.3.2.0 2013/05/09 Renamed Fp.h to Fp.hpp. Removed doubling up of version in both files, now just defined in Fp.hpp. Added dates	to version numbers. Added C++ guard at the start of both Fp.cpp and Fp.hpp.
+v1.3.1.2 2013/05/08 Indented all namespace objects (formatting issue).
+v1.3.1.1 2013/05/08 Moved Fp.h into ./src/include/. Changed to 4-digit versioning system. Changed incorrect date.
+v1.3.1 	 2012/11/05 Added library description.
+v1.3.0 	 2012/11/05 Added operator overload for '%'. Tested and works fine.
+v1.2.0 	 2012/11/04 Made fp a class with public members, rather than structure.
+v1.1.1 	 2012/11/04 Fixed filename errors. Attributed Markus Trenkwalder as the original author.
+v1.1.0 	 2012/10/23 Merged fixed_func.h into this file. Added	comments. Changed fixed_point to fp.
+======== ========== ===================================================================================================
