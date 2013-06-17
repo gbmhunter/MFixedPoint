@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/06/02
-- Version: v3.1.0.1
+- Version: v3.2.0.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -42,6 +42,11 @@ Support operator overloading for most common fixed-point arithmetic.
 Intermediary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
 On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
 the range/precision required.
+
+Port Independence
+=================
+
+The library is designed to be port-independent. Port-specific functions are declared in separate files, Fp-Port.cpp and Fp-Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
 
 Compiling
 =========
@@ -80,6 +85,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.1.1.0 2013/06/17 Added 'Fp-Port.cpp/hpp' and moved port-specific functions into these files. Add 'Port Independence' section to README. Added 'Fp-Config.hpp'.
 v3.1.0.2 2013/06/08 README changelog is now in reverse chronological order and in table format.
 v3.1.0.1 2013/06/02 Added more info to README about using this library as a data type.
 v3.1.0.0 2013/05/30 Added more unit tests for basic operator overloads (now 21 in total). Improved Makefile.

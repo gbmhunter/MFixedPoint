@@ -53,6 +53,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdint.h>
 
+// Fixed-point configuration file
+#include "Fp-Config.hpp"
+
+// Port-specific code
+#include "Fp-Port.hpp"
+
 namespace Fp
 {
 
@@ -204,7 +210,12 @@ namespace Fp
 		
 		int32_t intValue;			//!< Access to raw value
 		
-		Fp32() {}
+		Fp32()
+		{
+			#if(fpConfig_PRINT_DEBUG_GENERAL == 1)
+				//Port::DebugPrint("FP: New fixed-point object created.");
+			#endif
+		}
 		/*explicit*/ Fp32(int32_t i) : intValue(i << p) {}
 		/*explicit*/ Fp32(float f) : intValue(Float2Fix<p>(f)) {}
 		/*explicit*/ Fp32(double f) : intValue(Float2Fix<p>((float)f)) {}
