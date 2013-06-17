@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/06/02
-- Version: v3.2.0.0
+- Version: v3.2.1.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -85,6 +85,8 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.2.1.0 2013/06/17 Makefile now compiles UnitTest++ as a dependency, and removes all files from './obj/'.
+v3.2.0.0 2013/06/17 Modified Makefile so it automatically compiles all .cpp files. Puts compiled files into new 'obj' directory.
 v3.1.1.0 2013/06/17 Added 'Fp-Port.cpp/hpp' and moved port-specific functions into these files. Add 'Port Independence' section to README. Added 'Fp-Config.hpp'.
 v3.1.0.2 2013/06/08 README changelog is now in reverse chronological order and in table format.
 v3.1.0.1 2013/06/02 Added more info to README about using this library as a data type.

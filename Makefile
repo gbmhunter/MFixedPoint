@@ -18,22 +18,6 @@ LFLAGS = -L./test/UnitTest++
 #   option, something like (this will link in libmylib.so and libm.so:
 LIBS = -lUnitTest++
 
-# Define the source files
-SRCS = test/Fp32Test.cpp
-
-# define the C object files 
-#
-# This uses Suffix Replacement within a macro:
-#   $(name:string1=string2)
-#         For each word in 'name' replace 'string1' with 'string2'
-# Below we are replacing the suffix .c of all words in the macro SRCS
-# with the .o suffix
-#
-OBJS = $(SRCS:.c=.o)
-
-# define the executable file 
-MAIN = test/Fp32Test.o
-
 .PHONY: depend clean
 
 # Run UnitTest++ makefile
@@ -66,7 +50,7 @@ TEST_CC_FLAGS := -Wall -g
 	
 # Compiles unit test code
 # Unit test code
-test: $(TEST_OBJ_FILES) $(SRC_OBJ_FILES)
+test: $(TEST_OBJ_FILES) $(SRC_OBJ_FILES) | UnitTestLib
 	# Compiling unit test code
 	#g++ $(TEST_LD_FLAGS) -o $@ $^ -L./test/UnitTest++ -lUnitTest++
 	g++ $(TEST_LD_FLAGS) -o obj/test $^ -L./test/UnitTest++ -lUnitTest++
@@ -83,7 +67,7 @@ obj/%.o: src/%.cpp
 	# Compiling src2
 	g++ $(SRC_CC_FLAGS) -c -o $@ $<
 	
-UnitTestLib :
+UnitTestLib:
 	# Compile UnitTest++ library (has it's own Makefile)
 	$(MAKE) -C ./test/UnitTest++/ all
 	
@@ -92,7 +76,8 @@ clean:
 	$(MAKE) -C ./test/UnitTest++/ clean
 	
 	# Clean everything else
-	@echo " Cleaning..."; $(RM) *.o *~ $(MAIN)
+	@echo " Cleaning..."; $(RM) *.o *~
+	@echo " Cleaning..."; $(RM) ./obj/*
 	
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^
