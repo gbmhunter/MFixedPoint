@@ -4,8 +4,8 @@ Embedded Fixed-Point Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/06/02
-- Version: v3.2.1.0
+- Last Modified: 2013/07/11
+- Version: v3.2.2.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -48,10 +48,27 @@ Port Independence
 
 The library is designed to be port-independent. Port-specific functions are declared in separate files, Fp-Port.cpp and Fp-Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
 
+Configuration
+=============
+
+Configuration settings are in 'Fp-Config.hpp'. This file allows you to turn on/off debug message printing (which itself is port-specific, and defined in Fp-Port.hpp/cpp).
+
 Compiling
 =========
 
 Either use provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point library and automatically runs unit tests.
+
+To run the makefile, open a terminal in the root directory of this library, and type:
+
+::
+
+	make test
+	
+To clean all compiled object files, run:
+
+::
+
+	make clean
 
 Usage
 =====
@@ -59,7 +76,7 @@ Usage
 ::
 
 	// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
-	// This constructor converts from doubles.
+	// This constructor converts from doubles
 	Fp32<8> aFpNum1 = Fp32<8>(3.2);
 	Fp32<8> aFpNum2 = Fp32<8>(0.6);
 	
@@ -85,6 +102,8 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.2.2.0 2013/07/11 Made Makefile automatically find .cpp files in both src and test and compile them.
+v3.2.1.1 2013/06/18 Added comments to 'fpConfig_PRINT_DEBUG_GENERAL'. Added 'Configuration' section to README. Added more info to 'Compiling' section in README.
 v3.2.1.0 2013/06/17 Makefile now compiles UnitTest++ as a dependency, and removes all files from './obj/'.
 v3.2.0.0 2013/06/17 Modified Makefile so it automatically compiles all .cpp files. Puts compiled files into new 'obj' directory.
 v3.1.1.0 2013/06/17 Added 'Fp-Port.cpp/hpp' and moved port-specific functions into these files. Add 'Port Independence' section to README. Added 'Fp-Config.hpp'.
