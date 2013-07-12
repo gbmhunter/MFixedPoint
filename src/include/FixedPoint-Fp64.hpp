@@ -1,5 +1,5 @@
 //!
-//! @file 		Fp64.h
+//! @file 		FixedPoint-Fp64.h
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2013/05/09
 //! @brief 		Fixed-point arithmetic for 64-bit numbers. Be careful of overflow!
@@ -143,7 +143,7 @@ namespace Fp
 			
 			//! @}
 			
-			//! @defgroup Binary Arithmetic Operators
+			//! @defgroup Arithmetic Operators
 			//! @{
 			
 			//! @brief		Override for '+'. Uses compound assignment operator.
@@ -185,6 +185,42 @@ namespace Fp
 				result.rawVal = rawVal % r.rawVal;
 				return result;
 			}
+			
+			//! @}
+			
+			//! @defgroup Binary Operators
+			//! @{
+			
+			bool operator == (Fp64 r) const
+			{
+				return rawVal == r.rawVal;
+			}
+			
+			bool operator != (Fp64 r) const
+			{
+				return !(*this == r);
+			}
+			
+			bool operator <  (Fp64 r) const
+			{
+				return rawVal < r.rawVal;
+			}
+			
+			bool operator >  (Fp64 r) const
+			{
+				return rawVal > r.rawVal;
+			}
+			
+			bool operator <= (Fp64 r) const
+			{
+				return rawVal <= r.rawVal;
+			}
+			
+			bool operator >= (Fp64 r) const
+			{
+				return rawVal >= r.rawVal;
+			}
+			
 			
 			//! @}
 		private:
