@@ -8,7 +8,7 @@
 //!				See README.rst
 
 // 32-bit fixed-point library
-#include "../src/include/Fp32.hpp"
+#include "../src/include/FixedPoint-Fp32.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 

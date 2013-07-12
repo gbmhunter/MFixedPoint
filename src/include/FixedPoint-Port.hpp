@@ -19,7 +19,7 @@
 #ifndef FP_PORT_H
 #define FP_PORT_H
 
-#include "Fp-Config.hpp"
+#include "FixedPoint-Config.hpp"
 #include <stdint.h>
 
 //! @brief		Determines what code is used for the port-specific functions.

@@ -54,10 +54,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdint.h>
 
 // Fixed-point configuration file
-#include "Fp-Config.hpp"
+#include "FixedPoint-Config.hpp"
 
 // Port-specific code
-#include "Fp-Port.hpp"
+#include "FixedPoint-Port.hpp"
 
 namespace Fp
 {

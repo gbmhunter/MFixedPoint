@@ -16,7 +16,7 @@
 //===============================================================================================//
 
 // Associated header file
-#include "include/Fp-Port.hpp"
+#include "include/FixedPoint-Port.hpp"
 
 #ifdef __cplusplus
 	extern "C" {
