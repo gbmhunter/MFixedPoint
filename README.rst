@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/11
-- Version: v3.2.2.0
+- Version: v3.3.0.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -102,6 +102,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.3.0.0 2013/07/12 Renamed files to follow Namespace-Class convention.
 v3.2.2.0 2013/07/11 Made Makefile automatically find .cpp files in both src and test and compile them.
 v3.2.1.1 2013/06/18 Added comments to 'fpConfig_PRINT_DEBUG_GENERAL'. Added 'Configuration' section to README. Added more info to 'Compiling' section in README.
 v3.2.1.0 2013/06/17 Makefile now compiles UnitTest++ as a dependency, and removes all files from './obj/'.
