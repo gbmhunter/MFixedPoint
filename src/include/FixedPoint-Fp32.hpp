@@ -208,7 +208,7 @@ namespace Fp
 		
 		public:
 		
-		int32_t intValue;			//!< Access to raw value
+		int32_t rawVal;			//!< Access to raw value
 		
 		Fp32()
 		{
@@ -216,19 +216,19 @@ namespace Fp
 				//Port::DebugPrint("FP: New fixed-point object created.");
 			#endif
 		}
-		/*explicit*/ Fp32(int32_t i) : intValue(i << p) {}
-		/*explicit*/ Fp32(float f) : intValue(Float2Fix<p>(f)) {}
-		/*explicit*/ Fp32(double f) : intValue(Float2Fix<p>((float)f)) {}
+		/*explicit*/ Fp32(int32_t i) : rawVal(i << p) {}
+		/*explicit*/ Fp32(float f) : rawVal(Float2Fix<p>(f)) {}
+		/*explicit*/ Fp32(double f) : rawVal(Float2Fix<p>((float)f)) {}
 		
-		Fp32& operator += (Fp32 r) { intValue += r.intValue; return *this; }
-		Fp32& operator -= (Fp32 r) { intValue -= r.intValue; return *this; }
-		Fp32& operator *= (Fp32 r) { intValue = FixMul<p>(intValue, r.intValue); return *this; }
-		Fp32& operator /= (Fp32 r) { intValue = fixdiv<p>(intValue, r.intValue); return *this; }
+		Fp32& operator += (Fp32 r) { rawVal += r.rawVal; return *this; }
+		Fp32& operator -= (Fp32 r) { rawVal -= r.rawVal; return *this; }
+		Fp32& operator *= (Fp32 r) { rawVal = FixMul<p>(rawVal, r.rawVal); return *this; }
+		Fp32& operator /= (Fp32 r) { rawVal = fixdiv<p>(rawVal, r.rawVal); return *this; }
 		
-		Fp32& operator *= (int32_t r) { intValue *= r; return *this; }
-		Fp32& operator /= (int32_t r) { intValue /= r; return *this; }
+		Fp32& operator *= (int32_t r) { rawVal *= r; return *this; }
+		Fp32& operator /= (int32_t r) { rawVal /= r; return *this; }
 		
-		Fp32 operator - () const { Fp32 x; x.intValue = -intValue; return x; }
+		Fp32 operator - () const { Fp32 x; x.rawVal = -rawVal; return x; }
 		Fp32 operator + (Fp32 r) const { Fp32 x = *this; x += r; return x;}
 		Fp32 operator - (Fp32 r) const { Fp32 x = *this; x -= r; return x;}
 		Fp32 operator * (Fp32 r) const { Fp32 x = *this; x *= r; return x;}
@@ -239,16 +239,16 @@ namespace Fp
 		const Fp32 operator % (Fp32 r) 
 		{
 			Fp32 result;
-			result.intValue = intValue % r.intValue;
+			result.rawVal = rawVal % r.rawVal;
 			return result;
 		}
 		
-		bool operator == (Fp32 r) const { return intValue == r.intValue; }
+		bool operator == (Fp32 r) const { return rawVal == r.rawVal; }
 		bool operator != (Fp32 r) const { return !(*this == r); }
-		bool operator <  (Fp32 r) const { return intValue < r.intValue; }
-		bool operator >  (Fp32 r) const { return intValue > r.intValue; }
-		bool operator <= (Fp32 r) const { return intValue <= r.intValue; }
-		bool operator >= (Fp32 r) const { return intValue >= r.intValue; }
+		bool operator <  (Fp32 r) const { return rawVal < r.rawVal; }
+		bool operator >  (Fp32 r) const { return rawVal > r.rawVal; }
+		bool operator <= (Fp32 r) const { return rawVal <= r.rawVal; }
+		bool operator >= (Fp32 r) const { return rawVal >= r.rawVal; }
 
 		Fp32 operator + (int32_t r) const { Fp32 x = *this; x += r; return x;}
 		Fp32 operator - (int32_t r) const { Fp32 x = *this; x -= r; return x;}
@@ -307,7 +307,7 @@ namespace Fp
 	inline Fp32<p> abs(Fp32<p> a)
 	{ 
 		Fp32<p> r; 
-		r.intValue = a.intValue > 0 ? a.intValue : -a.intValue; 
+		r.rawVal = a.rawVal > 0 ? a.rawVal : -a.rawVal; 
 		return r; 
 	}
 
@@ -317,7 +317,7 @@ namespace Fp
 	inline Fp32<16> sin(Fp32<16> a)
 	{
 		Fp32<16> r;
-		r.intValue = fixsin16(a.intValue);
+		r.rawVal = fixsin16(a.rawVal);
 		return r;
 	}
 
@@ -325,7 +325,7 @@ namespace Fp
 	inline Fp32<16> cos(Fp32<16> a)
 	{
 		Fp32<16> r;
-		r.intValue = fixcos16(a.intValue);
+		r.rawVal = fixcos16(a.rawVal);
 		return r;
 	}
 
@@ -334,7 +334,7 @@ namespace Fp
 	inline Fp32<16> sqrt(Fp32<16> a)
 	{
 		Fp32<16> r;
-		r.intValue = fixsqrt16(a.intValue);
+		r.rawVal = fixsqrt16(a.rawVal);
 		return r;
 	}
 
@@ -342,7 +342,7 @@ namespace Fp
 	inline Fp32<16> rsqrt(Fp32<16> a)
 	{
 		Fp32<16> r;
-		r.intValue = fixrsqrt16(a.intValue);
+		r.rawVal = fixrsqrt16(a.rawVal);
 		return r;
 	}
 
@@ -350,7 +350,7 @@ namespace Fp
 	inline Fp32<16> inv(Fp32<16> a)
 	{
 		Fp32<16> r;
-		r.intValue = fixinv<16>(a.intValue);
+		r.rawVal = fixinv<16>(a.rawVal);
 		return r;
 	}
 
@@ -363,9 +363,9 @@ namespace Fp
 	{
 		long long result = 0;
 		for (int i = 0; i < count; ++i)
-			result += static_cast<long long>(a[i].intValue) * b[i].intValue;
+			result += static_cast<long long>(a[i].rawVal) * b[i].rawVal;
 		Fp32<p> r;
-		r.intValue = static_cast<int>(result >> p);
+		r.rawVal = static_cast<int>(result >> p);
 		return r;
 	}
 

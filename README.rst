@@ -4,8 +4,8 @@ Embedded Fixed-Point Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/07/12
-- Version: v3.4.0.0
+- Last Modified: 2013/07/16
+- Version: v3.4.1.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -88,13 +88,13 @@ Usage
 	
 	// Converting fixed-point back to double. Requires you
 	// to pass the raw value (which can be accessed with
-	// .intValue)
-	double result = Fix2Float<8>(aFpNum4.intValue);
+	// .rawVal)
+	double result = Fix2Float<8>(aFpNum4.rawVal)
 	
 	// Converting between different precisions. Requires access to raw value just like
 	// when doing fixed-point to double conversion.
 	Fp32<20> aHigherPrecisionNum = Fp32<20>(7.5);
-	Fp32<12> aLowerPrecisionNum.intValue = aHigherPrecisionNum.intValue >> (20 - 12)
+	Fp32<12> aLowerPrecisionNum.rawVal = aHigherPrecisionNum.rawVal >> (20 - 12)
 	
 Changelog
 =========
@@ -102,6 +102,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.4.1.0 2013/07/16 Replaced intValue with rawVal for Fp32 class.
 v3.4.0.0 2013/07/12 Added binary overloads for Fp64 class. Added binary unit tests for Fp64.
 v3.3.2.0 2013/07/12 Added test suites to unit tests, split unit tests up into their own suite-grouped files.
 v3.3.1.0 2013/07/12 Fixed incorrect includes after file-name changes.
