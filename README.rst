@@ -4,8 +4,8 @@ Embedded Fixed-Point Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/07/16
-- Version: v3.4.2.0
+- Last Modified: 2013/07/17
+- Version: v3.4.2.1
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -75,6 +75,11 @@ Usage
 
 ::
 
+#include "/src/include/FixedPoint-Fp32.hpp"
+#include "/src/include/FixedPoint-Fp64.hpp"
+
+int main()
+{
 	// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
 	// This constructor converts from doubles
 	Fp32<8> aFpNum1 = Fp32<8>(3.2);
@@ -89,12 +94,18 @@ Usage
 	// Converting fixed-point back to double. Requires you
 	// to pass the raw value (which can be accessed with
 	// .rawVal)
-	double result = Fix2Float<8>(aFpNum4.rawVal)
+	double result = Fix2Float<8>(aFpNum4.rawVal);
 	
 	// Converting between different precisions. Requires access to raw value just like
 	// when doing fixed-point to double conversion.
 	Fp32<20> aHigherPrecisionNum = Fp32<20>(7.5);
-	Fp32<12> aLowerPrecisionNum.rawVal = aHigherPrecisionNum.rawVal >> (20 - 12)
+	Fp32<12> aLowerPrecisionNum.rawVal = aHigherPrecisionNum.rawVal >> (20 - 12);
+	
+	// You can use 64-bit fixed point numbers in exactly the same way!
+	Fp64<48> aFp64Num = Fp64<48>(4.58676);
+	
+	return 0;
+}
 	
 Changelog
 =========
@@ -102,6 +113,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.4.2.1 2013/07/17 Added main(), includes and 64-bit fixed point example to README usage section.
 v3.4.2.0 2013/07/16 Added basic speed unit tests for multiplication and division.
 v3.4.1.0 2013/07/16 Replaced intValue with rawVal for Fp32 class.
 v3.4.0.0 2013/07/12 Added binary overloads for Fp64 class. Added binary unit tests for Fp64.
