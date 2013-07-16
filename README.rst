@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/16
-- Version: v3.4.1.0
+- Version: v3.4.2.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -102,6 +102,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.4.2.0 2013/07/16 Added basic speed unit tests for multiplication and division.
 v3.4.1.0 2013/07/16 Replaced intValue with rawVal for Fp32 class.
 v3.4.0.0 2013/07/12 Added binary overloads for Fp64 class. Added binary unit tests for Fp64.
 v3.3.2.0 2013/07/12 Added test suites to unit tests, split unit tests up into their own suite-grouped files.
