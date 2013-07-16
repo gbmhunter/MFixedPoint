@@ -5,7 +5,7 @@
 //! @date 		2013/05/30
 //! @brief 		Performs unit tests on the 32-bit fixed point binary operations.
 //! @details
-//!				See README.rst
+//!				See README.rst in root dir for more info.
 
 // 32-bit fixed-point library
 #include "../src/include/FixedPoint-Fp32.hpp"

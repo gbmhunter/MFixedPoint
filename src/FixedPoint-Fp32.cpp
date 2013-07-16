@@ -5,18 +5,7 @@
 //! @date 		2012/10/23
 //! @brief 		Fixed point mathematics library
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/08					\n
-//!		<b>Version:					</b> (see Fp.hpp)				\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> Free code libraries		\n
-//!		<b>Language:				</b> C++						\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> (see Fp.hpp)				\n
-//!	
+//!				See README.rst in root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
