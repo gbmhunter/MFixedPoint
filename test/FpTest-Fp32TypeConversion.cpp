@@ -25,7 +25,7 @@ SUITE(Fp32TypeConversionTests)
 
 		// The closest fixed point number this can be represented
 		// as is Math.Round(3.2*2^8) = 819 = 0b001100110011
-		CHECK_EQUAL(0b001100110011, fp1.rawVal);
+		CHECK_EQUAL((int32_t)0b001100110011, fp1.rawVal);
 	}
 
 	TEST(NegativeDoubleToFixedConversionTest)
@@ -34,7 +34,7 @@ SUITE(Fp32TypeConversionTests)
 
 		// The closest fixed point number this can be represented
 		// as is Math.Round(-3.2*2^8) = -819 = 0b11111111111111111111110011001101 (32-bit 2's compliment)
-		CHECK_EQUAL(0b11111111111111111111110011001101, fp1.rawVal);
+		CHECK_EQUAL((int32_t)0b11111111111111111111110011001101, fp1.rawVal);
 	}
 
 	// Now check float->double conversion as the

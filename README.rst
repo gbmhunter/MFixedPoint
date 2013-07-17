@@ -113,6 +113,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.4.6.0 2013/07/17 Got rid of 'Comparison Between Signed And Unsigned Integer Expressions' compiler warning.
 v3.4.5.0 2013/07/17 Added bit-width to FixToFloat family of functions. Also changed '2' to 'to'.
 v3.4.4.0 2013/07/17 Removed pragma code from FixedPoint-Port.hpp that printed a compiler message about Linux.
 v3.4.3.0 2013/07/17 Replaced all int's with fixed-width int32_t so width is guaranteed.
