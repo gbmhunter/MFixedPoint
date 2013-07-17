@@ -24,7 +24,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 + fp2;
 
-		CHECK_CLOSE(3.8, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(3.8, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(NegativeAdditionTest)
@@ -34,7 +34,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 + fp2;
 
-		CHECK_CLOSE(-3.8, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(-3.8, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(PositiveSubtractionTest)
@@ -44,7 +44,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 - fp2;
 
-		CHECK_CLOSE(2.6, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(2.6, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(NegativeSubtractionTest)
@@ -54,7 +54,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 - fp2;
 
-		CHECK_CLOSE(-2.6, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(-2.6, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(PositiveMultiplicationTest)
@@ -64,7 +64,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 * fp2;
 
-		CHECK_CLOSE(1.92, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(1.92, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(NegativeMultiplicationTest)
@@ -74,7 +74,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 * fp2;
 
-		CHECK_CLOSE(1.92, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(1.92, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(PositiveDivisionTest)
@@ -84,7 +84,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 / fp2;
 
-		CHECK_CLOSE(5.33, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(5.33, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(NegativeDivisionTest)
@@ -94,7 +94,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 / fp2;
 
-		CHECK_CLOSE(5.33, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(5.33, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 	TEST(ModuloTest)
@@ -104,7 +104,7 @@ SUITE(Fp32Tests)
 		
 		Fp32<8> fp3 = fp1 % fp2;
 		//20.2 % 1.5 = 0.7
-		CHECK_CLOSE(0.7, Fix2Float<8>(fp3.rawVal), 0.1);
+		CHECK_CLOSE(0.7, Fix32ToFloat<8>(fp3.rawVal), 0.1);
 	}
 
 }

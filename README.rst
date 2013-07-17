@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/17
-- Version: v3.4.4.0
+- Version: v3.4.5.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -94,7 +94,7 @@ int main()
 	// Converting fixed-point back to double. Requires you
 	// to pass the raw value (which can be accessed with
 	// .rawVal)
-	double result = Fix2Float<8>(aFpNum4.rawVal);
+	double result = Fix32ToFloat<8>(aFpNum4.rawVal);
 	
 	// Converting between different precisions. Requires access to raw value just like
 	// when doing fixed-point to double conversion.
@@ -113,6 +113,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.4.5.0 2013/07/17 Added bit-width to FixToFloat family of functions. Also changed '2' to 'to'.
 v3.4.4.0 2013/07/17 Removed pragma code from FixedPoint-Port.hpp that printed a compiler message about Linux.
 v3.4.3.0 2013/07/17 Replaced all int's with fixed-width int32_t so width is guaranteed.
 v3.4.2.1 2013/07/17 Added main(), includes and 64-bit fixed point example to README usage section.

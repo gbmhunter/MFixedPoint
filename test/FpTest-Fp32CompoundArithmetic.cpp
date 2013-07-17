@@ -24,7 +24,7 @@ SUITE(Fp32Tests)
 		
 		fp1 += fp2;
 
-		CHECK_CLOSE(3.8, Fix2Float<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(3.8, Fix32ToFloat<8>(fp1.rawVal), 0.1);
 	}
 
 	TEST(CompoundSubtractionTest)
@@ -34,7 +34,7 @@ SUITE(Fp32Tests)
 		
 		fp1 -= fp2;
 
-		CHECK_CLOSE(2.6, Fix2Float<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(2.6, Fix32ToFloat<8>(fp1.rawVal), 0.1);
 	}
 
 	TEST(CompoundMultiplicationTest)
@@ -44,7 +44,7 @@ SUITE(Fp32Tests)
 		
 		fp1 *= fp2;
 
-		CHECK_CLOSE(1.92, Fix2Float<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(1.92, Fix32ToFloat<8>(fp1.rawVal), 0.1);
 	}
 
 	TEST(CompoundDivisionTest)
@@ -54,6 +54,6 @@ SUITE(Fp32Tests)
 		
 		fp1 /= fp2;
 
-		CHECK_CLOSE(5.33, Fix2Float<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(5.33, Fix32ToFloat<8>(fp1.rawVal), 0.1);
 	}
 }

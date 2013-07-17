@@ -63,7 +63,7 @@ namespace Fp
 	//! @warning 	Slow!
 	//! @public
 	template <int32_t p>
-	float Fix2Float(int64_t f)
+	float Fix64ToFloat(int64_t f)
 	{
 		return (float)f / (1 << p);
 	}
@@ -72,7 +72,7 @@ namespace Fp
 	//! @details	Good for inputting values into fixed-point arithmetic
 	//! @warning	Slow!
 	template <int32_t p>
-	int64_t Float2Fix(float f)
+	int64_t FloatToFix32(float f)
 	{
 		return (int64_t)(f * (1 << p));
 	}

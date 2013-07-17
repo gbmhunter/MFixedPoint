@@ -43,14 +43,14 @@ SUITE(Fp32TypeConversionTests)
 	{
 		Fp32<8> fp1 = Fp32<8>(3.2);
 
-		CHECK_CLOSE(3.2, Fix2Float<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(3.2, Fix32ToFloat<8>(fp1.rawVal), 0.1);
 	}
 
 	TEST(NegativeFixedToFloatConversionTest)
 	{
 		Fp32<8> fp1 = Fp32<8>(-3.2);
 
-		CHECK_CLOSE(-3.2, Fix2Float<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(-3.2, Fix32ToFloat<8>(fp1.rawVal), 0.1);
 	}
 
 }

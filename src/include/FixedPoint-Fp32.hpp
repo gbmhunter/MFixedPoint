@@ -175,13 +175,12 @@ namespace Fp
 			return x;
 	}
 
-
 	//! @brief		Conversion from fixed-point to float
 	//! @details	Good for debugging fixed-point arithmetic
 	//! @warning 	Slow!
 	//! @public
 	template <int32_t p>
-	float Fix2Float(int32_t f)
+	float Fix32ToFloat(int32_t f)
 	{
 		return (float)f / (1 << p);
 	}
@@ -190,7 +189,7 @@ namespace Fp
 	//! @details	Good for inputting values into fixed-point arithmetic
 	//! @warning	Slow!
 	template <int32_t p>
-	int32_t Float2Fix(float f)
+	int32_t FloatToFix32(float f)
 	{
 		return (int32_t)(f * (1 << p));
 	}
@@ -217,8 +216,8 @@ namespace Fp
 			#endif
 		}
 		/*explicit*/ Fp32(int32_t i) : rawVal(i << p) {}
-		/*explicit*/ Fp32(float f) : rawVal(Float2Fix<p>(f)) {}
-		/*explicit*/ Fp32(double f) : rawVal(Float2Fix<p>((float)f)) {}
+		/*explicit*/ Fp32(float f) : rawVal(FloatToFix32<p>(f)) {}
+		/*explicit*/ Fp32(double f) : rawVal(FloatToFix32<p>((float)f)) {}
 		
 		Fp32& operator += (Fp32 r) { rawVal += r.rawVal; return *this; }
 		Fp32& operator -= (Fp32 r) { rawVal -= r.rawVal; return *this; }
