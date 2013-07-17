@@ -27,7 +27,6 @@
 //!					PSOC	All PSoC families (PSoC 3, PSoC 4, PSoC 5, PSoC 5LP)
 #if(__linux__ == 1)
 	#define TARGET_PLATFORM		LINUX
-	#pragma message "Target platform in Linux."
 #elif(PSOC4 == 1)
 	#define TARGET_PLATFORM		PSOC
 #else
