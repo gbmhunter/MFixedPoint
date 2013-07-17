@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/17
-- Version: v3.4.5.0
+- Version: v3.4.7.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -113,6 +113,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.4.7.0 2013/07/17 Added speed tests for both 32-bit and 64-bit fixed-point basic mathematics.
 v3.4.6.0 2013/07/17 Got rid of 'Comparison Between Signed And Unsigned Integer Expressions' compiler warning.
 v3.4.5.0 2013/07/17 Added bit-width to FixToFloat family of functions. Also changed '2' to 'to'.
 v3.4.4.0 2013/07/17 Removed pragma code from FixedPoint-Port.hpp that printed a compiler message about Linux.
