@@ -21,12 +21,12 @@ SUITE(Fp32SpeedTests)
 		Fp32<8> fp1 = Fp32<8>(5.6);
 		Fp32<8> fp2 = Fp32<8>(8.9);
 		Fp32<8> fp3;
-
+		
 		{
-			UNITTEST_TIME_CONSTRAINT(1);
+			UNITTEST_TIME_CONSTRAINT(1000);
 			
 			int x = 0;
-			for(x = 0; x < 10000; x++)
+			for(x = 0; x < 10000000; x++)
 			{
 				fp3 = fp1 + fp2;
 			}
@@ -39,12 +39,12 @@ SUITE(Fp32SpeedTests)
 		Fp32<8> fp1 = Fp32<8>(5.6);
 		Fp32<8> fp2 = Fp32<8>(8.9);
 		Fp32<8> fp3;
-
+		
 		{
-			UNITTEST_TIME_CONSTRAINT(1);
+			UNITTEST_TIME_CONSTRAINT(2000);
 			
 			int x = 0;
-			for(x = 0; x < 10000; x++)
+			for(x = 0; x < 100000000; x++)
 			{
 				fp3 = fp1 - fp2;
 			}
@@ -59,10 +59,10 @@ SUITE(Fp32SpeedTests)
 		Fp32<8> fp3;
 
 		{
-			UNITTEST_TIME_CONSTRAINT(1);
+			UNITTEST_TIME_CONSTRAINT(2000);
 			
 			int x = 0;
-			for(x = 0; x < 10000; x++)
+			for(x = 0; x < 10000000; x++)
 			{
 				fp3 = fp1*fp2;
 			}
@@ -77,10 +77,10 @@ SUITE(Fp32SpeedTests)
 		Fp32<8> fp3;
 
 		{
-			UNITTEST_TIME_CONSTRAINT(1);
+			UNITTEST_TIME_CONSTRAINT(2000);
 			
 			int x = 0;
-			for(x = 0; x < 10000; x++)
+			for(x = 0; x < 10000000; x++)
 			{
 				fp3 = fp1/fp2;
 			}

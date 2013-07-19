@@ -23,14 +23,23 @@ SRC_CC_FLAGS := -Wall -g
 TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
 TEST_LD_FLAGS := 
 TEST_CC_FLAGS := -Wall -g
+
+BENCHMARK_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard benchmark/*.cpp))
+BENCHMARK_LD_FLAGS 	:= 
+BENCHMARK_CC_FLAGS 	:= -Wall -g
+BENCHMARK_LIBS		:= -lFp
+BENCHMARK_LIB_DIR	:= -L./
 	
 .PHONY: depend clean
 
 # Compile everything and run unit tests
-all: UnitTestLib Test
+all: UnitTestLib Test Benchmark
 	
 	# Run unit tests:
 	@./test/FpTest.out
+	
+	# Run benchmark program:
+	@./benchmark/FpBenchmark.out
 	
 # Make fixed-point library
 FpLib: $(SRC_OBJ_FILES)
@@ -50,6 +59,15 @@ Test: $(TEST_OBJ_FILES) | FpLib UnitTestLib
 # Generic rule for test object files
 test/%.o: test/%.cpp
 	g++ $(TEST_CC_FLAGS) -c -o $@ $<
+	
+# Benchmark code
+Benchmark: $(BENCHMARK_OBJ_FILES) | FpLib
+	# Make benchmark program
+	g++ $(BENCHMARK_LD_FLAGS) -o ./benchmark/FpBenchmark.out $(BENCHMARK_OBJ_FILES) $(BENCHMARK_LIBS) $(BENCHMARK_LIB_DIR)
+	
+# Generic rule for benchmark object files
+benchmark/%.o: benchmark/%.cpp
+	g++ $(BENCHMARK_CC_FLAGS) -c -o $@ $<
 	
 # Unit test library
 UnitTestLib:
