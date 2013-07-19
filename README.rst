@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/19
-- Version: v4.0.0.0
+- Version: v4.0.1.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -113,6 +113,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.1.0 2013/07/19 Benchmarking now reports time per single test and percentage difference from expected.
 v4.0.0.0 2013/07/19 Added benchmarking program to test the performance (both size and speed) of the fixed point library.
 v3.4.8.0 2013/07/17 Added unit tests for the size of both the Fp32 and Fp64 objects.
 v3.4.7.0 2013/07/17 Added speed tests for both 32-bit and 64-bit fixed-point basic mathematics.
