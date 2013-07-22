@@ -66,7 +66,7 @@ namespace Fp
 			if(q > r.q)
 			{
 				// First number smaller
-				rawVal = (rawVal > (q - r.q)) + Fp32Qr.rawVal; 
+				rawVal = (rawVal > (q - r.q)) + r.rawVal; 
 				q = q - r.q;
 			}
 			return *this;

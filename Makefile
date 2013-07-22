@@ -80,8 +80,31 @@ clean:
 	$(MAKE) -C ./test/UnitTest++/ clean
 	
 	# Clean everything else
-	@echo " Cleaning..."; $(RM) ./*.a
-	@echo " Cleaning..."; $(RM) ./src/*.o
-	@echo " Cleaning..."; $(RM) ./test/*.o
-	@echo " Cleaning..."; $(RM) ./test/*.out
+	@echo " Cleaning FixedPoint library..."; 
+	$(RM) ./*.a
+	@echo " Cleaning source object files...";
+	$(RM) ./src/*.o
+	@echo " Cleaning test object files...";
+	$(RM) ./test/*.o
+	@echo " Cleaning compiled unit-test executable...";
+	$(RM) ./test/*.out
+	@echo " Cleaning benchmark object files...";
+	$(RM) ./benchmark/*.o
+	@echo " Cleaning compiled benchmark executable...";
+	$(RM) ./benchmark/*.out
+	
+# Clean all fixed-point stuff
+clean-fp:
+	@echo " Cleaning FixedPoint library..."; 
+	$(RM) ./*.a
+	@echo " Cleaning source object files...";
+	$(RM) ./src/*.o
+	@echo " Cleaning test object files...";
+	$(RM) ./test/*.o
+	@echo " Cleaning compiled unit-test executable...";
+	$(RM) ./test/*.out
+	@echo " Cleaning benchmark object files...";
+	$(RM) ./benchmark/*.o
+	@echo " Cleaning compiled benchmark executable...";
+	$(RM) ./benchmark/*.out
 	
