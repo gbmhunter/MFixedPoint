@@ -207,7 +207,8 @@ namespace Fp
 		
 		public:
 		
-		int32_t rawVal;			//!< Access to raw value
+		//! @brief		The fixed-point number is stored in this basic data type.
+		int32_t rawVal;			
 		
 		Fp32()
 		{
