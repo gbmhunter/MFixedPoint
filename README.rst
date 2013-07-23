@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/24
-- Version: v5.2.0.0
+- Version: v5.3.0.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -55,6 +55,16 @@ Slow 32-bit Fixed-Point Numbers
 **Relevant Header: Fp32s.hpp**
 
 - This library not only stores the 32-bit fixed-point value, but also the Q (number of fractional bits). This gives a more powerful but slower library than the Fp32 and Fp64 libraries. It means you don't have to keep passing in Q as a template parameter.
+
+Slow 64-bit Fixed-Point Numbers
+-------------------------------
+
+**Relevant Header: Fp64s.hpp**
+
+- This library not only stores the 64-bit fixed-point value, but also the Q (number of fractional bits). This gives a more powerful but slower library than the Fp32 and Fp64 libraries. It means you don't have to keep passing in Q as a template parameter.
+- Intermediary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
+- On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
+the range/precision required.
 
 Port Independence
 =================
@@ -126,6 +136,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.3.0.0 2013/07/24 Added fixed-point, 64-bit, slow library (Fp64s). Added relevant unit tests. Added relevant notes to README.
 v5.2.0.0 2013/07/24 Added arithmetic overloads (both simple and compound) and binary overloads for the Fp32s library. Change Suite name in FpTest-Fp32fArithmetic.cpp. Added '%=' overload to Fp32f library. Added unit tests for relevant additions.
 v5.1.1.0 2013/07/23 Added cast support to int32_t and float. Changed Suite name Fp32fCastTests to Fp32sCastTests. Renamed Fp32Q class to Fp32s (was meant to do this in v5.1.0.0), and updated tests/benchmarks accordingly. Added to all unit test filenames either 'f' or 's' to reflect new class names.
 v5.1.0.1 2013/07/23 Updated 'Usage' section of README to reflect new class names. Changed 'make test' to 'make all' in 'Compiling' section.
