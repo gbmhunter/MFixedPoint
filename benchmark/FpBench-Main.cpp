@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// 32-bit fixed-point library
-#include "../src/include/FixedPoint-Fp32.hpp"
+// Fast 32-bit fixed-point library
+#include "../src/include/FixedPoint-Fp32f.hpp"
 
 using namespace Fp;
 
@@ -107,9 +107,9 @@ void PrintMetrics(time_measure * tu, char* testName, uint32_t testCount, double 
 
 int main()
 {
-	Fp32<8> fp1 = Fp32<8>(5.6);
-	Fp32<8> fp2 = Fp32<8>(8.9);
-	Fp32<8> fp3;
+	Fp32f<8> fp1 = Fp32f<8>(5.6);
+	Fp32f<8> fp2 = Fp32f<8>(8.9);
+	Fp32f<8> fp3;
 
 	time_measure * tu = StartTimeMeasuring();
 	
@@ -123,7 +123,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, "Fp32 Addition", NUM_TESTS, ADDITION_AVG);
+	PrintMetrics(tu, "Fp32f Addition", NUM_TESTS, ADDITION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
@@ -139,7 +139,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, "Fp32 Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, "Fp32f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 }

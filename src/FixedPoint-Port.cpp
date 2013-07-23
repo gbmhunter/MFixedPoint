@@ -1,5 +1,5 @@
 //!
-//! @file 		Fp-Port.cpp
+//! @file 		FixedPoint-Port.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/06/17

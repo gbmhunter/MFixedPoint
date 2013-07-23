@@ -1,5 +1,5 @@
 //!
-//! @file 		FpTest-Fp64Speed.cpp
+//! @file 		FpTest-Fp64fSpeed.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/05/30
@@ -8,19 +8,19 @@
 //!				See README.rst in root dir for more info.
 
 // 64-bit fixed-point library
-#include "../src/include/FixedPoint-Fp64.hpp"
+#include "../src/include/FixedPoint-Fp64f.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 
 using namespace Fp;
 
-SUITE(Fp64SpeedTests)
+SUITE(Fp64fSpeedTests)
 {
 	TEST(AddSpeedTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(5.6);
-		Fp64<8> fp2 = Fp64<8>(8.9);
-		Fp64<8> fp3;
+		Fp64f<8> fp1 = Fp64f<8>(5.6);
+		Fp64f<8> fp2 = Fp64f<8>(8.9);
+		Fp64f<8> fp3;
 
 		{
 			UNITTEST_TIME_CONSTRAINT(1);
@@ -36,9 +36,9 @@ SUITE(Fp64SpeedTests)
 	
 	TEST(SubSpeedTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(5.6);
-		Fp64<8> fp2 = Fp64<8>(8.9);
-		Fp64<8> fp3;
+		Fp64f<8> fp1 = Fp64f<8>(5.6);
+		Fp64f<8> fp2 = Fp64f<8>(8.9);
+		Fp64f<8> fp3;
 
 		{
 			UNITTEST_TIME_CONSTRAINT(1);
@@ -54,9 +54,9 @@ SUITE(Fp64SpeedTests)
 
 	TEST(MultSpeedTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(5.6);
-		Fp64<8> fp2 = Fp64<8>(5.6);
-		Fp64<8> fp3;
+		Fp64f<8> fp1 = Fp64f<8>(5.6);
+		Fp64f<8> fp2 = Fp64f<8>(5.6);
+		Fp64f<8> fp3;
 
 		{
 			UNITTEST_TIME_CONSTRAINT(1);
@@ -72,9 +72,9 @@ SUITE(Fp64SpeedTests)
 	
 	TEST(DivSpeedTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(21.6);
-		Fp64<8> fp2 = Fp64<8>(5.6);
-		Fp64<8> fp3;
+		Fp64f<8> fp1 = Fp64f<8>(21.6);
+		Fp64f<8> fp2 = Fp64f<8>(5.6);
+		Fp64f<8> fp3;
 
 		{
 			UNITTEST_TIME_CONSTRAINT(1);

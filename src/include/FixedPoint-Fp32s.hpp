@@ -79,39 +79,39 @@ namespace Fp
 		}
 		
 		/*
-		Fp32& operator -= (Fp32 r) { rawVal -= r.rawVal; return *this; }
-		Fp32& operator *= (Fp32 r) { rawVal = FixMul<p>(rawVal, r.rawVal); return *this; }
-		Fp32& operator /= (Fp32 r) { rawVal = fixdiv<p>(rawVal, r.rawVal); return *this; }
+		Fp32f& operator -= (Fp32f r) { rawVal -= r.rawVal; return *this; }
+		Fp32f& operator *= (Fp32f r) { rawVal = FixMul<p>(rawVal, r.rawVal); return *this; }
+		Fp32f& operator /= (Fp32f r) { rawVal = fixdiv<p>(rawVal, r.rawVal); return *this; }
 		
-		Fp32& operator *= (int32_t r) { rawVal *= r; return *this; }
-		Fp32& operator /= (int32_t r) { rawVal /= r; return *this; }
+		Fp32f& operator *= (int32_t r) { rawVal *= r; return *this; }
+		Fp32f& operator /= (int32_t r) { rawVal /= r; return *this; }
 		
-		Fp32 operator - () const { Fp32 x; x.rawVal = -rawVal; return x; }
-		Fp32 operator + (Fp32 r) const { Fp32 x = *this; x += r; return x;}
-		Fp32 operator - (Fp32 r) const { Fp32 x = *this; x -= r; return x;}
-		Fp32 operator * (Fp32 r) const { Fp32 x = *this; x *= r; return x;}
-		Fp32 operator / (Fp32 r) const { Fp32 x = *this; x /= r; return x;}
+		Fp32f operator - () const { Fp32f x; x.rawVal = -rawVal; return x; }
+		Fp32f operator + (Fp32f r) const { Fp32f x = *this; x += r; return x;}
+		Fp32f operator - (Fp32f r) const { Fp32f x = *this; x -= r; return x;}
+		Fp32f operator * (Fp32f r) const { Fp32f x = *this; x *= r; return x;}
+		Fp32f operator / (Fp32f r) const { Fp32f x = *this; x /= r; return x;}
 		
 		//! Operator overload for '%'. Modulo works on bits as long
 		//! as fixed-point numbers are of the same precision.
-		const Fp32 operator % (Fp32 r) 
+		const Fp32f operator % (Fp32f r) 
 		{
-			Fp32 result;
+			Fp32f result;
 			result.rawVal = rawVal % r.rawVal;
 			return result;
 		}
 		
-		bool operator == (Fp32 r) const { return rawVal == r.rawVal; }
-		bool operator != (Fp32 r) const { return !(*this == r); }
-		bool operator <  (Fp32 r) const { return rawVal < r.rawVal; }
-		bool operator >  (Fp32 r) const { return rawVal > r.rawVal; }
-		bool operator <= (Fp32 r) const { return rawVal <= r.rawVal; }
-		bool operator >= (Fp32 r) const { return rawVal >= r.rawVal; }
+		bool operator == (Fp32f r) const { return rawVal == r.rawVal; }
+		bool operator != (Fp32f r) const { return !(*this == r); }
+		bool operator <  (Fp32f r) const { return rawVal < r.rawVal; }
+		bool operator >  (Fp32f r) const { return rawVal > r.rawVal; }
+		bool operator <= (Fp32f r) const { return rawVal <= r.rawVal; }
+		bool operator >= (Fp32f r) const { return rawVal >= r.rawVal; }
 
-		Fp32 operator + (int32_t r) const { Fp32 x = *this; x += r; return x;}
-		Fp32 operator - (int32_t r) const { Fp32 x = *this; x -= r; return x;}
-		Fp32 operator * (int32_t r) const { Fp32 x = *this; x *= r; return x;}
-		Fp32 operator / (int32_t r) const { Fp32 x = *this; x /= r; return x;}
+		Fp32f operator + (int32_t r) const { Fp32f x = *this; x += r; return x;}
+		Fp32f operator - (int32_t r) const { Fp32f x = *this; x -= r; return x;}
+		Fp32f operator * (int32_t r) const { Fp32f x = *this; x *= r; return x;}
+		Fp32f operator / (int32_t r) const { Fp32f x = *this; x /= r; return x;}
 		*/
 	};
 

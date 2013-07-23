@@ -1,5 +1,5 @@
 //!
-//! @file 		FpTest-Fp64Test.cpp
+//! @file 		FpTest-Fp64fTest.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/07/12
@@ -8,19 +8,19 @@
 //!				See README.rst
 
 // 64-bit fixed-point library
-#include "../src/include/FixedPoint-Fp64.hpp"
+#include "../src/include/FixedPoint-Fp64f.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 
 using namespace Fp;
 
-SUITE(Fp64BinaryTests)
+SUITE(Fp64fBinaryTests)
 {
 	TEST(PosEqualsTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(5.6);
-		Fp64<8> fp2 = Fp64<8>(5.6);
-		Fp64<8> fp3 = Fp64<8>(8.9);
+		Fp64f<8> fp1 = Fp64f<8>(5.6);
+		Fp64f<8> fp2 = Fp64f<8>(5.6);
+		Fp64f<8> fp3 = Fp64f<8>(8.9);
 		
 		CHECK_EQUAL(true, fp1 == fp2);
 		CHECK_EQUAL(false, fp1 == fp3);
@@ -28,9 +28,9 @@ SUITE(Fp64BinaryTests)
 	
 	TEST(NegEqualsTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(-2.8);
-		Fp64<8> fp2 = Fp64<8>(-2.8);
-		Fp64<8> fp3 = Fp64<8>(-8.9);
+		Fp64f<8> fp1 = Fp64f<8>(-2.8);
+		Fp64f<8> fp2 = Fp64f<8>(-2.8);
+		Fp64f<8> fp3 = Fp64f<8>(-8.9);
 		
 		CHECK_EQUAL(true, fp1 == fp2);
 		CHECK_EQUAL(false, fp1 == fp3);
@@ -38,9 +38,9 @@ SUITE(Fp64BinaryTests)
 
 	TEST(PosNotEqualsTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(10.6);
-		Fp64<8> fp2 = Fp64<8>(5.6);
-		Fp64<8> fp3 = Fp64<8>(5.6);
+		Fp64f<8> fp1 = Fp64f<8>(10.6);
+		Fp64f<8> fp2 = Fp64f<8>(5.6);
+		Fp64f<8> fp3 = Fp64f<8>(5.6);
 		
 		CHECK_EQUAL(true, fp1 != fp2);
 		CHECK_EQUAL(false, fp2 != fp3);
@@ -48,9 +48,9 @@ SUITE(Fp64BinaryTests)
 	
 	TEST(NegNotEqualsTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(-1.8);
-		Fp64<8> fp2 = Fp64<8>(-8.9);
-		Fp64<8> fp3 = Fp64<8>(-8.9);
+		Fp64f<8> fp1 = Fp64f<8>(-1.8);
+		Fp64f<8> fp2 = Fp64f<8>(-8.9);
+		Fp64f<8> fp3 = Fp64f<8>(-8.9);
 		
 		CHECK_EQUAL(true, fp1 != fp2);
 		CHECK_EQUAL(false, fp2 != fp3);
@@ -58,9 +58,9 @@ SUITE(Fp64BinaryTests)
 
 	TEST(PosGreaterThanTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(10.6);
-		Fp64<8> fp2 = Fp64<8>(5.6);
-		Fp64<8> fp3 = Fp64<8>(5.6);
+		Fp64f<8> fp1 = Fp64f<8>(10.6);
+		Fp64f<8> fp2 = Fp64f<8>(5.6);
+		Fp64f<8> fp3 = Fp64f<8>(5.6);
 		
 		CHECK_EQUAL(true, fp1 > fp2);
 		CHECK_EQUAL(false, fp2 > fp3);
@@ -68,9 +68,9 @@ SUITE(Fp64BinaryTests)
 	
 	TEST(NegGreaterThanTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(-123.3);
-		Fp64<8> fp2 = Fp64<8>(-130.4);
-		Fp64<8> fp3 = Fp64<8>(-130.4);
+		Fp64f<8> fp1 = Fp64f<8>(-123.3);
+		Fp64f<8> fp2 = Fp64f<8>(-130.4);
+		Fp64f<8> fp3 = Fp64f<8>(-130.4);
 		
 		CHECK_EQUAL(true, fp1 > fp2);
 		CHECK_EQUAL(false, fp2 > fp3);
@@ -78,9 +78,9 @@ SUITE(Fp64BinaryTests)
 
 	TEST(PosLessThanTest)
 	{
-		Fp64<8> fp1 = Fp64<8>(3.3);
-		Fp64<8> fp2 = Fp64<8>(18.4);
-		Fp64<8> fp3 = Fp64<8>(18.4);
+		Fp64f<8> fp1 = Fp64f<8>(3.3);
+		Fp64f<8> fp2 = Fp64f<8>(18.4);
+		Fp64f<8> fp3 = Fp64f<8>(18.4);
 		
 		CHECK_EQUAL(true, fp1 < fp2);
 		CHECK_EQUAL(false, fp2 < fp3);

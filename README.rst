@@ -4,8 +4,8 @@ Embedded Fixed-Point Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/07/22
-- Version: v5.0.1.0
+- Last Modified: 2013/07/23
+- Version: v5.1.0.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -30,29 +30,29 @@ linear interpolation library: Cpp-LinInterp).
 
 Fixed-point numbers are signed. Class supports dynamic precision, determined with variable p which denotes fractional precision. 
 
-32-bit Fixed-Point Numbers
---------------------------
+Fast 32-bit Fixed-Point Numbers
+-------------------------------
 
-**Relevant Header: Fp32.hpp**
+**Relevant Header: Fp32f.hpp**
 
 - Uses templating to deal with the Q. The integer precision is (32 bits - p). 
 - Intermediary overflows are protected with int64_t casting, end-result overflows will wrap like usual. 
 - Support operator overloading for most common fixed-point arithmetic.
 
-64-bit Fixed-Point Numbers
---------------------------
+Fast 64-bit Fixed-Point Numbers
+-------------------------------
 
-**Relevant Header: Fp64.hpp**
+**Relevant Header: Fp64f.hpp**
 
 - Uses templating to deal with the Q.
 - Intermediary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
 - On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
 the range/precision required.
 
-32-bit Fixed-Point Numbers With Q
----------------------------------
+Slow 32-bit Fixed-Point Numbers
+-------------------------------
 
-**Relevant Header: Fp32Q.hpp**
+**Relevant Header: Fp32s.hpp**
 
 - This library not only stores the 32-bit fixed-point value, but also the Q (number of fractional bits). This gives a more powerful but slower library than the Fp32 and Fp64 libraries. It means you don't have to keep passing in Q as a template parameter.
 
@@ -126,6 +126,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.1.0.0 2013/07/23 Renamed classes Fp32 to Fp32f, Fp64 to Fp64f, and Fp32Q to Fp32s. The f stands designated the faster library, the s for the slower but more powerful library. Updated README accordingly. Updated all tests and benchmarks accordingly.
 v5.0.1.0 2013/07/22 Added 'Relevant Header' sections to all libraries in README. Added comments to Makefile 'clean' and added 'clean-fp' make command.
 v5.0.0.0 2013/07/22 Added new fixed point class which also stores Q (Fp32Q). Slower, but more powerful than the template-based approach used for Fp32 and Fp64 (being able to do casts to other data types is the major improvement). Currently only limited operator support for this library (double cast is supported). Added unit test for double cast on Fp32Q library.
 v4.0.1.0 2013/07/19 Benchmarking now reports time per single test and percentage difference from expected.

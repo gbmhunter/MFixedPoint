@@ -1,5 +1,5 @@
 //!
-//! @file 		FpTest-Fp32Casts.cpp
+//! @file 		FpTest-Fp32fCasts.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/07/12
@@ -7,14 +7,14 @@
 //! @details
 //!				See README.rst in root dir for more info.
 
-// 32-bit fixed-point library which also stores Q.
-#include "../src/include/FixedPoint-Fp32Q.hpp"
+// Slow 32-bit fixed-point library.
+#include "../src/include/FixedPoint-Fp32s.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 
 using namespace Fp;
 
-SUITE(Fp32CastTests)
+SUITE(Fp32fCastTests)
 {
 	TEST(DoubleCastTest)
 	{

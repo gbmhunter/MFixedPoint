@@ -1,5 +1,5 @@
 //!
-//! @file 		FpTest-Fp32CompoundArithmetic.cpp
+//! @file 		FpTest-Fp32fCompoundArithmetic.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/05/30
@@ -8,19 +8,19 @@
 //!				See README.rst
 
 // 32-bit fixed-point library
-#include "../src/include/FixedPoint-Fp32.hpp"
+#include "../src/include/FixedPoint-Fp32f.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 
 using namespace Fp;
 
-SUITE(Fp32Tests)
+SUITE(Fp32fTests)
 {
 
 	TEST(CompoundAdditionTest)
 	{
-		Fp32<8> fp1 = Fp32<8>(3.2);
-		Fp32<8> fp2 = Fp32<8>(0.6);
+		Fp32f<8> fp1 = Fp32f<8>(3.2);
+		Fp32f<8> fp2 = Fp32f<8>(0.6);
 		
 		fp1 += fp2;
 
@@ -29,8 +29,8 @@ SUITE(Fp32Tests)
 
 	TEST(CompoundSubtractionTest)
 	{
-		Fp32<8> fp1 = Fp32<8>(3.2);
-		Fp32<8> fp2 = Fp32<8>(0.6);
+		Fp32f<8> fp1 = Fp32f<8>(3.2);
+		Fp32f<8> fp2 = Fp32f<8>(0.6);
 		
 		fp1 -= fp2;
 
@@ -39,8 +39,8 @@ SUITE(Fp32Tests)
 
 	TEST(CompoundMultiplicationTest)
 	{
-		Fp32<8> fp1 = Fp32<8>(3.2);
-		Fp32<8> fp2 = Fp32<8>(0.6);
+		Fp32f<8> fp1 = Fp32f<8>(3.2);
+		Fp32f<8> fp2 = Fp32f<8>(0.6);
 		
 		fp1 *= fp2;
 
@@ -49,8 +49,8 @@ SUITE(Fp32Tests)
 
 	TEST(CompoundDivisionTest)
 	{
-		Fp32<8> fp1 = Fp32<8>(3.2);
-		Fp32<8> fp2 = Fp32<8>(0.6);
+		Fp32f<8> fp1 = Fp32f<8>(3.2);
+		Fp32f<8> fp2 = Fp32f<8>(0.6);
 		
 		fp1 /= fp2;
 

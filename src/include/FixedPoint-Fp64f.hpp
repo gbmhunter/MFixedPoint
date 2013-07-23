@@ -1,5 +1,5 @@
 //!
-//! @file 		FixedPoint-Fp64.h
+//! @file 		FixedPoint-Fp64f.h
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2013/05/09
 //! @brief 		Fixed-point arithmetic for 64-bit numbers. Be careful of overflow!
@@ -29,8 +29,8 @@
 	#error Please build with C++ compiler
 #endif
 
-#ifndef FP64_H
-#define FP64_H
+#ifndef FP64F_H
+#define FP64F_H
 
 #include <stdint.h>
 
@@ -79,7 +79,7 @@ namespace Fp
 
 	//! @brief		64-bit fixed-point library.
 	//! @details	p may vary from 0-64
-	template<uint8_t p> class Fp64
+	template<uint8_t p> class Fp64f
 	{
 		public:
 			//! @brief		The raw fixed-point value, stored as a int64.
@@ -89,7 +89,7 @@ namespace Fp
 			//! @{
 			
 			//! @brief			Default constructor.
-			Fp64()
+			Fp64f()
 			{
 				// nothing
 			}
@@ -98,7 +98,7 @@ namespace Fp
 			//! @details		Uses initialiser lists. Make sure i is cast
 			//!					to 64-bit before shifting, overwise truncation
 			//!					will occur.
-			Fp64(int32_t i) : rawVal((int64_t)i << p)
+			Fp64f(int32_t i) : rawVal((int64_t)i << p)
 			{
 				// nothing
 			}
@@ -111,7 +111,7 @@ namespace Fp
 			
 			//! @brief		Override for "+=".
 			//! @details	Fixed-point addition and subtractional are done as usual.
-			Fp64& operator += (Fp64 r)
+			Fp64f& operator += (Fp64f r)
 			{
 				rawVal += r.rawVal;
 				return *this;
@@ -119,7 +119,7 @@ namespace Fp
 			
 			//! @brief		Override for "-=".
 			//! @details	Fixed-point addition and subtractional are done as usual.
-			Fp64& operator -= (Fp64 r)
+			Fp64f& operator -= (Fp64f r)
 			{
 				rawVal -= r.rawVal;
 				return *this;
@@ -127,7 +127,7 @@ namespace Fp
 			
 			//! @brief		Override for "*=".
 			//! @details	Used the FixMul() method.
-			Fp64& operator *= (Fp64 r)
+			Fp64f& operator *= (Fp64f r)
 			{ 
 				rawVal = FixMulF<p>(rawVal, r.rawVal);
 				return *this;
@@ -135,7 +135,7 @@ namespace Fp
 			
 			//! @brief		Override for "/=".
 			//! @details	Used the FixDiv() method.
-			Fp64& operator /= (Fp64 r)
+			Fp64f& operator /= (Fp64f r)
 			{ 
 				rawVal = FixDiv<p>(rawVal, r.rawVal);
 				return *this;
@@ -147,41 +147,41 @@ namespace Fp
 			//! @{
 			
 			//! @brief		Override for '+'. Uses compound assignment operator.
-			Fp64 operator + (Fp64 r)
+			Fp64f operator + (Fp64f r)
 			{
-				Fp64 temp = *this;
+				Fp64f temp = *this;
 				temp += r;
 				return temp;
 			}
 			
 			//! @brief		Override for '-'. Uses compound assignment operator.
-			Fp64 operator - (Fp64 r)
+			Fp64f operator - (Fp64f r)
 			{
-				Fp64 temp = *this;
+				Fp64f temp = *this;
 				temp -= r;
 				return temp;
 			}
 			
 			//! @brief		Override for '*'. Uses compound assignment operator.
-			Fp64 operator * (Fp64 r)
+			Fp64f operator * (Fp64f r)
 			{
-				Fp64 temp = *this;
+				Fp64f temp = *this;
 				temp *= r;
 				return temp;
 			}
 			
 			//! @brief		Override for '/'. Uses compound assignment operator.
-			Fp64 operator / (Fp64 r)
+			Fp64f operator / (Fp64f r)
 			{
-				Fp64 temp = *this;
+				Fp64f temp = *this;
 				temp /= r;
 				return temp;
 			}
 			
 			//! @brief		Override for '%'.
-			const Fp64 operator % (Fp64 r) 
+			const Fp64f operator % (Fp64f r) 
 			{
-				Fp64 result;
+				Fp64f result;
 				result.rawVal = rawVal % r.rawVal;
 				return result;
 			}
@@ -191,32 +191,32 @@ namespace Fp
 			//! @defgroup Binary Operators
 			//! @{
 			
-			bool operator == (Fp64 r) const
+			bool operator == (Fp64f r) const
 			{
 				return rawVal == r.rawVal;
 			}
 			
-			bool operator != (Fp64 r) const
+			bool operator != (Fp64f r) const
 			{
 				return !(*this == r);
 			}
 			
-			bool operator <  (Fp64 r) const
+			bool operator <  (Fp64f r) const
 			{
 				return rawVal < r.rawVal;
 			}
 			
-			bool operator >  (Fp64 r) const
+			bool operator >  (Fp64f r) const
 			{
 				return rawVal > r.rawVal;
 			}
 			
-			bool operator <= (Fp64 r) const
+			bool operator <= (Fp64f r) const
 			{
 				return rawVal <= r.rawVal;
 			}
 			
-			bool operator >= (Fp64 r) const
+			bool operator >= (Fp64f r) const
 			{
 				return rawVal >= r.rawVal;
 			}
@@ -231,6 +231,6 @@ namespace Fp
 
 } // namespace Fp
 
-#endif // #ifndef FP64_H
+#endif // #ifndef FP64F_H
 
 // EOF
