@@ -220,40 +220,165 @@ namespace Fp
 		/*explicit*/ Fp32f(float f) : rawVal(FloatToFix32<p>(f)) {}
 		/*explicit*/ Fp32f(double f) : rawVal(FloatToFix32<p>((float)f)) {}
 		
-		Fp32f& operator += (Fp32f r) { rawVal += r.rawVal; return *this; }
-		Fp32f& operator -= (Fp32f r) { rawVal -= r.rawVal; return *this; }
-		Fp32f& operator *= (Fp32f r) { rawVal = FixMul<p>(rawVal, r.rawVal); return *this; }
-		Fp32f& operator /= (Fp32f r) { rawVal = fixdiv<p>(rawVal, r.rawVal); return *this; }
+		// Compound Arithmetic Overloads
 		
-		Fp32f& operator *= (int32_t r) { rawVal *= r; return *this; }
-		Fp32f& operator /= (int32_t r) { rawVal /= r; return *this; }
-		
-		Fp32f operator - () const { Fp32f x; x.rawVal = -rawVal; return x; }
-		Fp32f operator + (Fp32f r) const { Fp32f x = *this; x += r; return x;}
-		Fp32f operator - (Fp32f r) const { Fp32f x = *this; x -= r; return x;}
-		Fp32f operator * (Fp32f r) const { Fp32f x = *this; x *= r; return x;}
-		Fp32f operator / (Fp32f r) const { Fp32f x = *this; x /= r; return x;}
-		
-		//! Operator overload for '%'. Modulo works on bits as long
-		//! as fixed-point numbers are of the same precision.
-		const Fp32f operator % (Fp32f r) 
+		Fp32f& operator += (Fp32f r)
 		{
-			Fp32f result;
-			result.rawVal = rawVal % r.rawVal;
-			return result;
+			rawVal += r.rawVal;
+			return *this;
 		}
 		
-		bool operator == (Fp32f r) const { return rawVal == r.rawVal; }
-		bool operator != (Fp32f r) const { return !(*this == r); }
-		bool operator <  (Fp32f r) const { return rawVal < r.rawVal; }
-		bool operator >  (Fp32f r) const { return rawVal > r.rawVal; }
-		bool operator <= (Fp32f r) const { return rawVal <= r.rawVal; }
-		bool operator >= (Fp32f r) const { return rawVal >= r.rawVal; }
+		Fp32f& operator -= (Fp32f r)
+		{
+			rawVal -= r.rawVal;
+			return *this;
+		}
+		
+		Fp32f& operator *= (Fp32f r)
+		{
+			rawVal = FixMul<p>(rawVal, r.rawVal);
+			return *this;
+		}
+		
+		Fp32f& operator /= (Fp32f r)
+		{
+			rawVal = fixdiv<p>(rawVal, r.rawVal);
+			return *this;
+		}
+		
+		//! @brief		Overlaod for '%=' operator.
+		Fp32f& operator %= (Fp32f r)
+		{
+			rawVal %= r.rawVal;
+			return *this;
+		}
+		
+		Fp32f& operator *= (int32_t r)
+		{
+			rawVal *= r;
+			return *this;
+		}
+		
+		Fp32f& operator /= (int32_t r)
+		{ 
+			rawVal /= r;
+			return *this;
+		}
+		
+		// Simple Arithmetic Overloads
+		
+		//! @brief		Overload for '-itself' operator.
+		Fp32f operator - () const
+		{
+			Fp32f x;
+			x.rawVal = -rawVal;
+			return x;
+		}
+		
+		//! @brief		Overload for '+' operator.
+		//! @details	Uses '+=' operator.
+		Fp32f operator + (Fp32f r) const
+		{
+			Fp32f x = *this;
+			x += r;
+			return x;
+		}
+		
+		//! @brief		Overload for '-' operator.
+		//! @details	Uses '-=' operator.
+		Fp32f operator - (Fp32f r) const
+		{
+			Fp32f x = *this;
+			x -= r;
+			return x;
+		}
+		
+		//! @brief		Overload for '*' operator.
+		//! @details	Uses '*=' operator.
+		Fp32f operator * (Fp32f r) const
+		{
+			Fp32f x = *this;
+			x *= r;
+			return x;
+		}
+		
+		//! @brief		Overload for '/' operator.
+		//! @details	Uses '/=' operator.
+		Fp32f operator / (Fp32f r) const
+		{
+			Fp32f x = *this;
+			x /= r;
+			return x;
+		}
+		
+		//! @brief		Overload for '%' operator.
+		//! @details	Uses '%=' operator.
+		Fp32f operator % (Fp32f r) const
+		{
+			Fp32f x = *this;
+			x %= r;
+			return x;
+		}
+		
+		// Binary Operator Overloads
+		
+		bool operator == (Fp32f r) const
+		{
+			return rawVal == r.rawVal;
+		}
+		
+		bool operator != (Fp32f r) const
+		{
+			return !(*this == r);
+		}
+		
+		bool operator <  (Fp32f r) const
+		{
+			return rawVal < r.rawVal;
+		}
+		
+		bool operator >  (Fp32f r) const
+		{
+			return rawVal > r.rawVal;
+		}
+		
+		bool operator <= (Fp32f r) const
+		{
+			return rawVal <= r.rawVal;
+		}
+		
+		bool operator >= (Fp32f r) const
+		{
+			return rawVal >= r.rawVal;
+		}
 
-		Fp32f operator + (int32_t r) const { Fp32f x = *this; x += r; return x;}
-		Fp32f operator - (int32_t r) const { Fp32f x = *this; x -= r; return x;}
-		Fp32f operator * (int32_t r) const { Fp32f x = *this; x *= r; return x;}
-		Fp32f operator / (int32_t r) const { Fp32f x = *this; x /= r; return x;}
+		Fp32f operator + (int32_t r) const
+		{
+			Fp32f x = *this;
+			x += r;
+			return x;
+		}
+		
+		Fp32f operator - (int32_t r) const
+		{
+			Fp32f x = *this;
+			x -= r;
+			return x;
+		}
+		
+		Fp32f operator * (int32_t r) const
+		{
+			Fp32f x = *this;
+			x *= r;
+			return x;
+		}
+		
+		Fp32f operator / (int32_t r) const
+		{
+			Fp32f x = *this;
+			x /= r;
+			return x;
+		}
 	};
 
 	// Specializations for use with plain integers

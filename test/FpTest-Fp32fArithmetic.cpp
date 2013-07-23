@@ -5,16 +5,16 @@
 //! @date 		2013/05/30
 //! @brief 		Performs unit tests on the 32-bit fixed point arithmetic.
 //! @details
-//!				See README.rst
+//!				See README.rst in root dir for more info.
 
-// 32-bit fixed-point library
+// Fast 32-bit fixed-point library
 #include "../src/include/FixedPoint-Fp32f.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 
 using namespace Fp;
 
-SUITE(Fp32fTests)
+SUITE(Fp32fArithmeticTests)
 {
 
 	TEST(PositiveAdditionTest)

@@ -61,16 +61,327 @@ namespace Fp
 			q = qin;
 		}
 		
+		// Compound Arithmetic Operators
+		
+		//! @brief		Overload for '+=' operator.
 		Fp32s& operator += (Fp32s r)
 		{ 
-			if(q > r.q)
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
 			{
 				// First number smaller
-				rawVal = (rawVal > (q - r.q)) + r.rawVal; 
-				q = q - r.q;
+				rawVal = rawVal + r.rawVal;
+				// No need to change Q, both are the same
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				rawVal = (rawVal >> (q - r.q)) + r.rawVal; 
+				// Change Q
+				q = r.q;
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				rawVal = rawVal + (r.rawVal >> (r.q - q)); 
+				// No need to change Q
 			}
 			return *this;
 		}
+		
+		//! @brief		Overload for '-=' operator.
+		Fp32s& operator -= (Fp32s r)
+		{ 
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				rawVal = rawVal - r.rawVal;
+				// No need to change Q, both are the same
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				rawVal = (rawVal >> (q - r.q)) - r.rawVal; 
+				// Change Q
+				q = r.q;
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				rawVal = rawVal - (r.rawVal >> (r.q - q)); 
+				// No need to change Q
+			}
+			return *this;
+		}
+		
+		//! @brief		Overlaod for '*=' operator.
+		//! @details	Uses intermediatary casting to int64_t to prevent overflows.
+		Fp32s& operator *= (Fp32s r)
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers, shift right by Q
+				rawVal = (int32_t)(((int64_t)rawVal * (int64_t)r.rawVal) >> q);
+				// No need to change Q, both are the same
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				rawVal = (int32_t)((((int64_t)rawVal >> (q - r.q)) * (int64_t)r.rawVal) >> r.q); 
+				// Change Q
+				q = r.q;
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				rawVal = (int32_t)(((int64_t)rawVal * ((int64_t)r.rawVal >> (r.q - q))) >> q); 
+				// No need to change Q
+			}
+			return *this;
+		}
+		
+		//! @brief		Overlaod for '/=' operator.
+		//! @details	Uses intermediatary casting to int64_t to prevent overflows.
+		Fp32s& operator /= (Fp32s r)
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers, shift right by Q
+				rawVal = (int32_t)((((int64_t)rawVal << q) / (int64_t)r.rawVal));
+				// No need to change Q, both are the same
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				rawVal = (int32_t)(((((int64_t)rawVal >> (q - r.q)) << r.q) / (int64_t)r.rawVal)); 
+				// Change Q
+				q = r.q;
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				rawVal = (int32_t)(((int64_t)rawVal << q) / ((int64_t)r.rawVal >> (r.q - q))); 
+				// No need to change Q
+			}
+			return *this;
+		}
+		
+		//! @brief		Overlaod for '%=' operator.
+		Fp32s& operator %= (Fp32s r)
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				rawVal = rawVal % r.rawVal;
+				// No need to change Q, both are the same
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				rawVal = (rawVal >> (q - r.q)) % r.rawVal; 
+				// Change Q
+				q = r.q;
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				rawVal = rawVal % (r.rawVal >> (r.q - q)); 
+				// No need to change Q
+			}
+			return *this;
+		}
+		
+		// Simple Arithmetic Operators
+		
+		//! @brief		Overload for '+' operator.
+		//! @details	Uses '+=' operator.
+		Fp32s operator + (Fp32s r) const
+		{
+			Fp32s x = *this;
+			x += r;
+			return x;
+		}
+		
+		//! @brief		Overload for '-' operator.
+		//! @details	Uses '-=' operator.
+		Fp32s operator - (Fp32s r) const
+		{
+			Fp32s x = *this;
+			x -= r;
+			return x;
+		}
+		
+		//! @brief		Overload for '*' operator.
+		//! @details	Uses '*=' operator.
+		Fp32s operator * (Fp32s r) const
+		{
+			Fp32s x = *this;
+			x *= r;
+			return x;
+		}
+		
+		//! @brief		Overload for '/' operator.
+		//! @details	Uses '/=' operator.
+		Fp32s operator / (Fp32s r) const
+		{
+			Fp32s x = *this;
+			x /= r;
+			return x;
+		}
+		
+		//! @brief		Overload for '%' operator.
+		//! @details	Uses '%=' operator.
+		Fp32s operator % (Fp32s r) const
+		{
+			Fp32s x = *this;
+			x %= r;
+			return x;
+		}
+		
+		// Binary Operator Overloads
+		
+		//! @brief		Overload for the '==' operator.
+		bool operator == (Fp32s r) const
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				return rawVal == r.rawVal;
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				return (rawVal >> (q - r.q)) == r.rawVal; 
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				return rawVal == (r.rawVal >> (r.q - q)); 
+			}
+		}
+		
+		//! @brief		Overload for the '!=' operator.
+		bool operator != (Fp32s r) const
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				return rawVal != r.rawVal;
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				return (rawVal >> (q - r.q)) != r.rawVal; 
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				return rawVal != (r.rawVal >> (r.q - q)); 
+			}
+		}
+		
+		//! @brief		Overload for the '<' operator.
+		bool operator < (Fp32s r) const
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				return rawVal < r.rawVal;
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				return (rawVal >> (q - r.q)) < r.rawVal; 
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				return rawVal < (r.rawVal >> (r.q - q)); 
+			}
+		}
+
+		//! @brief		Overload for the '>' operator.
+		bool operator > (Fp32s r) const
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				return rawVal > r.rawVal;
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				return (rawVal >> (q - r.q)) > r.rawVal; 
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				return rawVal > (r.rawVal >> (r.q - q)); 
+			}
+		}
+		
+		//! @brief		Overload for the '<=' operator.
+		bool operator <= (Fp32s r) const
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				return rawVal <= r.rawVal;
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				return (rawVal >> (q - r.q)) <= r.rawVal; 
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				return rawVal <= (r.rawVal >> (r.q - q)); 
+			}
+		}
+		
+		//! @brief		Overload for the '>=' operator.
+		bool operator >= (Fp32s r) const
+		{
+			// Optimised for when q is the same for both
+			// operators (first if statement).
+			if(q == r.q)
+			{
+				// Q the same for both numbers
+				return rawVal >= r.rawVal;
+			}
+			else if(q > r.q)
+			{
+				// Second number has smaller Q, so result is in that precision
+				return (rawVal >> (q - r.q)) >= r.rawVal; 
+			}
+			else // q < r.q
+			{
+				// First number has smaller Q, so result is in that precision
+				return rawVal >= (r.rawVal >> (r.q - q)); 
+			}
+		}
+		
+		// Conversion Operator Overloads (casts)
 		
 		//! @brief		Conversion operator from fixed-point to int32_t.
 		operator int32_t()

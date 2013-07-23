@@ -3,20 +3,19 @@
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/05/30
-//! @brief 		Performs unit tests on the 32-bit fixed point compound arithmetic.
+//! @brief 		Performs unit tests on the fast 32-bit fixed point compound arithmetic.
 //! @details
-//!				See README.rst
+//!				See README.rst in root dir for more info.
 
-// 32-bit fixed-point library
+// Fast 32-bit fixed-point library
 #include "../src/include/FixedPoint-Fp32f.hpp"
 
 #include "./UnitTest++/src/UnitTest++.h"
 
 using namespace Fp;
 
-SUITE(Fp32fTests)
+SUITE(Fp32fCompoundArithmeticTests)
 {
-
 	TEST(CompoundAdditionTest)
 	{
 		Fp32f<8> fp1 = Fp32f<8>(3.2);
@@ -55,5 +54,16 @@ SUITE(Fp32fTests)
 		fp1 /= fp2;
 
 		CHECK_CLOSE(5.33, Fix32ToFloat<8>(fp1.rawVal), 0.1);
+	}
+	
+	TEST(CompoundModuloTest)
+	{
+		Fp32f<8> fp1 = Fp32f<8>(20.2);
+		Fp32f<8> fp2 = Fp32f<8>(1.5);
+		
+		fp1 %= fp2;
+		//20.2 % 1.5 = 0.7
+		
+		CHECK_CLOSE(0.7, Fix32ToFloat<8>(fp1.rawVal), 0.1);
 	}
 }
