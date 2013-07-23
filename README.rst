@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/23
-- Version: v5.1.0.0
+- Version: v5.1.0.1
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -75,9 +75,9 @@ To run the makefile, open a terminal in the root directory of this library, and 
 
 ::
 
-	make test
+	make all
 	
-To clean all compiled object files, run:
+To clean all files as a result of compilation, run:
 
 ::
 
@@ -88,21 +88,21 @@ Usage
 
 ::
 
-#include "/src/include/FixedPoint-Fp32.hpp"
-#include "/src/include/FixedPoint-Fp64.hpp"
+#include "/src/include/FixedPoint-Fp32f.hpp"
+#include "/src/include/FixedPoint-Fp64f.hpp"
 
 int main()
 {
 	// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
 	// This constructor converts from doubles
-	Fp32<8> aFpNum1 = Fp32<8>(3.2);
-	Fp32<8> aFpNum2 = Fp32<8>(0.6);
+	Fp32f<8> aFpNum1 = Fp32f<8>(3.2);
+	Fp32f<8> aFpNum2 = Fp32f<8>(0.6);
 	
 	// Performing a quick fixed-point addition
-	Fp32<8> aFpNum3 = aFpNum1 + aFpNum2;
+	Fp32f<8> aFpNum3 = aFpNum1 + aFpNum2;
 	
 	// Performing a quick fixed-point multiplication
-	Fp32<8> aFpNm4 = aFpNum1 * aFpNum2;
+	Fp32f<8> aFpNm4 = aFpNum1 * aFpNum2;
 	
 	// Converting fixed-point back to double. Requires you
 	// to pass the raw value (which can be accessed with
@@ -111,11 +111,11 @@ int main()
 	
 	// Converting between different precisions. Requires access to raw value just like
 	// when doing fixed-point to double conversion.
-	Fp32<20> aHigherPrecisionNum = Fp32<20>(7.5);
-	Fp32<12> aLowerPrecisionNum.rawVal = aHigherPrecisionNum.rawVal >> (20 - 12);
+	Fp32f<20> aHigherPrecisionNum = Fp32f<20>(7.5);
+	Fp32f<12> aLowerPrecisionNum.rawVal = aHigherPrecisionNum.rawVal >> (20 - 12);
 	
 	// You can use 64-bit fixed point numbers in exactly the same way!
-	Fp64<48> aFp64Num = Fp64<48>(4.58676);
+	Fp64f<48> aFp64Num = Fp64f<48>(4.58676);
 	
 	return 0;
 }
@@ -126,6 +126,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.1.0.1 2013/07/23 Updated 'Usage' section of README to reflect new class names. Changed 'make test' to 'make all' in 'Compiling' section.
 v5.1.0.0 2013/07/23 Renamed classes Fp32 to Fp32f, Fp64 to Fp64f, and Fp32Q to Fp32s. The f stands designated the faster library, the s for the slower but more powerful library. Updated README accordingly. Updated all tests and benchmarks accordingly.
 v5.0.1.0 2013/07/22 Added 'Relevant Header' sections to all libraries in README. Added comments to Makefile 'clean' and added 'clean-fp' make command.
 v5.0.0.0 2013/07/22 Added new fixed point class which also stores Q (Fp32Q). Slower, but more powerful than the template-based approach used for Fp32 and Fp64 (being able to do casts to other data types is the major improvement). Currently only limited operator support for this library (double cast is supported). Added unit test for double cast on Fp32Q library.
