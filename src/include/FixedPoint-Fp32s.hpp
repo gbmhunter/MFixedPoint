@@ -1,9 +1,9 @@
 //!
-//! @file 		Fp32Q.hpp
+//! @file 		FixedPoint-Fp32s.hpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/07/22
-//! @brief 		32-bit fixed point library that also stores Q.
+//! @brief 		A slower, more powerful 32-bit fixed point library.
 //! @details
 //!				See README.rst in root dir for more info.
 
@@ -15,8 +15,8 @@
 	#error Please build with C++ compiler
 #endif
 
-#ifndef FP32Q_H
-#define FP32Q_H
+#ifndef FP32S_H
+#define FP32S_H
 
 #include <stdint.h>
 
@@ -32,7 +32,7 @@ namespace Fp
 	//! The template argument p in all of the following functions refers to the 
 	//! fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
 	//! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
-	class Fp32Q {
+	class Fp32s {
 		
 		public:
 		
@@ -42,26 +42,26 @@ namespace Fp
 		//! @brief		This stores the number of fractional bits.
 		uint8_t q;
 		
-		Fp32Q()
+		Fp32s()
 		{
 			#if(fpConfig_PRINT_DEBUG_GENERAL == 1)
 				//Port::DebugPrint("FP: New fixed-point object created.");
 			#endif
 		}
 		
-		Fp32Q(int32_t i, uint8_t qin)
+		Fp32s(int32_t i, uint8_t qin)
 		{
 			rawVal = i << qin;
 			q = qin;
 		}
 		
-		Fp32Q(double dbl, uint8_t qin)
+		Fp32s(double dbl, uint8_t qin)
 		{
 			rawVal = (int32_t)(dbl * (1 << qin));
 			q = qin;
 		}
 		
-		Fp32Q& operator += (Fp32Q r)
+		Fp32s& operator += (Fp32s r)
 		{ 
 			if(q > r.q)
 			{
@@ -72,51 +72,39 @@ namespace Fp
 			return *this;
 		}
 		
+		//! @brief		Conversion operator from fixed-point to int32_t.
+		operator int32_t()
+		{
+			// Right-shift to get rid of all the decimal bits
+			return (rawVal >> q);
+		}
+		
+		//! @brief		Conversion operator from fixed-point to int64_t.
+		operator int64_t()
+		{
+			// Right-shift to get rid of all the decimal bits
+			return (int64_t)(rawVal >> q);
+		}
+		
+		//! @brief		Conversion operator from fixed-point to float.
+		//! @note		Similar to double conversion.
+		operator float()
+		{ 
+			return (float)rawVal / (float)(1 << q);
+		}
+		
 		//! @brief		Conversion operator from fixed-point to double.
+		//! @note		Similar to float conversion.
 		operator double()
 		{ 
 			return (double)rawVal / (double)(1 << q);
 		}
 		
-		/*
-		Fp32f& operator -= (Fp32f r) { rawVal -= r.rawVal; return *this; }
-		Fp32f& operator *= (Fp32f r) { rawVal = FixMul<p>(rawVal, r.rawVal); return *this; }
-		Fp32f& operator /= (Fp32f r) { rawVal = fixdiv<p>(rawVal, r.rawVal); return *this; }
-		
-		Fp32f& operator *= (int32_t r) { rawVal *= r; return *this; }
-		Fp32f& operator /= (int32_t r) { rawVal /= r; return *this; }
-		
-		Fp32f operator - () const { Fp32f x; x.rawVal = -rawVal; return x; }
-		Fp32f operator + (Fp32f r) const { Fp32f x = *this; x += r; return x;}
-		Fp32f operator - (Fp32f r) const { Fp32f x = *this; x -= r; return x;}
-		Fp32f operator * (Fp32f r) const { Fp32f x = *this; x *= r; return x;}
-		Fp32f operator / (Fp32f r) const { Fp32f x = *this; x /= r; return x;}
-		
-		//! Operator overload for '%'. Modulo works on bits as long
-		//! as fixed-point numbers are of the same precision.
-		const Fp32f operator % (Fp32f r) 
-		{
-			Fp32f result;
-			result.rawVal = rawVal % r.rawVal;
-			return result;
-		}
-		
-		bool operator == (Fp32f r) const { return rawVal == r.rawVal; }
-		bool operator != (Fp32f r) const { return !(*this == r); }
-		bool operator <  (Fp32f r) const { return rawVal < r.rawVal; }
-		bool operator >  (Fp32f r) const { return rawVal > r.rawVal; }
-		bool operator <= (Fp32f r) const { return rawVal <= r.rawVal; }
-		bool operator >= (Fp32f r) const { return rawVal >= r.rawVal; }
-
-		Fp32f operator + (int32_t r) const { Fp32f x = *this; x += r; return x;}
-		Fp32f operator - (int32_t r) const { Fp32f x = *this; x -= r; return x;}
-		Fp32f operator * (int32_t r) const { Fp32f x = *this; x *= r; return x;}
-		Fp32f operator / (int32_t r) const { Fp32f x = *this; x /= r; return x;}
-		*/
+	
 	};
 
-} // namespace Fp32Q
+} // namespace Fp
 
-#endif // #ifndef FP32Q_H
+#endif // #ifndef FP32S_H
 
 // EOF

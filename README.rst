@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/23
-- Version: v5.1.0.1
+- Version: v5.1.1.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -126,6 +126,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.1.1.0 2013/07/23 Added cast support to int32_t and float. Changed Suite name Fp32fCastTests to Fp32sCastTests. Renamed Fp32Q class to Fp32s (was meant to do this in v5.1.0.0), and updated tests/benchmarks accordingly. Added to all unit test filenames either 'f' or 's' to reflect new class names.
 v5.1.0.1 2013/07/23 Updated 'Usage' section of README to reflect new class names. Changed 'make test' to 'make all' in 'Compiling' section.
 v5.1.0.0 2013/07/23 Renamed classes Fp32 to Fp32f, Fp64 to Fp64f, and Fp32Q to Fp32s. The f stands designated the faster library, the s for the slower but more powerful library. Updated README accordingly. Updated all tests and benchmarks accordingly.
 v5.0.1.0 2013/07/22 Added 'Relevant Header' sections to all libraries in README. Added comments to Makefile 'clean' and added 'clean-fp' make command.
