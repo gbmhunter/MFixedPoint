@@ -1,9 +1,9 @@
 //!
-//! @file 		FpTest-Fp32fTypeConversion.cpp
+//! @file 		FpTest-Fp32fToFpTypeConversion.cpp
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @edited 	n/a
 //! @date 		2013/05/30
-//! @brief 		Performs unit tests on the 32-bit fixed point library (Fp32f).
+//! @brief 		Performs type conversion unit tests on the 32-bit fixed point library (Fp32f).
 //! @details
 //!				See README.rst in root dir for more info.
 

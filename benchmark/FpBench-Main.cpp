@@ -137,7 +137,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, "Fp32f Addition", NUM_TESTS, ADDITION_AVG);
+	PrintMetrics(tu, (char*)"Fp32f Addition", NUM_TESTS, ADDITION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
@@ -153,7 +153,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, "Fp32f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"Fp32f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
@@ -169,7 +169,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, "Fp64f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"Fp64f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
@@ -185,7 +185,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, "Fp64s Addition", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"Fp64s Addition", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 	
 	tu = StartTimeMeasuring();
@@ -200,6 +200,6 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, "Fp64s Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"Fp64s Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 }

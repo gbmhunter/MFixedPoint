@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/24
-- Version: v5.4.0.0
+- Version: v5.4.1.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -55,6 +55,8 @@ The Slow Libraries (Fp32s, Fp64s)
 The number of bits used for the decimal part of the number (Q) is given as a function argument (e.g. Fp32s(3.4, 12) will create the number 3.4 with 12 bits of decimal precision). The Q is stored in the fixed-point object. This gives slightly slower arithmetic speed than the fast libraries, but allows for more functionality.
 
 The extra functionality includes the ability to add two numbers with a different Q transparently, and to ability to cast the fixed-point number into different types (e.g. (double)myFp32sNum will convert the number to a double).
+
+When adding two fixed-point numbers which have a different Q, the result's Q is always that of lowest Q of the two operands. For example Fp32s(3.4, 10) + Fp32s(1.2, 14) will result in Fp32s(4.6, 10). 
 
 Casting to an int rounds down to the nearest integer; e.g. 5.67 becomes 5, and -12.2 becomes -13.
 
@@ -135,6 +137,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.1.0 2013/07/24 Merged type conversion and cast unit tests. Got rid of 'Deprecated Conversion To String Constant' compiler warnings. Added arithmetic unit tests for variables with different Q (applicable to the slow libraries only).
 v5.4.0.0 2013/07/24 Added compound arithmetic unit tests for Fp64f library. Added conversions from float/double to Fp64f. Fixed negative int unit tests from failing by changing expected value (it rounds down to the nearest int). Added more tests to benchmark program. Added notes to README about benchmarking program.
 v5.3.0.1 2013/07/24 Updated README to describe the differences between the four libraries better.
 v5.3.0.0 2013/07/24 Added fixed-point, 64-bit, slow library (Fp64s). Added relevant unit tests. Added relevant notes to README.
