@@ -5,7 +5,7 @@
 //! @date 		2013/05/30
 //! @brief 		Has the entry point for the benchmark program.
 //! @details
-//!				See README.rst
+//!				See README.rst in root dir for more info.
 
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -14,6 +14,12 @@
 
 // Fast 32-bit fixed-point library
 #include "../src/include/FixedPoint-Fp32f.hpp"
+
+// Fast 64-bit fixed-point library
+#include "../src/include/FixedPoint-Fp64f.hpp"
+
+// Slow 64-bit fixed-point library
+#include "../src/include/FixedPoint-Fp64s.hpp"
 
 using namespace Fp;
 
@@ -110,6 +116,14 @@ int main()
 	Fp32f<8> fp1 = Fp32f<8>(5.6);
 	Fp32f<8> fp2 = Fp32f<8>(8.9);
 	Fp32f<8> fp3;
+	
+	Fp64f<8> fp64f1 = Fp64f<8>(5.6);
+	Fp64f<8> fp64f2 = Fp64f<8>(8.9);
+	Fp64f<8> fp64f3;
+	
+	Fp64s fp64s1 = Fp64s(5.6, 12);
+	Fp64s fp64s2 = Fp64s(8.9, 12);
+	Fp64s fp64s3;
 
 	time_measure * tu = StartTimeMeasuring();
 	
@@ -141,5 +155,51 @@ int main()
 	StopTimeMeasuring(tu);
 	PrintMetrics(tu, "Fp32f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	//PrintMeasuredTime(tu);
+	free(tu);
+	
+	tu = StartTimeMeasuring();
+	
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++)
+		{
+			fp64f3 = fp64f1 - fp64f2;
+		}
+	
+	}
+	
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, "Fp64f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	//PrintMeasuredTime(tu);
+	free(tu);
+	
+	tu = StartTimeMeasuring();
+	
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++)
+		{
+			fp64s3 = fp64s1 + fp64s2;
+		}
+	
+	}
+	
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, "Fp64s Addition", NUM_TESTS, SUBTRACTION_AVG);
+	free(tu);
+	
+	tu = StartTimeMeasuring();
+	
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++)
+		{
+			fp64s3 = fp64s1 - fp64s2;
+		}
+	
+	}
+	
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, "Fp64s Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 }

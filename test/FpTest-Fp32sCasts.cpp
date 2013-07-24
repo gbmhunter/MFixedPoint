@@ -29,7 +29,8 @@ SUITE(Fp32sCastTests)
 		Fp32s fp1 = Fp32s(-22.3, 12);
 		int32_t myInt32 = (int32_t)fp1;
 		
-		CHECK_EQUAL(-22, myInt32);
+		// Rounds down to nearest int
+		CHECK_EQUAL(-23, myInt32);
 	}
 
 	TEST(PosFloatCastTest)

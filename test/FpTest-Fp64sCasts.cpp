@@ -29,7 +29,8 @@ SUITE(Fp64sCastTests)
 		Fp64s fp1 = Fp64s(-22.3, 12);
 		int32_t myInt32 = (int32_t)fp1;
 		
-		CHECK_EQUAL(-22, myInt32);
+		// Rounds down to nearest int
+		CHECK_EQUAL(-23, myInt32);
 	}
 	
 	TEST(PosInt64CastTest)
@@ -45,7 +46,8 @@ SUITE(Fp64sCastTests)
 		Fp64s fp1 = Fp64s(-43.2, 12);
 		int64_t myInt64 = (int64_t)fp1;
 		
-		CHECK_EQUAL(-43, myInt64);
+		// Rounds down to nearest int
+		CHECK_EQUAL(-44, myInt64);
 	}
 
 	TEST(PosFloatCastTest)

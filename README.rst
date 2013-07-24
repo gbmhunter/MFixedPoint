@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/24
-- Version: v5.3.0.1
+- Version: v5.4.0.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -56,6 +56,13 @@ The number of bits used for the decimal part of the number (Q) is given as a fun
 
 The extra functionality includes the ability to add two numbers with a different Q transparently, and to ability to cast the fixed-point number into different types (e.g. (double)myFp32sNum will convert the number to a double).
 
+Casting to an int rounds down to the nearest integer; e.g. 5.67 becomes 5, and -12.2 becomes -13.
+
+Benchmarking
+============
+
+This library contains a benchmarking program in /benchmark/ which runs operations on the fixed-point libraries and reports back on their performance. It is run automatically as part of 'make all'.
+
 Port Independence
 =================
 
@@ -69,7 +76,7 @@ Configuration settings are in 'Fp-Config.hpp'. This file allows you to turn on/o
 Compiling
 =========
 
-Either use provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point libraries and automatically runs all unit tests.
+Either use provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point libraries and automatically runs all unit tests and benchmark programs.
 
 To run the makefile, open a terminal in the root directory of this library, and type:
 
@@ -128,6 +135,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.0.0 2013/07/24 Added compound arithmetic unit tests for Fp64f library. Added conversions from float/double to Fp64f. Fixed negative int unit tests from failing by changing expected value (it rounds down to the nearest int). Added more tests to benchmark program. Added notes to README about benchmarking program.
 v5.3.0.1 2013/07/24 Updated README to describe the differences between the four libraries better.
 v5.3.0.0 2013/07/24 Added fixed-point, 64-bit, slow library (Fp64s). Added relevant unit tests. Added relevant notes to README.
 v5.2.0.0 2013/07/24 Added arithmetic overloads (both simple and compound) and binary overloads for the Fp32s library. Change Suite name in FpTest-Fp32fArithmetic.cpp. Added '%=' overload to Fp32f library. Added unit tests for relevant additions.

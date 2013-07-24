@@ -4,21 +4,8 @@
 //! @date 		2013/05/09
 //! @brief 		Fixed-point arithmetic for 64-bit numbers. Be careful of overflow!
 //! @details
-//!		<b>Last Modified:			</b> 2013/05/09					\n
-//!		<b>Version:					</b> (see Fp.hpp)				\n
-//!		<b>Company:					</b> CladLabs					\n
-//!		<b>Project:					</b> CladLabs Free Code Libs	\n
-//!		<b>Language:				</b> C							\n
-//!		<b>Compiler:				</b> GCC						\n
-//! 	<b>uC Model:				</b> PSoC5						\n
-//!		<b>Computer Architecture:	</b> ARM						\n
-//! 	<b>Operating System:		</b> FreeRTOS v7.2.0			\n
-//!		<b>Documentation Format:	</b> Doxygen					\n
-//!		<b>License:					</b> (see below)				\n
+//!				See README.rst in root dir for more info.
 //!
-//! 64-bit fixed-point numbers do not have the same multiplication/division overflow protection that 32-bit
-//! ones do (Fp.h). This is because a 128-bit intermediatry would be needed, which is
-//! largely unsupported on embedded platforms.
 
 
 //===============================================================================================//
@@ -72,7 +59,7 @@ namespace Fp
 	//! @details	Good for inputting values into fixed-point arithmetic
 	//! @warning	Slow!
 	template <int32_t p>
-	int64_t FloatToFix32(float f)
+	int64_t FloatToFix64(float f)
 	{
 		return (int64_t)(f * (1 << p));
 	}
@@ -99,6 +86,20 @@ namespace Fp
 			//!					to 64-bit before shifting, overwise truncation
 			//!					will occur.
 			Fp64f(int32_t i) : rawVal((int64_t)i << p)
+			{
+				// nothing
+			}
+			
+			Fp64f(int64_t i) : rawVal(i << p)
+			{
+				// nothing
+			}
+			
+			Fp64f(float f) : rawVal(FloatToFix64<p>(f))
+			{
+				// nothing
+			}
+			Fp64f(double f) : rawVal(FloatToFix64<p>((double)f))
 			{
 				// nothing
 			}
@@ -141,6 +142,13 @@ namespace Fp
 				return *this;
 			}
 			
+			//! @brief		Override for "%=".
+			Fp64f& operator %= (Fp64f r)
+			{ 
+				rawVal = rawVal % r.rawVal;
+				return *this;
+			}
+			
 			//! @}
 			
 			//! @defgroup Arithmetic Operators
@@ -178,12 +186,12 @@ namespace Fp
 				return temp;
 			}
 			
-			//! @brief		Override for '%'.
+			//! @brief		Override for '%'. Uses compound assignment operator.
 			const Fp64f operator % (Fp64f r) 
 			{
-				Fp64f result;
-				result.rawVal = rawVal % r.rawVal;
-				return result;
+				Fp64f temp = *this;
+				temp %= r;
+				return temp;
 			}
 			
 			//! @}
