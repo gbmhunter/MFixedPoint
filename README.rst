@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/24
-- Version: v5.3.0.0
+- Version: v5.3.0.1
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -19,52 +19,42 @@ Embedded Fixed-Point Library
 Description
 ===========
 
-32-bit and 64-bit fixed-point library for fast arithmetic operations. Suitable for performing computationally intensive operations
+32-bit and 64-bit fixed-point libraries for fast arithmetic operations. Suitable for performing computationally intensive operations
 on a computing platform that does not have a floating-point unit (like most smaller embedded systems, such as Cortex-M3, CortexM0,
 ATmega, PSoC 5, PSoC 5 LP, PSoC 4, Arduino platforms e.t.c). Common applications include BLDC motor control and image processing.
 Best performance on a 32-bit or higher architecture (although 8-bit architectures should still be fine). 
 
-Designed to be a fully-functional data type (e.g. supports operator overloads and implicit/explicit casting). Can be used with
-most other CladLabs C++ libraries that use data type templates (e.g. the PID library: Cpp-Pid, or the
-linear interpolation library: Cpp-LinInterp).
+The libraries are designed to be a fully-functional data types within their limits (e.g. supports operator overloads and implicit/explicit casting). Can be used with
+most libraries that use data type templates.
 
-Fixed-point numbers are signed. Class supports dynamic precision, determined with variable p which denotes fractional precision. 
+Fixed-point numbers are signed. 
 
-Fast 32-bit Fixed-Point Numbers
--------------------------------
+The 32-bit Libraries (Fp32f, Fp32s)
+-----------------------------------
 
-**Relevant Header: Fp32f.hpp**
+Intermediary overflows are protected with int64_t casting, end-result overflows will wrap like usual. 
 
-- Uses templating to deal with the Q. The integer precision is (32 bits - p). 
-- Intermediary overflows are protected with int64_t casting, end-result overflows will wrap like usual. 
-- Support operator overloading for most common fixed-point arithmetic.
+The 64-bit Libraries (Fp64f, Fp64s)
+-----------------------------------
 
-Fast 64-bit Fixed-Point Numbers
--------------------------------
+Intermediary overflows are **NOT** protected from overflowing, due to the inability of intermediate casting to int128_t on most embedded platforms.
 
-**Relevant Header: Fp64f.hpp**
-
-- Uses templating to deal with the Q.
-- Intermediary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
-- On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
+On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
 the range/precision required.
 
-Slow 32-bit Fixed-Point Numbers
--------------------------------
+The Fast Libraries (Fp32f, Fp64f)
+---------------------------------
 
-**Relevant Header: Fp32s.hpp**
+The number of bits used for the decimal part of the number (Q) is given as a template parameter (e.g. Fp32f<12>(3.4) will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality.
 
-- This library not only stores the 32-bit fixed-point value, but also the Q (number of fractional bits). This gives a more powerful but slower library than the Fp32 and Fp64 libraries. It means you don't have to keep passing in Q as a template parameter.
+You have to be aware that when adding numbers with different Q, you have to perform the bit-shifting yourself. Also, if you want to convert a fast fixed-point number to a double, you cannot use a cast (e.g. (double)myFp32fNum won't work, you have to use provided functions (e.g. Fix32ToDouble(myFp32fNum);).
 
-Slow 64-bit Fixed-Point Numbers
--------------------------------
+The Slow Libraries (Fp32s, Fp64s)
+---------------------------------
 
-**Relevant Header: Fp64s.hpp**
+The number of bits used for the decimal part of the number (Q) is given as a function argument (e.g. Fp32s(3.4, 12) will create the number 3.4 with 12 bits of decimal precision). The Q is stored in the fixed-point object. This gives slightly slower arithmetic speed than the fast libraries, but allows for more functionality.
 
-- This library not only stores the 64-bit fixed-point value, but also the Q (number of fractional bits). This gives a more powerful but slower library than the Fp32 and Fp64 libraries. It means you don't have to keep passing in Q as a template parameter.
-- Intermediary overflows are **NOT** protected from overflowing, due to the inability of converting to int128_t on most embedded platforms.
-- On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
-the range/precision required.
+The extra functionality includes the ability to add two numbers with a different Q transparently, and to ability to cast the fixed-point number into different types (e.g. (double)myFp32sNum will convert the number to a double).
 
 Port Independence
 =================
@@ -79,7 +69,7 @@ Configuration settings are in 'Fp-Config.hpp'. This file allows you to turn on/o
 Compiling
 =========
 
-Either use provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point library and automatically runs unit tests.
+Either use provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point libraries and automatically runs all unit tests.
 
 To run the makefile, open a terminal in the root directory of this library, and type:
 
@@ -95,6 +85,8 @@ To clean all files as a result of compilation, run:
 
 Usage
 =====
+
+See the unit tests in ./test/ for more usage examples!
 
 ::
 
@@ -136,6 +128,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.3.0.1 2013/07/24 Updated README to describe the differences between the four libraries better.
 v5.3.0.0 2013/07/24 Added fixed-point, 64-bit, slow library (Fp64s). Added relevant unit tests. Added relevant notes to README.
 v5.2.0.0 2013/07/24 Added arithmetic overloads (both simple and compound) and binary overloads for the Fp32s library. Change Suite name in FpTest-Fp32fArithmetic.cpp. Added '%=' overload to Fp32f library. Added unit tests for relevant additions.
 v5.1.1.0 2013/07/23 Added cast support to int32_t and float. Changed Suite name Fp32fCastTests to Fp32sCastTests. Renamed Fp32Q class to Fp32s (was meant to do this in v5.1.0.0), and updated tests/benchmarks accordingly. Added to all unit test filenames either 'f' or 's' to reflect new class names.
