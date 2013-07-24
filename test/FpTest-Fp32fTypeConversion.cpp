@@ -37,7 +37,7 @@ SUITE(Fp32fTypeConversionTests)
 		CHECK_EQUAL((int32_t)0b11111111111111111111110011001101, fp1.rawVal);
 	}
 
-	// Now check float->double conversion as the
+	// Now check float->fix conversion as the
 	// rest of the tests depend on it
 	TEST(PositiveFixedToFloatConversionTest)
 	{
@@ -51,6 +51,22 @@ SUITE(Fp32fTypeConversionTests)
 		Fp32f<8> fp1 = Fp32f<8>(-3.2);
 
 		CHECK_CLOSE(-3.2, Fix32ToFloat<8>(fp1.rawVal), 0.1);
+	}
+	
+	// Now check fix->double conversion as the
+	// rest of the tests depend on it
+	TEST(PositiveFixedToDoubleConversionTest)
+	{
+		Fp32f<8> fp1 = Fp32f<8>(3.2);
+
+		CHECK_CLOSE(3.2, Fix32ToDouble<8>(fp1.rawVal), 0.1);
+	}
+
+	TEST(NegativeFixedToDoubleConversionTest)
+	{
+		Fp32f<8> fp1 = Fp32f<8>(-3.2);
+
+		CHECK_CLOSE(-3.2, Fix32ToDouble<8>(fp1.rawVal), 0.1);
 	}
 
 }

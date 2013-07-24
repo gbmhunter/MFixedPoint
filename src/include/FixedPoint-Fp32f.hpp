@@ -175,23 +175,40 @@ namespace Fp
 			return x;
 	}
 
-	//! @brief		Conversion from fixed-point to float
-	//! @details	Good for debugging fixed-point arithmetic
-	//! @warning 	Slow!
-	//! @public
-	template <uint8_t p>
-	float Fix32ToFloat(int32_t f)
-	{
-		return (float)f / (1 << p);
-	}
-
-	//! @brief		Converts from float to fixed-point
-	//! @details	Good for inputting values into fixed-point arithmetic
+	//! @brief		Converts from float to fixed-point.
+	//! @details	Good for inputting values into fixed-point arithmetic.
 	//! @warning	Slow!
 	template <uint8_t p>
 	int32_t FloatToFix32(float f)
 	{
 		return (int32_t)(f * (1 << p));
+	}
+	
+	//! @brief		Converts from double to fixed-point.
+	//! @details	Good for inputting values into fixed-point arithmetic.
+	//! @warning	Slow!
+	template <uint8_t p>
+	int32_t DoubleToFix32(double f)
+	{
+		return (int32_t)(f * (double)(1 << p));
+	}
+	
+	//! @brief		Conversion from fixed-point to float.
+	//! @details	Good for debugging fixed-point arithmetic.
+	//! @warning 	Slow!
+	template <uint8_t p>
+	float Fix32ToFloat(int32_t f)
+	{
+		return (float)f / (1 << p);
+	}
+	
+	//! @brief		Conversion from fixed-point to float.
+	//! @details	Good for debugging fixed-point arithmetic.
+	//! @warning 	Slow!
+	template <uint8_t p>
+	float Fix32ToDouble(int32_t f)
+	{
+		return (double)f / (double)(1 << p);
 	}
 
 	int32_t fixcos16(int32_t a);

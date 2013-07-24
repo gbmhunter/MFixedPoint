@@ -45,14 +45,24 @@ namespace Fp
 		return (int64_t)(((a) << p) / b);
 	}
 	
-	//! @brief		Conversion from fixed-point to float
-	//! @details	Good for debugging fixed-point arithmetic
+	//! @brief		Conversion from fixed-point to float.
+	//! @details	Good for debugging fixed-point arithmetic.
 	//! @warning 	Slow!
 	//! @public
 	template <uint8_t p>
 	float Fix64ToFloat(int64_t f)
 	{
-		return (float)f / (1 << p);
+		return (float)f / (float)(1 << p);
+	}
+	
+	//! @brief		Conversion from fixed-point to double.
+	//! @details	Good for debugging fixed-point arithmetic
+	//! @warning 	Slow!
+	//! @public
+	template <uint8_t p>
+	float Fix64ToDouble(int64_t f)
+	{
+		return (double)f / (double)(1 << p);
 	}
 
 	//! @brief		Converts from float to fixed-point
@@ -62,6 +72,15 @@ namespace Fp
 	int64_t FloatToFix64(float f)
 	{
 		return (int64_t)(f * (1 << p));
+	}
+	
+	//! @brief		Converts from double to fixed-point
+	//! @details	Good for inputting values into fixed-point arithmetic
+	//! @warning	Slow!
+	template <uint8_t p>
+	int64_t DoubleToFix64(double f)
+	{
+		return (int64_t)(f * (double)(1 << p));
 	}
 
 	//! @brief		64-bit fixed-point library.

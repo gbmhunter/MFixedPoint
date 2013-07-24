@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/24
-- Version: v5.4.3.0
+- Version: v5.4.4.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -137,6 +137,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.4.0 2013/07/24 Added Fix32ToDouble(), Fix64ToDouble(), Fix64ToDouble() functions for fast Fp libraries. Added related unit tests.
 v5.4.3.0 2013/07/24 Fixed incorrect cast to 32-bit in 64-bit division. Changed all instances of template parameter p to uint8_t. Added a bit of info about Q to the README.
 v5.4.2.0 2013/07/24 Tidied up Port.hpp/cpp macros.
 v5.4.1.0 2013/07/24 Merged type conversion and cast unit tests. Got rid of 'Deprecated Conversion To String Constant' compiler warnings. Added arithmetic unit tests for variables with different Q (applicable to the slow libraries only).
