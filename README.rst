@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/24
-- Version: v5.4.1.0
+- Version: v5.4.2.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -137,6 +137,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.2.0 2013/07/24 Tidied up Port.hpp/cpp macros.
 v5.4.1.0 2013/07/24 Merged type conversion and cast unit tests. Got rid of 'Deprecated Conversion To String Constant' compiler warnings. Added arithmetic unit tests for variables with different Q (applicable to the slow libraries only).
 v5.4.0.0 2013/07/24 Added compound arithmetic unit tests for Fp64f library. Added conversions from float/double to Fp64f. Fixed negative int unit tests from failing by changing expected value (it rounds down to the nearest int). Added more tests to benchmark program. Added notes to README about benchmarking program.
 v5.3.0.1 2013/07/24 Updated README to describe the differences between the four libraries better.

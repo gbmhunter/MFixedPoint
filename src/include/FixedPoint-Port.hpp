@@ -5,7 +5,7 @@
 //! @date 		2013/06/17
 //! @brief 		Port specific functions.
 //! @details
-//! 			See README.rst
+//! 			See README.rst in root dir for more info.
 
 
 //===============================================================================================//
@@ -21,17 +21,6 @@
 
 #include "FixedPoint-Config.hpp"
 #include <stdint.h>
-
-//! @brief		Determines what code is used for the port-specific functions.
-//! @details	Supported platforms:
-//!					PSOC	All PSoC families (PSoC 3, PSoC 4, PSoC 5, PSoC 5LP)
-#if(__linux__ == 1)
-	#define TARGET_PLATFORM		LINUX
-#elif(PSOC4 == 1)
-	#define TARGET_PLATFORM		PSOC
-#else
-	#error Target platform not recognised
-#endif
 	
 namespace Fp
 {

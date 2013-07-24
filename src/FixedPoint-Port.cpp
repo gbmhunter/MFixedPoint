@@ -5,7 +5,7 @@
 //! @date 		2013/06/17
 //! @brief 		Port specific functions.
 //! @details
-//!				See README.rst.
+//!				See README.rst in root dir for more info.
 
 #ifndef __cplusplus
 	#error Please build with C++ compiler
@@ -19,17 +19,15 @@
 #include "include/FixedPoint-Port.hpp"
 
 #ifdef __cplusplus
-	extern "C" {
+	
 #endif
-	#if(TARGET_PLATFORM == LINUX)
-		#include <stdio.h>
-	#elif(TARGET_PLATFORM == PSOC)
+
+#ifdef __linux__
+	#include <stdio.h>
+#elif(CY_PSOC5)
+	extern "C" {
 		#include <device.h>
-	#endif
-
-
-#ifdef __cplusplus
-	} // extern "C" {
+	}
 #endif
 
 //===============================================================================================//
@@ -38,13 +36,12 @@
 
 namespace Fp 
 {
-
 	void Port::DebugPrint(char* msg)
 	{
-		#if(TARGET_PLATFORM == LINUX)
+		#ifdef __linux__
 			// Print to terminal
 			printf("%s", msg);
-		#elif(TARGET_PLATFORM == PSOC)
+		#elif(CY_PSOC5)
 			// Print to debug UART
 			UartCpDebug_PutString(msg);
 		#endif
