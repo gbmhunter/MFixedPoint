@@ -26,7 +26,7 @@ namespace Fp
 
 	//! @brief		Perform a fixed point multiplication without a 128-bit intermediate result.
 	//!	@warning	This is fast but beware of intermediatry overflow!
-	template <int32_t p> 
+	template <uint8_t p> 
 	inline int64_t FixMulF(int64_t a, int64_t b)
 	{
 		// Rule with fixed-point multiplication, you have
@@ -37,19 +37,19 @@ namespace Fp
 	//! @brief		Perform a fixed point division without a 128-bit intermediate result.
 	//! @details	No loss of precision since shift is done before division.
 	//!	@warning	This is fast but beware of intermediatry overflow!
-	template <int32_t p> 
+	template <uint8_t p> 
 	inline int64_t FixDiv(int64_t a, int64_t b)
 	{
 		// Rule with fixed-point division, have to left-shift numerator
 		// before dividing by denominator
-		return (int32_t)(((a) << p) / b);
+		return (int64_t)(((a) << p) / b);
 	}
 	
 	//! @brief		Conversion from fixed-point to float
 	//! @details	Good for debugging fixed-point arithmetic
 	//! @warning 	Slow!
 	//! @public
-	template <int32_t p>
+	template <uint8_t p>
 	float Fix64ToFloat(int64_t f)
 	{
 		return (float)f / (1 << p);
@@ -58,7 +58,7 @@ namespace Fp
 	//! @brief		Converts from float to fixed-point
 	//! @details	Good for inputting values into fixed-point arithmetic
 	//! @warning	Slow!
-	template <int32_t p>
+	template <uint8_t p>
 	int64_t FloatToFix64(float f)
 	{
 		return (int64_t)(f * (1 << p));

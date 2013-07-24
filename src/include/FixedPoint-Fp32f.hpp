@@ -67,7 +67,7 @@ namespace Fp
 
 	//! @brief		Perform a fixed point multiplication without a 64-bit intermediate result.
 	//!	@note 		This is fast but beware of intermediatry overflow!
-	template <int32_t p> 
+	template <uint8_t p> 
 	inline int32_t FixMulF(int32_t a, int32_t b)
 	{
 		return (a * b) >> p;
@@ -76,14 +76,14 @@ namespace Fp
 	//! @brief		Perform a fixed point multiplication using a 64-bit intermediate result to
 	//! 			prevent intermediatry overflow problems.
 	//! @note 		Slower than Fp32f::FixMulF()
-	template <int32_t p>
+	template <uint8_t p>
 	inline int32_t FixMul(int32_t a, int32_t b)
 	{
 		return (int32_t)(((int64_t)a * b) >> p);
 	}
 
 	// Fixed point division
-	template <int32_t p>
+	template <uint8_t p>
 	inline int32_t fixdiv(int32_t a, int32_t b)
 	{
 		#if 0
@@ -140,7 +140,7 @@ namespace Fp
 
 	// q is the precision of the input
 	// output has 32-q bits of fraction
-	template <int32_t q>
+	template <uint8_t q>
 	inline int32_t fixinv(int32_t a)
 	{
 		int32_t x;
@@ -179,7 +179,7 @@ namespace Fp
 	//! @details	Good for debugging fixed-point arithmetic
 	//! @warning 	Slow!
 	//! @public
-	template <int32_t p>
+	template <uint8_t p>
 	float Fix32ToFloat(int32_t f)
 	{
 		return (float)f / (1 << p);
@@ -188,7 +188,7 @@ namespace Fp
 	//! @brief		Converts from float to fixed-point
 	//! @details	Good for inputting values into fixed-point arithmetic
 	//! @warning	Slow!
-	template <int32_t p>
+	template <uint8_t p>
 	int32_t FloatToFix32(float f)
 	{
 		return (int32_t)(f * (1 << p));
@@ -202,7 +202,7 @@ namespace Fp
 	//! The template argument p in all of the following functions refers to the 
 	//! fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
 	//! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
-	template <int32_t p>
+	template <uint8_t p>
 	class Fp32f {
 		
 		public:
@@ -384,25 +384,25 @@ namespace Fp
 	// Specializations for use with plain integers
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> operator + (int32_t a, Fp32f<p> b)
 	{ 
 		return b + a; 
 	}
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> operator - (int32_t a, Fp32f<p> b)
 	{
 		return -b + a;
 	}
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> operator * (int32_t a, Fp32f<p> b)
 	{ return b * a; }
 
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> operator / (int32_t a, Fp32f<p> b)
 	{ 
 		Fp32f<p> r(a); 
@@ -413,22 +413,22 @@ namespace Fp
 	// math functions
 	// no default implementation
 
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> sin(Fp32f<p> a);
 
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> cos(Fp32f<p> a);
 
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> sqrt(Fp32f<p> a);
 
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> rsqrt(Fp32f<p> a);
 
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> inv(Fp32f<p> a);
 
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> abs(Fp32f<p> a)
 	{ 
 		Fp32f<p> r; 
@@ -480,7 +480,7 @@ namespace Fp
 	}
 
 	// The multiply accumulate case can be optimized.
-	template <int32_t p>
+	template <uint8_t p>
 	inline Fp32f<p> multiply_accumulate(
 		int32_t count, 
 		const Fp32f<p> *a,

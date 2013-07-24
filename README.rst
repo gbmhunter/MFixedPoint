@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/24
-- Version: v5.4.2.0
+- Version: v5.4.3.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -27,7 +27,7 @@ Best performance on a 32-bit or higher architecture (although 8-bit architecture
 The libraries are designed to be a fully-functional data types within their limits (e.g. supports operator overloads and implicit/explicit casting). Can be used with
 most libraries that use data type templates.
 
-Fixed-point numbers are signed. 
+Fixed-point numbers are signed. Q is the number of bits used for the decimal part of the number (the rest are used for the integer part). Q can vary from 0 up to the bit-width of the fixed-point number.
 
 The 32-bit Libraries (Fp32f, Fp32s)
 -----------------------------------
@@ -137,6 +137,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.4.3.0 2013/07/24 Fixed incorrect cast to 32-bit in 64-bit division. Changed all instances of template parameter p to uint8_t. Added a bit of info about Q to the README.
 v5.4.2.0 2013/07/24 Tidied up Port.hpp/cpp macros.
 v5.4.1.0 2013/07/24 Merged type conversion and cast unit tests. Got rid of 'Deprecated Conversion To String Constant' compiler warnings. Added arithmetic unit tests for variables with different Q (applicable to the slow libraries only).
 v5.4.0.0 2013/07/24 Added compound arithmetic unit tests for Fp64f library. Added conversions from float/double to Fp64f. Fixed negative int unit tests from failing by changing expected value (it rounds down to the nearest int). Added more tests to benchmark program. Added notes to README about benchmarking program.
