@@ -60,6 +60,10 @@ SUITE(Fp32fTypeConversionTests)
 		Fp32f<8> fp1 = Fp32f<8>(3.2);
 
 		CHECK_CLOSE(3.2, Fix32ToDouble<8>(fp1.rawVal), 0.1);
+		
+		// This will be outside floats range
+		fp1 = Fp32f<8>((double)((1 << 23) - 1));
+		CHECK_CLOSE((double)((1 << 23) - 1), Fix32ToDouble<8>(fp1.rawVal), 1);
 	}
 
 	TEST(NegativeFixedToDoubleConversionTest)
@@ -67,6 +71,10 @@ SUITE(Fp32fTypeConversionTests)
 		Fp32f<8> fp1 = Fp32f<8>(-3.2);
 
 		CHECK_CLOSE(-3.2, Fix32ToDouble<8>(fp1.rawVal), 0.1);
+		
+		// This will be outside floats range
+		fp1 = Fp32f<8>(-(double)((1 << 23)));
+		CHECK_CLOSE(-(double)((1 << 23)), Fix32ToDouble<8>(fp1.rawVal), 1);
 	}
 
 }

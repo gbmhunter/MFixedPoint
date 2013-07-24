@@ -206,7 +206,7 @@ namespace Fp
 	//! @details	Good for debugging fixed-point arithmetic.
 	//! @warning 	Slow!
 	template <uint8_t p>
-	float Fix32ToDouble(int32_t f)
+	double Fix32ToDouble(int32_t f)
 	{
 		return (double)f / (double)(1 << p);
 	}

@@ -60,7 +60,7 @@ namespace Fp
 	//! @warning 	Slow!
 	//! @public
 	template <uint8_t p>
-	float Fix64ToDouble(int64_t f)
+	double Fix64ToDouble(int64_t f)
 	{
 		return (double)f / (double)(1 << p);
 	}
