@@ -23,7 +23,7 @@ SUITE(Fp32fCompoundArithmeticTests)
 		
 		fp1 += fp2;
 
-		CHECK_CLOSE(3.8, Fix32ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(3.8, (float)fp1, 0.1);
 	}
 
 	TEST(CompoundSubtractionTest)
@@ -33,7 +33,7 @@ SUITE(Fp32fCompoundArithmeticTests)
 		
 		fp1 -= fp2;
 
-		CHECK_CLOSE(2.6, Fix32ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(2.6, (float)fp1, 0.1);
 	}
 
 	TEST(CompoundMultiplicationTest)
@@ -43,7 +43,7 @@ SUITE(Fp32fCompoundArithmeticTests)
 		
 		fp1 *= fp2;
 
-		CHECK_CLOSE(1.92, Fix32ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(1.92, (float)fp1, 0.1);
 	}
 
 	TEST(CompoundDivisionTest)
@@ -53,7 +53,7 @@ SUITE(Fp32fCompoundArithmeticTests)
 		
 		fp1 /= fp2;
 
-		CHECK_CLOSE(5.33, Fix32ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(5.33, (float)fp1, 0.1);
 	}
 	
 	TEST(CompoundModuloTest)
@@ -64,6 +64,6 @@ SUITE(Fp32fCompoundArithmeticTests)
 		fp1 %= fp2;
 		//20.2 % 1.5 = 0.7
 		
-		CHECK_CLOSE(0.7, Fix32ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(0.7, (float)fp1, 0.1);
 	}
 }

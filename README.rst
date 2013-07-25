@@ -137,6 +137,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.5.1.0 2013/07/25 Added more from Fpxxf conversion overloads to float/double/int and removed the FixXXToFloat() family of functions. Modified unit tests accordingly.
 v5.5.0.0 2013/07/25 Added type conversion overloads for Fp32f to float. Added appropriate unit tests. Added size_t cast to integers in FpTest-FpxxfSize.cpp.
 v5.4.5.0 2013/07/24 Fix64ToDouble(), Fix32ToDouble() were incorrectly returning floats. Added unit tests to detect this in future.
 v5.4.4.0 2013/07/24 Added Fix32ToDouble(), Fix64ToDouble(), Fix64ToDouble() functions for fast Fp libraries. Added related unit tests.

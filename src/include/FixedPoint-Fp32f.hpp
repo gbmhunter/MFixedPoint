@@ -1,14 +1,14 @@
 //!
 //! @file 		FixedPoint-Fp32f.hpp
-//! @author 	Markus Trenkwalder
-//! @edited 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com), Markus Trenkwalder
+//! @edited 	n/a
 //! @date 		2012/10/23
 //! @brief 		Fast 32-bit fixed point library.
 //! @details
 //!				See README.rst in root dir for more info.
 
 
-/*
+/* Original copyright notice
 Copyright (c) 2007, Markus Trenkwalder
 
 All rights reserved.
@@ -193,23 +193,7 @@ namespace Fp
 		return (int32_t)(f * (double)(1 << p));
 	}
 	
-	//! @brief		Conversion from fixed-point to float.
-	//! @details	Good for debugging fixed-point arithmetic.
-	//! @warning 	Slow!
-	template <uint8_t p>
-	float Fix32ToFloat(int32_t f)
-	{
-		return (float)f / (1 << p);
-	}
 	
-	//! @brief		Conversion from fixed-point to float.
-	//! @details	Good for debugging fixed-point arithmetic.
-	//! @warning 	Slow!
-	template <uint8_t p>
-	double Fix32ToDouble(int32_t f)
-	{
-		return (double)f / (double)(1 << p);
-	}
 
 	int32_t fixcos16(int32_t a);
 	int32_t fixsin16(int32_t a);
@@ -364,7 +348,7 @@ namespace Fp
 			return x;
 		}
 		
-		// Binary Operator Overloads
+		// Fp32f-Fp32f Binary Operator Overloads
 		
 		bool operator == (Fp32f r) const
 		{
@@ -396,7 +380,37 @@ namespace Fp
 			return rawVal >= r.rawVal;
 		}
 		
-		// Type Conversion Overloads
+		//! @defgroup Explicit "From Fp32f" Conversion Overloads (casts)
+		//! @{
+		
+		//! @brief		Conversion operator from fixed-point to int16_t.
+		//! @warning	Possible loss of accuracy from conversion from
+		//!				int32_t to int16_t.
+		operator int16_t()
+		{
+			// Right-shift to get rid of all the decimal bits (truncate)
+			return (int16_t)(rawVal >> p);
+		}
+		
+		//! @brief		Conversion operator from fixed-point to int32_t.
+		operator int32_t()
+		{
+			// Right-shift to get rid of all the decimal bits (truncate)
+			return (rawVal >> p);
+		}
+		
+		//! @brief		Conversion operator from fixed-point to int64_t.
+		operator int64_t()
+		{
+			// Right-shift to get rid of all the decimal bits (truncate)
+			return (int64_t)(rawVal >> p);
+		}
+		
+		//! @brief		Conversion operator from fixed-point to float.
+		operator float()
+		{ 
+			return (float)rawVal / (float)(1 << p);
+		}
 		
 		//! @brief		Conversion operator from fixed-point to double.
 		//! @note		Similar to float conversion.
@@ -404,6 +418,8 @@ namespace Fp
 		{ 
 			return (double)rawVal / (double)(1 << p);
 		}
+		
+		//! @}
 		
 		// Overloads Between Fp32f And int32_t
 
@@ -580,6 +596,30 @@ namespace Fp
 		r.rawVal = static_cast<int32_t>(result >> p);
 		return r;
 	}
+	
+	//===============================================================================================//
+	//======================================== GRAVEYARD ============================================//
+	//===============================================================================================//
+	
+	/*
+	//! @brief		Conversion from fixed-point to float.
+	//! @details	Good for debugging fixed-point arithmetic.
+	//! @warning 	Slow!
+	template <uint8_t p>
+	float Fix32ToFloat(int32_t f)
+	{
+		return (float)f / (1 << p);
+	}
+	
+	//! @brief		Conversion from fixed-point to float.
+	//! @details	Good for debugging fixed-point arithmetic.
+	//! @warning 	Slow!
+	template <uint8_t p>
+	double Fix32ToDouble(int32_t f)
+	{
+		return (double)f / (double)(1 << p);
+	}
+	*/
 
 } // namespace Fp
 

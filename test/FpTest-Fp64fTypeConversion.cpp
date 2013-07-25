@@ -43,14 +43,14 @@ SUITE(Fp64fTypeConversionTests)
 	{
 		Fp64f<8> fp1 = Fp64f<8>(3.2);
 
-		CHECK_CLOSE(3.2, Fix64ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(3.2, (float)fp1, 0.1);
 	}
 
 	TEST(NegativeFixedToFloatConversionTest)
 	{
 		Fp64f<8> fp1 = Fp64f<8>(-3.2);
 
-		CHECK_CLOSE(-3.2, Fix64ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(-3.2, (float)fp1, 0.1);
 	}
 	
 	// Now check fix->double conversion as the
@@ -59,22 +59,22 @@ SUITE(Fp64fTypeConversionTests)
 	{
 		Fp64f<8> fp1 = Fp64f<8>(3.2);
 
-		CHECK_CLOSE(3.2, Fix64ToDouble<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(3.2, (double)fp1, 0.1);
 		
 		// This will be outside floats range
 		fp1 = Fp64f<8>((double)(((int64_t)1 << 54) - 1));
-		CHECK_CLOSE((double)(((int64_t)1 << 54) - 1), Fix64ToDouble<8>(fp1.rawVal), 1e2);
+		CHECK_CLOSE((double)(((int64_t)1 << 54) - 1), (double)fp1, 1e2);
 	}
 
 	TEST(NegativeFixedToDoubleConversionTest)
 	{
 		Fp64f<8> fp1 = Fp64f<8>(-3.2);
 
-		CHECK_CLOSE(-3.2, Fix64ToDouble<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(-3.2, (double)fp1, 0.1);
 		
 		// This will be outside floats range
 		fp1 = Fp64f<8>(-(double)(((int64_t)1 << 54)));
-		CHECK_CLOSE(-(double)(((int64_t)1 << 54)), Fix64ToDouble<8>(fp1.rawVal), 1e2);
+		CHECK_CLOSE(-(double)(((int64_t)1 << 54)), (double)fp1, 1e2);
 	}
 
 }

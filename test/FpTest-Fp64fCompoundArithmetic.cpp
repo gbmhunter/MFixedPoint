@@ -25,7 +25,7 @@ SUITE(Fp64fCompoundArithmeticTests)
 		
 		fp1 += fp2;
 
-		CHECK_CLOSE(3.8, Fix64ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(3.8, (float)fp1, 0.1);
 	}
 
 	TEST(CompoundSubtractionTest)
@@ -35,7 +35,7 @@ SUITE(Fp64fCompoundArithmeticTests)
 		
 		fp1 -= fp2;
 
-		CHECK_CLOSE(2.6, Fix64ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(2.6, (float)fp1, 0.1);
 	}
 
 	TEST(CompoundMultiplicationTest)
@@ -45,7 +45,7 @@ SUITE(Fp64fCompoundArithmeticTests)
 		
 		fp1 *= fp2;
 
-		CHECK_CLOSE(1.92, Fix64ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(1.92, (float)fp1, 0.1);
 	}
 
 	TEST(CompoundDivisionTest)
@@ -55,7 +55,7 @@ SUITE(Fp64fCompoundArithmeticTests)
 		
 		fp1 /= fp2;
 
-		CHECK_CLOSE(5.33, Fix64ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(5.33, (float)fp1, 0.1);
 	}
 	
 	TEST(CompoundModuloTest)
@@ -66,6 +66,6 @@ SUITE(Fp64fCompoundArithmeticTests)
 		fp1 %= fp2;
 		//20.2 % 1.5 = 0.7
 		
-		CHECK_CLOSE(0.7, Fix64ToFloat<8>(fp1.rawVal), 0.1);
+		CHECK_CLOSE(0.7, (float)fp1, 0.1);
 	}
 }

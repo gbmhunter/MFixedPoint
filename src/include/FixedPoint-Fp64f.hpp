@@ -2,7 +2,7 @@
 //! @file 		FixedPoint-Fp64f.h
 //! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		2013/05/09
-//! @brief 		Fixed-point arithmetic for 64-bit numbers. Be careful of overflow!
+//! @brief 		Fast fixed-point arithmetic for 64-bit numbers. Be careful of overflow!
 //! @details
 //!				See README.rst in root dir for more info.
 //!
@@ -43,26 +43,6 @@ namespace Fp
 		// Rule with fixed-point division, have to left-shift numerator
 		// before dividing by denominator
 		return (int64_t)(((a) << p) / b);
-	}
-	
-	//! @brief		Conversion from fixed-point to float.
-	//! @details	Good for debugging fixed-point arithmetic.
-	//! @warning 	Slow!
-	//! @public
-	template <uint8_t p>
-	float Fix64ToFloat(int64_t f)
-	{
-		return (float)f / (float)(1 << p);
-	}
-	
-	//! @brief		Conversion from fixed-point to double.
-	//! @details	Good for debugging fixed-point arithmetic
-	//! @warning 	Slow!
-	//! @public
-	template <uint8_t p>
-	double Fix64ToDouble(int64_t f)
-	{
-		return (double)f / (double)(1 << p);
 	}
 
 	//! @brief		Converts from float to fixed-point
@@ -123,10 +103,10 @@ namespace Fp
 				// nothing
 			}
 			
-			//! @}
+			//! @} Constructors
 			
 			
-			//! @defgroup Compound Assignment Operators
+			//! @defgroup Compound Assignment Operator Overloads
 			//! @{
 			
 			//! @brief		Override for "+=".
@@ -168,9 +148,9 @@ namespace Fp
 				return *this;
 			}
 			
-			//! @}
+			//! @} Compound Assignment Operator Overloads
 			
-			//! @defgroup Arithmetic Operators
+			//! @defgroup Arithmetic Operator Overloads
 			//! @{
 			
 			//! @brief		Override for '+'. Uses compound assignment operator.
@@ -213,9 +193,9 @@ namespace Fp
 				return temp;
 			}
 			
-			//! @}
+			//! @} Arithmetic Operator Overloads
 			
-			//! @defgroup Binary Operators
+			//! @defgroup Binary Operator Overloads
 			//! @{
 			
 			bool operator == (Fp64f r) const
@@ -248,13 +228,55 @@ namespace Fp
 				return rawVal >= r.rawVal;
 			}
 			
+			//! @}
+			
+			//! @defgroup Explicit "From Fp64f" Conversion Overloads (casts)
+			//! @{
+			
+			//! @brief		Conversion operator from fixed-point to float.
+			operator float()
+			{ 
+				return (float)rawVal / (float)(1 << p);
+			}
+			
+			//! @brief		Conversion operator from fixed-point to double.
+			//! @note		Similar to float conversion.
+			operator double()
+			{ 
+				return (double)rawVal / (double)(1 << p);
+			}
 			
 			//! @}
+			
 		private:
 			
-		
+			// none
 	};
 
+	//===============================================================================================//
+	//======================================== GRAVEYARD ============================================//
+	//===============================================================================================//
+	
+	/*
+	//! @brief		Conversion from fixed-point to float.
+	//! @details	Good for debugging fixed-point arithmetic.
+	//! @warning 	Slow!
+	//! @public
+	template <uint8_t p>
+	float Fix64ToFloat(int64_t f)
+	{
+		return (float)f / (float)(1 << p);
+	}
+	
+	//! @brief		Conversion from fixed-point to double.
+	//! @details	Good for debugging fixed-point arithmetic
+	//! @warning 	Slow!
+	//! @public
+	template <uint8_t p>
+	double Fix64ToDouble(int64_t f)
+	{
+		return (double)f / (double)(1 << p);
+	}*/
 
 } // namespace Fp
 
