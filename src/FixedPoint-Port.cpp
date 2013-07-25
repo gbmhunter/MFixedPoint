@@ -18,13 +18,9 @@
 // Associated header file
 #include "include/FixedPoint-Port.hpp"
 
-#ifdef __cplusplus
-	
-#endif
-
 #ifdef __linux__
 	#include <stdio.h>
-#elif(CY_PSOC5)
+#elif(PSOC)
 	extern "C" {
 		#include <device.h>
 	}

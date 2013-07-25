@@ -5,7 +5,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/07/25
-- Version: v5.5.2.0
+- Version: v5.5.3.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -137,6 +137,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.5.3.0 2013/07/25 Updated FixedPoint-Port.cpp to look for PSOC definition (which you add via compiler option -D).
 v5.5.2.0 2013/07/25 Change 'p' to 'q' in Fp32f.hpp, because precision was not the correct word.
 v5.5.1.0 2013/07/25 Added more from Fpxxf conversion overloads to float/double/int and removed the FixXXToFloat() family of functions. Modified unit tests accordingly.
 v5.5.0.0 2013/07/25 Added type conversion overloads for Fp32f to float. Added appropriate unit tests. Added size_t cast to integers in FpTest-FpxxfSize.cpp.
