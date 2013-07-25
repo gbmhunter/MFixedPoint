@@ -22,6 +22,6 @@ SUITE(Fp64fSizeTests)
 		//return UnitTest::RunAllTests();
 		printf("FP: Size of Fp64f object (bytes) = '%lu'.\r\n", sizeof(Fp64f<12>));
 	
-		CHECK_EQUAL(8, sizeof(Fp64f<12>));
+		CHECK_EQUAL((size_t)8, sizeof(Fp64f<12>));
 	}
 }

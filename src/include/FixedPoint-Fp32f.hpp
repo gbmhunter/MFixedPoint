@@ -233,9 +233,31 @@ namespace Fp
 				//Port::DebugPrint("FP: New fixed-point object created.");
 			#endif
 		}
-		/*explicit*/ Fp32f(int32_t i) : rawVal(i << p) {}
-		/*explicit*/ Fp32f(float f) : rawVal(FloatToFix32<p>(f)) {}
-		/*explicit*/ Fp32f(double f) : rawVal(FloatToFix32<p>((float)f)) {}
+		
+		Fp32f(int8_t i) : rawVal((int32_t)i << p)
+		{
+			
+		}
+		
+		Fp32f(int16_t i) : rawVal((int32_t)i << p)
+		{
+			
+		}
+		
+		Fp32f(int32_t i) : rawVal(i << p)
+		{
+		
+		}
+		
+		Fp32f(float f) : rawVal(FloatToFix32<p>(f))
+		{
+		
+		}
+		
+		Fp32f(double f) : rawVal(FloatToFix32<p>((float)f))
+		{
+		
+		}
 		
 		// Compound Arithmetic Overloads
 		
@@ -251,12 +273,16 @@ namespace Fp
 			return *this;
 		}
 		
+		//! @brief		Overlaod for '*=' operator.
+		//! @details	Uses intermediatary casting to int64_t to prevent overflows.
 		Fp32f& operator *= (Fp32f r)
 		{
 			rawVal = FixMul<p>(rawVal, r.rawVal);
 			return *this;
 		}
 		
+		//! @brief		Overlaod for '/=' operator.
+		//! @details	Uses intermediatary casting to int64_t to prevent overflows.
 		Fp32f& operator /= (Fp32f r)
 		{
 			rawVal = fixdiv<p>(rawVal, r.rawVal);
@@ -269,6 +295,7 @@ namespace Fp
 			rawVal %= r.rawVal;
 			return *this;
 		}
+		
 		
 		Fp32f& operator *= (int32_t r)
 		{
@@ -344,17 +371,17 @@ namespace Fp
 			return rawVal == r.rawVal;
 		}
 		
-		bool operator != (Fp32f r) const
+		bool operator != (const Fp32f r)
 		{
 			return !(*this == r);
 		}
 		
-		bool operator <  (Fp32f r) const
+		bool operator <  (const Fp32f r)
 		{
 			return rawVal < r.rawVal;
 		}
 		
-		bool operator >  (Fp32f r) const
+		bool operator >  (const Fp32f r)
 		{
 			return rawVal > r.rawVal;
 		}
@@ -368,7 +395,19 @@ namespace Fp
 		{
 			return rawVal >= r.rawVal;
 		}
+		
+		// Type Conversion Overloads
+		
+		//! @brief		Conversion operator from fixed-point to double.
+		//! @note		Similar to float conversion.
+		operator double()
+		{ 
+			return (double)rawVal / (double)(1 << p);
+		}
+		
+		// Overloads Between Fp32f And int32_t
 
+		
 		Fp32f operator + (int32_t r) const
 		{
 			Fp32f x = *this;
@@ -396,6 +435,37 @@ namespace Fp
 			x /= r;
 			return x;
 		}
+		
+		bool operator >  (int32_t r) const
+		{
+			return rawVal > (r << p);
+		}
+		
+		bool operator >=  (int32_t r) const
+		{
+			return rawVal >= (r << p);
+		}
+		
+		bool operator <  (int32_t r) const
+		{
+			return rawVal < (r << p);
+		}
+		
+		bool operator <=  (int32_t r) const
+		{
+			return rawVal < (r << p);
+		}
+		
+		bool operator ==  (int32_t r) const
+		{
+			return rawVal == (r << p);
+		}
+		
+		bool operator !=  (int32_t r) const
+		{
+			return rawVal != (r << p);
+		}
+		
 	};
 
 	// Specializations for use with plain integers

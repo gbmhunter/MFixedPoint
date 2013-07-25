@@ -381,7 +381,7 @@ namespace Fp
 			}
 		}
 		
-		// Conversion Operator Overloads (casts)
+		// Explicit Conversion Operator Overloads (casts)
 		
 		//! @brief		Conversion operator from fixed-point to int32_t.
 		operator int32_t()
@@ -411,7 +411,6 @@ namespace Fp
 			return (double)rawVal / (double)(1 << q);
 		}
 		
-	
 	};
 
 } // namespace Fp
