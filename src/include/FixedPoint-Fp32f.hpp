@@ -62,32 +62,32 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace Fp
 {
 
-	// The template argument p in all of the following functions refers to the 
-	// fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
+	// The template argument q in all of the following functions refers to the 
+	// fixed point precision (e.g. q = 8 gives 24.8 fixed point functions).
 
 	//! @brief		Perform a fixed point multiplication without a 64-bit intermediate result.
 	//!	@note 		This is fast but beware of intermediatry overflow!
-	template <uint8_t p> 
+	template <uint8_t q> 
 	inline int32_t FixMulF(int32_t a, int32_t b)
 	{
-		return (a * b) >> p;
+		return (a * b) >> q;
 	}
 
 	//! @brief		Perform a fixed point multiplication using a 64-bit intermediate result to
 	//! 			prevent intermediatry overflow problems.
 	//! @note 		Slower than Fp32f::FixMulF()
-	template <uint8_t p>
+	template <uint8_t q>
 	inline int32_t FixMul(int32_t a, int32_t b)
 	{
-		return (int32_t)(((int64_t)a * b) >> p);
+		return (int32_t)(((int64_t)a * b) >> q);
 	}
 
 	// Fixed point division
-	template <uint8_t p>
+	template <uint8_t q>
 	inline int32_t fixdiv(int32_t a, int32_t b)
 	{
 		#if 0
-			return (int32_t)((((int64_t)a) << p) / b);
+			return (int32_t)((((int64_t)a) << q) / b);
 		#else	
 			// The following produces the same results as the above but gcc 4.0.3 
 			// generates fewer instructions (at least on the ARM processor).
@@ -99,8 +99,8 @@ namespace Fp
 				};
 			} x;
 
-			x.l = a << p;
-			x.h = a >> (sizeof(int32_t) * 8 - p);
+			x.l = a << q;
+			x.h = a >> (sizeof(int32_t) * 8 - q);
 			return (int32_t)(x.a / b);
 		#endif
 	}
@@ -178,19 +178,19 @@ namespace Fp
 	//! @brief		Converts from float to fixed-point.
 	//! @details	Good for inputting values into fixed-point arithmetic.
 	//! @warning	Slow!
-	template <uint8_t p>
+	template <uint8_t q>
 	int32_t FloatToFix32(float f)
 	{
-		return (int32_t)(f * (1 << p));
+		return (int32_t)(f * (1 << q));
 	}
 	
 	//! @brief		Converts from double to fixed-point.
 	//! @details	Good for inputting values into fixed-point arithmetic.
 	//! @warning	Slow!
-	template <uint8_t p>
+	template <uint8_t q>
 	int32_t DoubleToFix32(double f)
 	{
-		return (int32_t)(f * (double)(1 << p));
+		return (int32_t)(f * (double)(1 << q));
 	}
 	
 	
@@ -201,9 +201,9 @@ namespace Fp
 	int32_t fixsqrt16(int32_t a);
 
 	//! The template argument p in all of the following functions refers to the 
-	//! fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
+	//! fixed point precision (e.g. q = 8 gives 24.8 fixed point functions).
 	//! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
-	template <uint8_t p>
+	template <uint8_t q>
 	class Fp32f {
 		
 		public:
@@ -218,27 +218,27 @@ namespace Fp
 			#endif
 		}
 		
-		Fp32f(int8_t i) : rawVal((int32_t)i << p)
+		Fp32f(int8_t i) : rawVal((int32_t)i << q)
 		{
 			
 		}
 		
-		Fp32f(int16_t i) : rawVal((int32_t)i << p)
+		Fp32f(int16_t i) : rawVal((int32_t)i << q)
 		{
 			
 		}
 		
-		Fp32f(int32_t i) : rawVal(i << p)
+		Fp32f(int32_t i) : rawVal(i << q)
 		{
 		
 		}
 		
-		Fp32f(float f) : rawVal(FloatToFix32<p>(f))
+		Fp32f(float f) : rawVal(FloatToFix32<q>(f))
 		{
 		
 		}
 		
-		Fp32f(double f) : rawVal(FloatToFix32<p>((float)f))
+		Fp32f(double f) : rawVal(FloatToFix32<q>((float)f))
 		{
 		
 		}
@@ -261,7 +261,7 @@ namespace Fp
 		//! @details	Uses intermediatary casting to int64_t to prevent overflows.
 		Fp32f& operator *= (Fp32f r)
 		{
-			rawVal = FixMul<p>(rawVal, r.rawVal);
+			rawVal = FixMul<q>(rawVal, r.rawVal);
 			return *this;
 		}
 		
@@ -269,7 +269,7 @@ namespace Fp
 		//! @details	Uses intermediatary casting to int64_t to prevent overflows.
 		Fp32f& operator /= (Fp32f r)
 		{
-			rawVal = fixdiv<p>(rawVal, r.rawVal);
+			rawVal = fixdiv<q>(rawVal, r.rawVal);
 			return *this;
 		}
 		
@@ -389,34 +389,34 @@ namespace Fp
 		operator int16_t()
 		{
 			// Right-shift to get rid of all the decimal bits (truncate)
-			return (int16_t)(rawVal >> p);
+			return (int16_t)(rawVal >> q);
 		}
 		
 		//! @brief		Conversion operator from fixed-point to int32_t.
 		operator int32_t()
 		{
 			// Right-shift to get rid of all the decimal bits (truncate)
-			return (rawVal >> p);
+			return (rawVal >> q);
 		}
 		
 		//! @brief		Conversion operator from fixed-point to int64_t.
 		operator int64_t()
 		{
 			// Right-shift to get rid of all the decimal bits (truncate)
-			return (int64_t)(rawVal >> p);
+			return (int64_t)(rawVal >> q);
 		}
 		
 		//! @brief		Conversion operator from fixed-point to float.
 		operator float()
 		{ 
-			return (float)rawVal / (float)(1 << p);
+			return (float)rawVal / (float)(1 << q);
 		}
 		
 		//! @brief		Conversion operator from fixed-point to double.
 		//! @note		Similar to float conversion.
 		operator double()
 		{ 
-			return (double)rawVal / (double)(1 << p);
+			return (double)rawVal / (double)(1 << q);
 		}
 		
 		//! @}
@@ -454,32 +454,32 @@ namespace Fp
 		
 		bool operator >  (int32_t r) const
 		{
-			return rawVal > (r << p);
+			return rawVal > (r << q);
 		}
 		
 		bool operator >=  (int32_t r) const
 		{
-			return rawVal >= (r << p);
+			return rawVal >= (r << q);
 		}
 		
 		bool operator <  (int32_t r) const
 		{
-			return rawVal < (r << p);
+			return rawVal < (r << q);
 		}
 		
 		bool operator <=  (int32_t r) const
 		{
-			return rawVal < (r << p);
+			return rawVal < (r << q);
 		}
 		
 		bool operator ==  (int32_t r) const
 		{
-			return rawVal == (r << p);
+			return rawVal == (r << q);
 		}
 		
 		bool operator !=  (int32_t r) const
 		{
-			return rawVal != (r << p);
+			return rawVal != (r << q);
 		}
 		
 	};
@@ -487,28 +487,28 @@ namespace Fp
 	// Specializations for use with plain integers
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <uint8_t p>
-	inline Fp32f<p> operator + (int32_t a, Fp32f<p> b)
+	template <uint8_t q>
+	inline Fp32f<q> operator + (int32_t a, Fp32f<q> b)
 	{ 
 		return b + a; 
 	}
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <uint8_t p>
-	inline Fp32f<p> operator - (int32_t a, Fp32f<p> b)
+	template <uint8_t q>
+	inline Fp32f<q> operator - (int32_t a, Fp32f<q> b)
 	{
 		return -b + a;
 	}
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <uint8_t p>
-	inline Fp32f<p> operator * (int32_t a, Fp32f<p> b)
+	template <uint8_t q>
+	inline Fp32f<q> operator * (int32_t a, Fp32f<q> b)
 	{ return b * a; }
 
-	template <uint8_t p>
-	inline Fp32f<p> operator / (int32_t a, Fp32f<p> b)
+	template <uint8_t q>
+	inline Fp32f<q> operator / (int32_t a, Fp32f<q> b)
 	{ 
-		Fp32f<p> r(a); 
+		Fp32f<q> r(a); 
 		r /= b; 
 		return r;
 	}
@@ -516,25 +516,25 @@ namespace Fp
 	// math functions
 	// no default implementation
 
-	template <uint8_t p>
-	inline Fp32f<p> sin(Fp32f<p> a);
+	template <uint8_t q>
+	inline Fp32f<q> sin(Fp32f<q> a);
 
-	template <uint8_t p>
-	inline Fp32f<p> cos(Fp32f<p> a);
+	template <uint8_t q>
+	inline Fp32f<q> cos(Fp32f<q> a);
 
-	template <uint8_t p>
-	inline Fp32f<p> sqrt(Fp32f<p> a);
+	template <uint8_t q>
+	inline Fp32f<q> sqrt(Fp32f<q> a);
 
-	template <uint8_t p>
-	inline Fp32f<p> rsqrt(Fp32f<p> a);
+	template <uint8_t q>
+	inline Fp32f<q> rsqrt(Fp32f<q> a);
 
-	template <uint8_t p>
-	inline Fp32f<p> inv(Fp32f<p> a);
+	template <uint8_t q>
+	inline Fp32f<q> inv(Fp32f<q> a);
 
-	template <uint8_t p>
-	inline Fp32f<p> abs(Fp32f<p> a)
+	template <uint8_t q>
+	inline Fp32f<q> abs(Fp32f<q> a)
 	{ 
-		Fp32f<p> r; 
+		Fp32f<q> r; 
 		r.rawVal = a.rawVal > 0 ? a.rawVal : -a.rawVal; 
 		return r; 
 	}
@@ -583,17 +583,17 @@ namespace Fp
 	}
 
 	// The multiply accumulate case can be optimized.
-	template <uint8_t p>
-	inline Fp32f<p> multiply_accumulate(
+	template <uint8_t q>
+	inline Fp32f<q> multiply_accumulate(
 		int32_t count, 
-		const Fp32f<p> *a,
-		const Fp32f<p> *b)
+		const Fp32f<q> *a,
+		const Fp32f<q> *b)
 	{
 		long long result = 0;
 		for (int32_t i = 0; i < count; ++i)
 			result += static_cast<long long>(a[i].rawVal) * b[i].rawVal;
-		Fp32f<p> r;
-		r.rawVal = static_cast<int32_t>(result >> p);
+		Fp32f<q> r;
+		r.rawVal = static_cast<int32_t>(result >> q);
 		return r;
 	}
 	
@@ -605,19 +605,19 @@ namespace Fp
 	//! @brief		Conversion from fixed-point to float.
 	//! @details	Good for debugging fixed-point arithmetic.
 	//! @warning 	Slow!
-	template <uint8_t p>
+	template <uint8_t q>
 	float Fix32ToFloat(int32_t f)
 	{
-		return (float)f / (1 << p);
+		return (float)f / (1 << q);
 	}
 	
 	//! @brief		Conversion from fixed-point to float.
 	//! @details	Good for debugging fixed-point arithmetic.
 	//! @warning 	Slow!
-	template <uint8_t p>
+	template <uint8_t q>
 	double Fix32ToDouble(int32_t f)
 	{
-		return (double)f / (double)(1 << p);
+		return (double)f / (double)(1 << q);
 	}
 	*/
 
