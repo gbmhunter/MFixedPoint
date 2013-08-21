@@ -1,1 +1,4 @@
-./configure && make && make test
+language: cpp
+compiler:
+  - gcc
+script: "make"
