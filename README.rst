@@ -2,12 +2,12 @@
 Embedded Fixed-Point Library
 ============================
 
-.. image:: https://travis-ci.org/gbmhunter/Cpp-FixedPoint.png?branch=master   :target: https://travis-ci.org/gbmhunter/Cpp-FixedPoint
+.. image:: http://travis-ci.org/gbmhunter/Cpp-FixedPoint.png?branch=master   :target: http://travis-ci.org/gbmhunter/Cpp-FixedPoint
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/08/21
-- Version: v5.7.0.0
+- Version: v5.7.1.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -139,6 +139,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.7.1.0 2013/08/21 Attempting to fix Travis CI build image URL.
 v5.7.0.0 2013/08/21 Added Travis CI build status image to README. Updated .travis.yml to hopefully fix errors.
 v5.6.0.0 2013/08/21 Added basic .travis.yml to use with Travis CI.
 v5.5.3.0 2013/07/25 Updated FixedPoint-Port.cpp to look for PSOC definition (which you add via compiler option -D).
