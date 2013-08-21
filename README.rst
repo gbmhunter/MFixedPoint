@@ -8,7 +8,7 @@ Embedded Fixed-Point Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
 - Last Modified: 2013/08/21
-- Version: v5.7.3.0
+- Version: v5.7.3.1
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -102,37 +102,35 @@ See the unit tests in ./test/ for more usage examples!
 
 ::
 
-#include "/src/include/FixedPoint-Fp32f.hpp"
-#include "/src/include/FixedPoint-Fp64f.hpp"
+	#include "/src/include/FixedPoint-Fp32f.hpp"
+	#include "/src/include/FixedPoint-Fp64f.hpp"
 
-int main()
-{
-	// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
-	// This constructor converts from doubles
-	Fp32f<8> aFpNum1 = Fp32f<8>(3.2);
-	Fp32f<8> aFpNum2 = Fp32f<8>(0.6);
-	
-	// Performing a quick fixed-point addition
-	Fp32f<8> aFpNum3 = aFpNum1 + aFpNum2;
-	
-	// Performing a quick fixed-point multiplication
-	Fp32f<8> aFpNm4 = aFpNum1 * aFpNum2;
-	
-	// Converting fixed-point back to double. Requires you
-	// to pass the raw value (which can be accessed with
-	// .rawVal)
-	double result = Fix32ToFloat<8>(aFpNum4.rawVal);
-	
-	// Converting between different precisions. Requires access to raw value just like
-	// when doing fixed-point to double conversion.
-	Fp32f<20> aHigherPrecisionNum = Fp32f<20>(7.5);
-	Fp32f<12> aLowerPrecisionNum.rawVal = aHigherPrecisionNum.rawVal >> (20 - 12);
-	
-	// You can use 64-bit fixed point numbers in exactly the same way!
-	Fp64f<48> aFp64Num = Fp64f<48>(4.58676);
-	
-	return 0;
-}
+	int main()
+	{
+		// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
+		// This constructor converts from doubles
+		Fp32f<8> aFpNum1 = Fp32f<8>(3.2);
+		Fp32f<8> aFpNum2 = Fp32f<8>(0.6);
+		
+		// Performing a quick fixed-point addition
+		Fp32f<8> aFpNum3 = aFpNum1 + aFpNum2;
+		
+		// Performing a quick fixed-point multiplication
+		Fp32f<8> aFpNm4 = aFpNum1 * aFpNum2;
+		
+		// Converting fixed-point back to double.
+		double result = (double)aFpNum4;
+		
+		// Converting between different precisions. Requires access to raw value just like
+		// when doing fixed-point to double conversion.
+		Fp32f<20> aHigherPrecisionNum = Fp32f<20>(7.5);
+		Fp32f<12> aLowerPrecisionNum.rawVal = aHigherPrecisionNum.rawVal >> (20 - 12);
+		
+		// You can use 64-bit fixed point numbers in exactly the same way!
+		Fp64f<48> aFp64Num = Fp64f<48>(4.58676);
+		
+		return 0;
+	}
 	
 Changelog
 =========
@@ -140,6 +138,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.7.3.1 2013/08/21 Removed references in README to FixXXToFloat(), redundant now because of float/double overloads. Indented code examples so they will display properly.
 v5.7.3.0 2013/08/21 Third attempt at fixing image, moved link to a new line.
 v5.7.2.0 2013/08/21 Second attempt at fixing image.
 v5.7.1.0 2013/08/21 Attempting to fix Travis CI build image URL.
