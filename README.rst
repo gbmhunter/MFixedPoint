@@ -4,8 +4,8 @@ Embedded Fixed-Point Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/07/25
-- Version: v5.5.3.0
+- Last Modified: 2013/08/21
+- Version: v5.6.0.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -137,6 +137,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.6.0.0 2013/08/21 Added basic .travis.yml to use with Travis CI.
 v5.5.3.0 2013/07/25 Updated FixedPoint-Port.cpp to look for PSOC definition (which you add via compiler option -D).
 v5.5.2.0 2013/07/25 Change 'p' to 'q' in Fp32f.hpp, because precision was not the correct word.
 v5.5.1.0 2013/07/25 Added more from Fpxxf conversion overloads to float/double/int and removed the FixXXToFloat() family of functions. Modified unit tests accordingly.
