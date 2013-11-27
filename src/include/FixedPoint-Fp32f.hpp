@@ -355,17 +355,17 @@ namespace Fp
 			return rawVal == r.rawVal;
 		}
 		
-		bool operator != (const Fp32f r)
+		bool operator != (const Fp32f &r)
 		{
 			return !(*this == r);
 		}
 		
-		bool operator <  (const Fp32f r)
+		bool operator <  (const Fp32f &r)
 		{
 			return rawVal < r.rawVal;
 		}
 		
-		bool operator >  (const Fp32f r)
+		bool operator >  (const Fp32f &r)
 		{
 			return rawVal > r.rawVal;
 		}
