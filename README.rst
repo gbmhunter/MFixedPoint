@@ -7,8 +7,8 @@ Embedded Fixed-Point Library
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2012/10/23
-- Last Modified: 2013/08/21
-- Version: v5.7.3.1
+- Last Modified: 2013/11/27
+- Version: v5.8.0.0
 - Company: CladLabs
 - Project: Open-source Embedded Code Libraries
 - Language: C++
@@ -138,6 +138,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.8.0.0 2013/11/27 Added Cppcheck project file to root folder of repo.
 v5.7.3.1 2013/08/21 Removed references in README to FixXXToFloat(), redundant now because of float/double overloads. Indented code examples so they will display properly.
 v5.7.3.0 2013/08/21 Third attempt at fixing image, moved link to a new line.
 v5.7.2.0 2013/08/21 Second attempt at fixing image.
