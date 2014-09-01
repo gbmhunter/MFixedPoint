@@ -2,9 +2,9 @@
 FixedPointCpp
 ============================
 
-----------------------------------------------------------------------------------------
-Microcontroller-friendly fixed-point library specifically designed for embedded systems.
-----------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+A microcontroller-friendly fixed-point library specifically designed for embedded systems.
+------------------------------------------------------------------------------------------
 
 .. image:: https://travis-ci.org/mbedded-ninja/FixedPointCpp.png?branch=master   
 	:target: https://travis-ci.org/mbedded-ninja/FixedPointCpp
@@ -12,7 +12,7 @@ Microcontroller-friendly fixed-point library specifically designed for embedded 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-10-23
 - Last Modified: 2014-09-02
-- Version: v5.9.0.0
+- Version: v5.9.0.2
 - Company: mbedded.ninja
 - Project: MToolkit
 - Language: C++
@@ -144,6 +144,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.9.0.2  2014-09-02 Reworded title in README.
 v5.9.0.1  2014-09-02 Fixed captilisation error in README.
 v5.9.0.0  2014-09-02 Changed name from 'FixedPoint-Cpp' to 'FixedPointCpp'. Updated links in README to 'www.mbedded.ninja'. Updated dates in README to use ISO standard.
 v5.8.1.0  2013-11-27 Changed some operator overloads in FixedPoint-Fp32f.hpp to pass in variable by reference instead of by value, as recommended by Cppcheck for better performance.
