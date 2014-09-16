@@ -12,7 +12,7 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-10-23
 - Last Modified: 2014-09-16
-- Version: v5.10.0.0
+- Version: v5.10.1.0
 - Company: mbedded.ninja
 - Project: MToolkit
 - Language: C++
@@ -143,6 +143,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.10.1.0 2014-09-16 Updated '.travis.yml' file in attempt to fix TravisCI build error.
 v5.10.0.0 2014-09-15 Updated title in README to 'MFixedPoint'. Added Eclipse project files. Update URLs in code comments from 'www.cladlab.com' to 'www.mbedded.ninja', closes #72. Moved headers from 'src/include/' to 'include/', to follow the convention of other MToolkit modules, closes #70. Added API file to the new foler 'api/', closes #71. Dropped 'FixedPoint-' prefix from code files, to follow the naming convention of the other MToolkit modules, closes #69. Replaced UnitTestCpp with the MUnitTest module, closes #73, closes #23.
 v5.9.0.2  2014-09-02 Reworded title in README.
 v5.9.0.1  2014-09-02 Fixed captilisation error in README.
