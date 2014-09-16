@@ -1,18 +1,18 @@
-============================
-FixedPointCpp
-============================
+===========
+MFixedPoint
+===========
 
 ------------------------------------------------------------------------------------------
 A microcontroller-friendly fixed-point library specifically designed for embedded systems.
 ------------------------------------------------------------------------------------------
 
-.. image:: https://travis-ci.org/mbedded-ninja/FixedPointCpp.png?branch=master   
-	:target: https://travis-ci.org/mbedded-ninja/FixedPointCpp
+.. image:: https://travis-ci.org/mbedded-ninja/MFixedPoint.png?branch=master   
+	:target: https://travis-ci.org/mbedded-ninja/MFixedPoint
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-10-23
-- Last Modified: 2014-09-02
-- Version: v5.9.0.2
+- Last Modified: 2014-09-16
+- Version: v5.10.0.0
 - Company: mbedded.ninja
 - Project: MToolkit
 - Language: C++
@@ -77,12 +77,12 @@ Do not pay much attention to the benchmarking results when run on a pre-emptive 
 Port Independence
 =================
 
-The library is designed to be port-independent. Port-specific functions are declared in separate files, Fp-Port.cpp and Fp-Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
+The library is designed to be port-independent. Port-specific functions are declared in separate files, Port.cpp and Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
 
 Configuration
 =============
 
-Configuration settings are in 'Fp-Config.hpp'. This file allows you to turn on/off debug message printing (which itself is port-specific, and defined in Fp-Port.hpp/cpp).
+Configuration settings are in 'Config.hpp'. This file allows you to turn on/off debug message printing (which itself is port-specific, and defined in Port.hpp/cpp).
 
 Compiling
 =========
@@ -108,8 +108,7 @@ See the unit tests in ./test/ for more usage examples!
 
 ::
 
-	#include "/src/include/FixedPoint-Fp32f.hpp"
-	#include "/src/include/FixedPoint-Fp64f.hpp"
+	#include "/src/api/MFixedPointApi.hpp"
 
 	int main()
 	{
@@ -144,6 +143,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.10.0.0 2014-09-15 Updated title in README to 'MFixedPoint'. Added Eclipse project files. Update URLs in code comments from 'www.cladlab.com' to 'www.mbedded.ninja', closes #72. Moved headers from 'src/include/' to 'include/', to follow the convention of other MToolkit modules, closes #70. Added API file to the new foler 'api/', closes #71. Dropped 'FixedPoint-' prefix from code files, to follow the naming convention of the other MToolkit modules, closes #69. Replaced UnitTestCpp with the MUnitTest module, closes #73, closes #23.
 v5.9.0.2  2014-09-02 Reworded title in README.
 v5.9.0.1  2014-09-02 Fixed captilisation error in README.
 v5.9.0.0  2014-09-02 Changed name from 'FixedPoint-Cpp' to 'FixedPointCpp'. Updated links in README to 'www.mbedded.ninja'. Updated dates in README to use ISO standard.
