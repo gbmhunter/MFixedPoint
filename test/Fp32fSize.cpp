@@ -27,6 +27,6 @@ MTEST_GROUP(Fp32fSizeTests)
 		//return UnitTest::RunAllTests();
 		printf("FP: Size of Fp32f object (bytes) = '%lu'.\r\n", sizeof(Fp32f<12>));
 	
-		CHECK_EQUAL((size_t)4, sizeof(Fp32f<12>));
+		CHECK_EQUAL(sizeof(Fp32f<12>), (size_t)4);
 	}
 }

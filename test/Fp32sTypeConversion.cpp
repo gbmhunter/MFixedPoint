@@ -29,7 +29,7 @@ MTEST_GROUP(Fp32sTypeConversionTests)
 
 		// The closest fixed point number this can be represented
 		// as is Math.Round(3.2*2^8) = 819 = 0b001100110011
-		CHECK_EQUAL((int32_t)0b001100110011, fp1.rawVal);
+		CHECK_EQUAL(fp1.rawVal, (int32_t)0b001100110011);
 	}
 
 	MTEST(NegativeDoubleToFixedConversionTest)
@@ -38,7 +38,7 @@ MTEST_GROUP(Fp32sTypeConversionTests)
 
 		// The closest fixed point number this can be represented
 		// as is Math.Round(-3.2*2^8) = -819 = 0b11111111111111111111110011001101 (32-bit 2's compliment)
-		CHECK_EQUAL((int32_t)0b11111111111111111111110011001101, fp1.rawVal);
+		CHECK_EQUAL(fp1.rawVal, (int32_t)0b11111111111111111111110011001101);
 	}
 	
 	MTEST(PosInt32CastTest)
@@ -46,7 +46,7 @@ MTEST_GROUP(Fp32sTypeConversionTests)
 		Fp32s fp1 = Fp32s(5.6, 12);
 		int32_t myInt32 = (int32_t)fp1;
 		
-		CHECK_EQUAL(5, myInt32);
+		CHECK_EQUAL(myInt32, 5);
 	}
 	
 	MTEST(NegInt32CastTest)
@@ -55,7 +55,7 @@ MTEST_GROUP(Fp32sTypeConversionTests)
 		int32_t myInt32 = (int32_t)fp1;
 		
 		// Rounds down to nearest int
-		CHECK_EQUAL(-23, myInt32);
+		CHECK_EQUAL(myInt32, -23);
 	}
 
 	MTEST(PosFloatCastTest)

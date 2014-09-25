@@ -30,8 +30,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 += fp2;
 
 		CHECK_CLOSE(3.8, (double)fp1, 0.1);
-		CHECK_EQUAL(8, fp1.q);
-		CHECK_EQUAL(12, fp2.q);
+		CHECK_EQUAL(fp1.q, 8);
+		CHECK_EQUAL(fp2.q, 12);
 	}
 	
 	MTEST(DiffQCompoundAdditionChangeTest)
@@ -43,8 +43,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 += fp2;
 
 		CHECK_CLOSE(8.6, (double)fp1, 0.1);
-		CHECK_EQUAL(5, fp1.q);
-		CHECK_EQUAL(5, fp2.q);
+		CHECK_EQUAL(fp1.q, 5);
+		CHECK_EQUAL(fp2.q, 5);
 	}
 	
 	MTEST(DiffQCompoundSubtractionNoChangeTest)
@@ -55,8 +55,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 -= fp2;
 
 		CHECK_CLOSE(2.6, (double)fp1, 0.1);
-		CHECK_EQUAL(7, fp1.q);
-		CHECK_EQUAL(22, fp2.q);
+		CHECK_EQUAL(fp1.q, 7);
+		CHECK_EQUAL(fp2.q, 22);
 	}
 	
 	MTEST(DiffQCompoundSubtractionChangeTest)
@@ -67,8 +67,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 -= fp2;
 
 		CHECK_CLOSE(-10.7, (double)fp1, 0.1);
-		CHECK_EQUAL(12, fp1.q);
-		CHECK_EQUAL(12, fp2.q);
+		CHECK_EQUAL(fp1.q, 12);
+		CHECK_EQUAL(fp2.q, 12);
 	}
 	
 	MTEST(DiffQCompoundMultiplicationNoChangeTest)
@@ -79,8 +79,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 *= fp2;
 
 		CHECK_CLOSE(1.92, (double)fp1, 0.1);
-		CHECK_EQUAL(6, fp1.q);
-		CHECK_EQUAL(12, fp2.q);
+		CHECK_EQUAL(fp1.q, 6);
+		CHECK_EQUAL(fp2.q, 12);
 	}
 	
 	MTEST(DiffQCompoundMultiplicationChangeTest)
@@ -91,8 +91,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 *= fp2;
 
 		CHECK_CLOSE(1.92, (double)fp1, 0.1);
-		CHECK_EQUAL(6, fp1.q);
-		CHECK_EQUAL(6, fp2.q);
+		CHECK_EQUAL(fp1.q, 6);
+		CHECK_EQUAL(fp2.q, 6);
 	}
 
 	MTEST(DiffQCompoundDivisionNoChangeTest)
@@ -103,8 +103,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 /= fp2;
 
 		CHECK_CLOSE(5.33, (double)fp1, 0.1);
-		CHECK_EQUAL(12, fp1.q);
-		CHECK_EQUAL(18, fp2.q);
+		CHECK_EQUAL(fp1.q, 12);
+		CHECK_EQUAL(fp2.q, 18);
 	}
 	
 	MTEST(DiffQCompoundDivisionChangeTest)
@@ -115,8 +115,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		fp1 /= fp2;
 
 		CHECK_CLOSE(5.33, (double)fp1, 0.1);
-		CHECK_EQUAL(12, fp1.q);
-		CHECK_EQUAL(12, fp2.q);
+		CHECK_EQUAL(fp1.q, 12);
+		CHECK_EQUAL(fp2.q, 12);
 	}
 	
 	MTEST(DiffQCompoundModuloNoChangeTest)
@@ -128,8 +128,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		//20.2 % 1.5 = 0.7
 		
 		CHECK_CLOSE(0.7, (double)fp1, 0.1);
-		CHECK_EQUAL(12, fp1.q);
-		CHECK_EQUAL(19, fp2.q);
+		CHECK_EQUAL(fp1.q, 12);
+		CHECK_EQUAL(fp2.q, 19);
 	}
 	
 	MTEST(DiffQCompoundModuloChangeTest)
@@ -141,8 +141,8 @@ MTEST_GROUP(Fp32sDiffQArithmeticTests)
 		//20.2 % 1.5 = 0.7
 		
 		CHECK_CLOSE(0.7, (double)fp1, 0.1);
-		CHECK_EQUAL(12, fp1.q);
-		CHECK_EQUAL(12, fp2.q);
+		CHECK_EQUAL(fp1.q, 12);
+		CHECK_EQUAL(fp2.q, 12);
 	}
 	
 }

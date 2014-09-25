@@ -27,8 +27,8 @@ MTEST_GROUP(Fp64fBinaryTests)
 		Fp64f<8> fp2 = Fp64f<8>(5.6);
 		Fp64f<8> fp3 = Fp64f<8>(8.9);
 		
-		CHECK_EQUAL(true, fp1 == fp2);
-		CHECK_EQUAL(false, fp1 == fp3);
+		CHECK_EQUAL(fp1 == fp2, true);
+		CHECK_EQUAL(fp1 == fp3, false);
 	}
 	
 	MTEST(NegEqualsTest)
@@ -37,8 +37,8 @@ MTEST_GROUP(Fp64fBinaryTests)
 		Fp64f<8> fp2 = Fp64f<8>(-2.8);
 		Fp64f<8> fp3 = Fp64f<8>(-8.9);
 		
-		CHECK_EQUAL(true, fp1 == fp2);
-		CHECK_EQUAL(false, fp1 == fp3);
+		CHECK_EQUAL(fp1 == fp2, true);
+		CHECK_EQUAL(fp1 == fp3, false);
 	}
 
 	MTEST(PosNotEqualsTest)
@@ -47,8 +47,8 @@ MTEST_GROUP(Fp64fBinaryTests)
 		Fp64f<8> fp2 = Fp64f<8>(5.6);
 		Fp64f<8> fp3 = Fp64f<8>(5.6);
 		
-		CHECK_EQUAL(true, fp1 != fp2);
-		CHECK_EQUAL(false, fp2 != fp3);
+		CHECK_EQUAL(fp1 != fp2, true);
+		CHECK_EQUAL(fp2 != fp3, false);
 	}
 	
 	MTEST(NegNotEqualsTest)
@@ -57,8 +57,8 @@ MTEST_GROUP(Fp64fBinaryTests)
 		Fp64f<8> fp2 = Fp64f<8>(-8.9);
 		Fp64f<8> fp3 = Fp64f<8>(-8.9);
 		
-		CHECK_EQUAL(true, fp1 != fp2);
-		CHECK_EQUAL(false, fp2 != fp3);
+		CHECK_EQUAL(fp1 != fp2, true);
+		CHECK_EQUAL(fp2 != fp3, false);
 	}
 
 	MTEST(PosGreaterThanTest)
@@ -67,8 +67,8 @@ MTEST_GROUP(Fp64fBinaryTests)
 		Fp64f<8> fp2 = Fp64f<8>(5.6);
 		Fp64f<8> fp3 = Fp64f<8>(5.6);
 		
-		CHECK_EQUAL(true, fp1 > fp2);
-		CHECK_EQUAL(false, fp2 > fp3);
+		CHECK_EQUAL(fp1 > fp2, true);
+		CHECK_EQUAL(fp2 > fp3, false);
 	}
 	
 	MTEST(NegGreaterThanTest)
@@ -77,8 +77,8 @@ MTEST_GROUP(Fp64fBinaryTests)
 		Fp64f<8> fp2 = Fp64f<8>(-130.4);
 		Fp64f<8> fp3 = Fp64f<8>(-130.4);
 		
-		CHECK_EQUAL(true, fp1 > fp2);
-		CHECK_EQUAL(false, fp2 > fp3);
+		CHECK_EQUAL(fp1 > fp2, true);
+		CHECK_EQUAL(fp2 > fp3, false);
 	}
 
 	MTEST(PosLessThanTest)
@@ -87,7 +87,7 @@ MTEST_GROUP(Fp64fBinaryTests)
 		Fp64f<8> fp2 = Fp64f<8>(18.4);
 		Fp64f<8> fp3 = Fp64f<8>(18.4);
 		
-		CHECK_EQUAL(true, fp1 < fp2);
-		CHECK_EQUAL(false, fp2 < fp3);
+		CHECK_EQUAL(fp1 < fp2, true);
+		CHECK_EQUAL(fp2 < fp3, false);
 	}
 }

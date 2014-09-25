@@ -29,8 +29,8 @@ MTEST_GROUP(Fp64sTypeConversionTests)
 
 		// The closest fixed point number this can be represented
 		// as is Math.Round(3.2*2^8) = 819 = 0b001100110011
-		CHECK_EQUAL((int32_t)0b001100110011, fp1.rawVal);
-		CHECK_EQUAL(8, fp1.q);
+		CHECK_EQUAL(fp1.rawVal, (int32_t)0b001100110011);
+		CHECK_EQUAL(fp1.q, 8);
 	}
 
 	MTEST(NegativeDoubleToFixedConversionTest)
@@ -39,8 +39,8 @@ MTEST_GROUP(Fp64sTypeConversionTests)
 
 		// The closest fixed point number this can be represented
 		// as is Math.Round(-3.2*2^8) = -819 = 0b1111111111111111111111111111111111111111111111111111110011001101 (64-bit 2's compliment)
-		CHECK_EQUAL((int64_t)0b1111111111111111111111111111111111111111111111111111110011001101, fp1.rawVal);
-		CHECK_EQUAL(8, fp1.q);
+		CHECK_EQUAL(fp1.rawVal, (int64_t)0b1111111111111111111111111111111111111111111111111111110011001101);
+		CHECK_EQUAL(fp1.q, 8);
 	}
 
 	MTEST(PosInt32CastTest)
@@ -48,7 +48,7 @@ MTEST_GROUP(Fp64sTypeConversionTests)
 		Fp64s fp1 = Fp64s(12.8, 12);
 		int32_t myInt32 = (int32_t)fp1;
 		
-		CHECK_EQUAL(12, myInt32);
+		CHECK_EQUAL(myInt32, 12);
 	}
 
 	MTEST(NegInt32CastTest)
@@ -57,7 +57,7 @@ MTEST_GROUP(Fp64sTypeConversionTests)
 		int32_t myInt32 = (int32_t)fp1;
 		
 		// Rounds down to nearest int
-		CHECK_EQUAL(-23, myInt32);
+		CHECK_EQUAL(myInt32, -23);
 	}
 	
 	MTEST(PosInt64CastTest)
@@ -65,7 +65,7 @@ MTEST_GROUP(Fp64sTypeConversionTests)
 		Fp64s fp1 = Fp64s(5.6, 12);
 		int64_t myInt64 = (int64_t)fp1;
 		
-		CHECK_EQUAL(5, myInt64);
+		CHECK_EQUAL(myInt64, 5);
 	}
 	
 	MTEST(NegInt64CastTest)
@@ -74,7 +74,7 @@ MTEST_GROUP(Fp64sTypeConversionTests)
 		int64_t myInt64 = (int64_t)fp1;
 		
 		// Rounds down to nearest int
-		CHECK_EQUAL(-44, myInt64);
+		CHECK_EQUAL(myInt64, -44);
 	}
 
 	MTEST(PosFloatCastTest)

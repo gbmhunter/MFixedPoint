@@ -26,7 +26,7 @@ MTEST_GROUP(Fp64fCompoundArithmeticTests)
 		Fp64f<8> fp1 = Fp64f<8>(3.2);
 		Fp64f<8> fp2 = Fp64f<8>(0.6);
 		
-		CHECK_EQUAL(0b001100110011, fp1.rawVal);
+		CHECK_EQUAL(fp1.rawVal, 0b001100110011);
 		
 		fp1 += fp2;
 
