@@ -11,8 +11,8 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-10-23
-- Last Modified: 2014-09-25
-- Version: v5.10.2.0
+- Last Modified: 2015-01-14
+- Version: v5.10.2.1
 - Company: mbedded.ninja
 - Project: MToolkit
 - Language: C++
@@ -87,7 +87,7 @@ Configuration settings are in 'Config.hpp'. This file allows you to turn on/off 
 Compiling
 =========
 
-Either use provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point libraries and automatically runs all unit tests and benchmark programs.
+Either use the provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point libraries and automatically runs all unit tests and benchmark programs.
 
 To run the makefile, open a terminal in the root directory of this library, and type:
 
@@ -136,6 +136,18 @@ See the unit tests in ./test/ for more usage examples!
 		
 		return 0;
 	}
+
+Code Dependencies
+=================
+
+The following table lists all of MFixedPoint's dependencies.
+
+====================== ==================== ======================================================================
+Dependency             Delivery             Usage
+====================== ==================== ======================================================================
+<cstdint>              C standard library   For platform agnostic fixed-width integers.
+MUnitTest              External module      Framework for unit tests.
+====================== ==================== ======================================================================
 	
 Changelog
 =========
@@ -143,6 +155,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.10.2.1 2015-01-14 Added a table of MFixedPoint's dependencies to the README, closes #76.
 v5.10.2.0 2014-09-24 Fixed all unit tests so they fit the format 'CHECK_EQUAL(actual, expected)'. Many have actual and expected around the wrong way, closes #75.
 v5.10.1.0 2014-09-16 Updated '.travis.yml' file in attempt to fix TravisCI build error.
 v5.10.0.0 2014-09-15 Updated title in README to 'MFixedPoint'. Added Eclipse project files. Update URLs in code comments from 'www.cladlab.com' to 'www.mbedded.ninja', closes #72. Moved headers from 'src/include/' to 'include/', to follow the convention of other MToolkit modules, closes #70. Added API file to the new foler 'api/', closes #71. Dropped 'FixedPoint-' prefix from code files, to follow the naming convention of the other MToolkit modules, closes #69. Replaced UnitTestCpp with the MUnitTest module, closes #73, closes #23.
