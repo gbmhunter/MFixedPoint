@@ -11,8 +11,8 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-10-23
-- Last Modified: 2015-01-14
-- Version: v5.10.2.1
+- Last Modified: 2015-01-15
+- Version: v5.10.2.2
 - Company: mbedded.ninja
 - Project: MToolkit
 - Language: C++
@@ -44,7 +44,7 @@ Intermediary overflows are protected with int64_t casting, end-result overflows 
 The 64-bit Libraries (Fp64f, Fp64s)
 -----------------------------------
 
-Intermediary overflows are **NOT** protected from overflowing, due to the inability of intermediate casting to int128_t on most embedded platforms.
+Intermediary overflows are **NOT** protected from overflowing, due to the inability of intermediate casting to :code:`int128_t` on most embedded platforms.
 
 On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
 the range/precision required.
@@ -52,25 +52,25 @@ the range/precision required.
 The Fast Libraries (Fp32f, Fp64f)
 ---------------------------------
 
-The number of bits used for the decimal part of the number (Q) is given as a template parameter (e.g. Fp32f<12>(3.4) will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality.
+The number of bits used for the decimal part of the number (Q) is given as a template parameter (e.g. :code:`Fp32f<12>(3.4)` will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality.
 
-You have to be aware that when adding numbers with different Q, you have to perform the bit-shifting yourself. Also, if you want to convert a fast fixed-point number to a double, you cannot use a cast (e.g. (double)myFp32fNum won't work, you have to use provided functions (e.g. Fix32ToDouble(myFp32fNum);).
+You have to be aware that when adding numbers with different Q, you have to perform the bit-shifting yourself. Also, if you want to convert a fast fixed-point number to a double, you cannot use a cast (e.g. :code:`(double)myFp32fNum` won't work, you have to use provided functions (e.g. :code:`Fix32ToDouble(myFp32fNum);`).
 
 The Slow Libraries (Fp32s, Fp64s)
 ---------------------------------
 
-The number of bits used for the decimal part of the number (Q) is given as a function argument (e.g. Fp32s(3.4, 12) will create the number 3.4 with 12 bits of decimal precision). The Q is stored in the fixed-point object. This gives slightly slower arithmetic speed than the fast libraries, but allows for more functionality.
+The number of bits used for the decimal part of the number (Q) is given as a function argument (e.g. :code:`Fp32s(3.4, 12)` will create the number 3.4 with 12 bits of decimal precision). The Q is stored in the fixed-point object. This gives slightly slower arithmetic speed than the fast libraries, but allows for more functionality.
 
-The extra functionality includes the ability to add two numbers with a different Q transparently, and to ability to cast the fixed-point number into different types (e.g. (double)myFp32sNum will convert the number to a double).
+The extra functionality includes the ability to add two numbers with a different Q transparently, and to ability to cast the fixed-point number into different types (e.g. :code:`(double)myFp32sNum` will convert the number to a double).
 
-When adding two fixed-point numbers which have a different Q, the result's Q is always that of lowest Q of the two operands. For example Fp32s(3.4, 10) + Fp32s(1.2, 14) will result in Fp32s(4.6, 10). 
+When adding two fixed-point numbers which have a different Q, the result's Q is always that of lowest Q of the two operands. For example :code:`Fp32s(3.4, 10) + Fp32s(1.2, 14)` will result in :code:`Fp32s(4.6, 10)`. 
 
 Casting to an int rounds down to the nearest integer; e.g. 5.67 becomes 5, and -12.2 becomes -13.
 
 Benchmarking
 ============
 
-This library contains a benchmarking program in /benchmark/ which runs operations on the fixed-point libraries and reports back on their performance. It is run automatically as part of 'make all'.
+This library contains a benchmarking program in :code:`benchmark/` which runs operations on the fixed-point libraries and reports back on their performance. It is run automatically as part of :code:`make all`.
 
 Do not pay much attention to the benchmarking results when run on a pre-emptive OS such as Linux.
 
@@ -104,15 +104,17 @@ To clean all files as a result of compilation, run:
 Usage
 =====
 
-See the unit tests in ./test/ for more usage examples!
+See the unit tests in :code:`test/` for more usage examples!
 
 ::
 
-	#include "/src/api/MFixedPointApi.hpp"
+	// Include the API header which provides access to all of the fixed-point
+	// data types
+	#include "MFixedPoint/api/MFixedPointApi.hpp"
 
 	int main()
 	{
-		// Create two 32-bit fixed-point numbers with 24 decimal bits and 8 fractional bits.
+		// Create two 32-bit fast fixed-point numbers with 24 decimal bits and 8 fractional bits.
 		// This constructor converts from doubles
 		Fp32f<8> aFpNum1 = Fp32f<8>(3.2);
 		Fp32f<8> aFpNum2 = Fp32f<8>(0.6);
@@ -123,8 +125,10 @@ See the unit tests in ./test/ for more usage examples!
 		// Performing a quick fixed-point multiplication
 		Fp32f<8> aFpNm4 = aFpNum1 * aFpNum2;
 		
-		// Converting fixed-point back to double.
-		double result = (double)aFpNum4;
+		// Printing the result as a double, using the Fix32ToDouble() method
+		// Note that if you use slow fixed-point data type instead, you can 
+		// directly cast one to a double 
+		std::cout << "My fast 32-bit fixed-point number = " << Fix32ToDouble(aFpNum4);
 		
 		// Converting between different precisions. Requires access to raw value just like
 		// when doing fixed-point to double conversion.
@@ -133,6 +137,13 @@ See the unit tests in ./test/ for more usage examples!
 		
 		// You can use 64-bit fixed point numbers in exactly the same way!
 		Fp64f<48> aFp64Num = Fp64f<48>(4.58676);
+		
+		// Creating a 32-bit slow fixed-point number (notice the slightly different syntax)
+		Fp32s mySlowFp32Num = Fp32s(12.23, 12);
+		
+		// You can cast slow 32-bit fixed-point numbers back to doubles
+		// (you can't do this with the fast fixed-point data types)
+		std::cout << "My slow 32-bit fixed-point number = " << (double)mySlowFp32Num; 
 		
 		return 0;
 	}
@@ -155,6 +166,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.10.2.2 2015-01-15 Fixed error in usage code in README. The include path for MFixedPointApi.hpp is incorrect, closes #77. Fixed error in the usage example in README where it incorrectly casts a fast fixed-point value to a double, closes #78. Turned more parts of the README into 'code' formatted sections rather than just plain text.
 v5.10.2.1 2015-01-14 Added a table of MFixedPoint's dependencies to the README, closes #76.
 v5.10.2.0 2014-09-24 Fixed all unit tests so they fit the format 'CHECK_EQUAL(actual, expected)'. Many have actual and expected around the wrong way, closes #75.
 v5.10.1.0 2014-09-16 Updated '.travis.yml' file in attempt to fix TravisCI build error.
