@@ -3,8 +3,8 @@
 //! @author 			Markus Trenkwalder
 //! @edited 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2012-10-23
-//! @last-modified		2014-09-15
-//! @brief 				Fixed point mathematics library
+//! @last-modified		2015-01-26
+//! @brief 				Fast 32-bit fixed point library.
 //! @details
 //!		See README.rst in root dir for more info.
 
@@ -29,8 +29,8 @@ namespace Fp
 	//==================================== PRIVATE VARIABLES ========================================//
 	//===============================================================================================//
 
-	static const int32_t FIX16_2PI	= FloatToFix32<16>(6.28318530717958647692f);
-	static const int32_t FIX16_R2PI = FloatToFix32<16>(1.0f/6.28318530717958647692f);
+	//static const int32_t FIX16_2PI	= FloatToFix32<16>(6.28318530717958647692f);
+	//static const int32_t FIX16_R2PI = FloatToFix32<16>(1.0f/6.28318530717958647692f);
 
 	//===============================================================================================//
 	//===================================== PUBLIC FUNCTIONS ========================================//

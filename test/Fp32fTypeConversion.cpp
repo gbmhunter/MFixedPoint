@@ -3,7 +3,7 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-05-30
-//! @last-modified		2014-09-15
+//! @last-modified		2015-01-26
 //! @brief 				Performs type conversion unit tests on the 32-bit fixed point library (Fp32f).
 //! @details
 //!		See README.rst in root dir for more info.
@@ -96,6 +96,16 @@ MTEST_GROUP(Fp32fTypeConversionTests)
 		// This will be outside floats range
 		fp1 = Fp32f<8>(-(double)((1 << 23)));
 		CHECK_CLOSE(-(double)((1 << 23)), (double)fp1, 1);
+	}
+
+	MTEST(FloatToFixedTest)
+	{
+		Fp32f<8> fp1;
+
+		fp1.rawVal = FloatToRawFix32<8>(4.6);
+
+		CHECK_CLOSE((double)fp1, 4.6, 0.1);
+
 	}
 
 }

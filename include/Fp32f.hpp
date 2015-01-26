@@ -3,7 +3,7 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja), Markus Trenkwalder
 //! @edited 			n/a
 //! @created			2012-10-23
-//! @last-modified		2014-09-15
+//! @last-modified		2015-01-26
 //! @brief 				Fast 32-bit fixed point library.
 //! @details
 //!		See README.rst in root dir for more info.
@@ -67,7 +67,7 @@ namespace Fp
 	// fixed point precision (e.g. q = 8 gives 24.8 fixed point functions).
 
 	//! @brief		Perform a fixed point multiplication without a 64-bit intermediate result.
-	//!	@note 		This is fast but beware of intermediatry overflow!
+	//!	@note 		This is fast but beware of intermediary overflow!
 	template <uint8_t q> 
 	inline int32_t FixMulF(int32_t a, int32_t b)
 	{
@@ -75,7 +75,7 @@ namespace Fp
 	}
 
 	//! @brief		Perform a fixed point multiplication using a 64-bit intermediate result to
-	//! 			prevent intermediatry overflow problems.
+	//! 			prevent intermediary overflow problems.
 	//! @note 		Slower than Fp32f::FixMulF()
 	template <uint8_t q>
 	inline int32_t FixMul(int32_t a, int32_t b)
@@ -176,20 +176,22 @@ namespace Fp
 			return x;
 	}
 
-	//! @brief		Converts from float to fixed-point.
-	//! @details	Good for inputting values into fixed-point arithmetic.
+	//! @brief		Converts from float to a raw fixed-point number.
+	//! @details	Do not write "myFpNum = FloatToRawFix32()"! This function outputs a raw
+	//!				number, so you would have to use the syntax "myFpNum.rawVal = FloatToRawFix32()".
 	//! @warning	Slow!
 	template <uint8_t q>
-	int32_t FloatToFix32(float f)
+	int32_t FloatToRawFix32(float f)
 	{
 		return (int32_t)(f * (1 << q));
 	}
 	
-	//! @brief		Converts from double to fixed-point.
-	//! @details	Good for inputting values into fixed-point arithmetic.
+	//! @brief		Converts from double to a raw fixed-point number.
+	//! @details	Do not write "myFpNum = FloatToRawFix32()"! This function outputs a raw
+	//!				number, so you would have to use the syntax "myFpNum.rawVal = FloatToRawFix32()".
 	//! @warning	Slow!
 	template <uint8_t q>
-	int32_t DoubleToFix32(double f)
+	int32_t DoubleToRawFix32(double f)
 	{
 		return (int32_t)(f * (double)(1 << q));
 	}
@@ -219,27 +221,32 @@ namespace Fp
 			#endif
 		}
 		
-		Fp32f(int8_t i) : rawVal((int32_t)i << q)
+		Fp32f(int8_t i) :
+			rawVal((int32_t)i << q)
 		{
 			
 		}
 		
-		Fp32f(int16_t i) : rawVal((int32_t)i << q)
+		Fp32f(int16_t i) :
+			rawVal((int32_t)i << q)
 		{
 			
 		}
 		
-		Fp32f(int32_t i) : rawVal(i << q)
+		Fp32f(int32_t i) :
+			rawVal(i << q)
 		{
 		
 		}
 		
-		Fp32f(float f) : rawVal(FloatToFix32<q>(f))
+		Fp32f(float f) :
+			rawVal(FloatToRawFix32<q>(f))
 		{
 		
 		}
 		
-		Fp32f(double f) : rawVal(FloatToFix32<q>((float)f))
+		Fp32f(double f) :
+			rawVal(FloatToRawFix32<q>((float)f))
 		{
 		
 		}

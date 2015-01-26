@@ -11,8 +11,8 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
 - Created: 2012-10-23
-- Last Modified: 2015-01-15
-- Version: v5.10.2.2
+- Last Modified: 2015-01-26
+- Version: v5.10.3.0
 - Company: mbedded.ninja
 - Project: MToolkit
 - Language: C++
@@ -52,20 +52,20 @@ the range/precision required.
 The Fast Libraries (Fp32f, Fp64f)
 ---------------------------------
 
-The number of bits used for the decimal part of the number (Q) is given as a template parameter (e.g. :code:`Fp32f<12>(3.4)` will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality.
+The number of bits used for the decimal part of the number (Q) is given as a template parameter (e.g. :code:`Fp32f<12>(3.4)` will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality and a tad more code space.
 
 You have to be aware that when adding numbers with different Q, you have to perform the bit-shifting yourself. Also, if you want to convert a fast fixed-point number to a double, you cannot use a cast (e.g. :code:`(double)myFp32fNum` won't work, you have to use provided functions (e.g. :code:`Fix32ToDouble(myFp32fNum);`).
 
 The Slow Libraries (Fp32s, Fp64s)
 ---------------------------------
 
-The number of bits used for the decimal part of the number (Q) is given as a function argument (e.g. :code:`Fp32s(3.4, 12)` will create the number 3.4 with 12 bits of decimal precision). The Q is stored in the fixed-point object. This gives slightly slower arithmetic speed than the fast libraries, but allows for more functionality.
+The number of bits used for the decimal part of the number (Q) is given as a function argument (e.g. :code:`Fp32s(3.4, 12)` will create the number 3.4 with 12 bits of decimal precision). The Q is stored in the fixed-point object (it is a template parameter in the fast libraries). This gives slightly slower arithmetic speed than the fast libraries, but allows for more functionality and should use less code space..
 
 The extra functionality includes the ability to add two numbers with a different Q transparently, and to ability to cast the fixed-point number into different types (e.g. :code:`(double)myFp32sNum` will convert the number to a double).
 
-When adding two fixed-point numbers which have a different Q, the result's Q is always that of lowest Q of the two operands. For example :code:`Fp32s(3.4, 10) + Fp32s(1.2, 14)` will result in :code:`Fp32s(4.6, 10)`. 
+When adding two fixed-point numbers which have a different Q, the result's Q is always that of lowest Q of the two operands. For example :code:`Fp32s(3.4, 10) + Fp32s(1.2, 14)` will result in same object being created as would the code :code:`Fp32s(4.6, 10)`. 
 
-Casting to an int rounds down to the nearest integer; e.g. 5.67 becomes 5, and -12.2 becomes -13.
+Casting to an :code:`int` rounds down to the nearest integer; e.g. 5.67 becomes 5, and -12.2 becomes -13.
 
 Benchmarking
 ============
@@ -82,7 +82,7 @@ The library is designed to be port-independent. Port-specific functions are decl
 Configuration
 =============
 
-Configuration settings are in 'Config.hpp'. This file allows you to turn on/off debug message printing (which itself is port-specific, and defined in Port.hpp/cpp).
+Configuration settings are in :code:`include/Config.hpp`. This file allows you to turn on/off debug message printing (which itself is port-specific, and defined in :code:`include/Port.hpp/cpp`).
 
 Compiling
 =========
@@ -166,6 +166,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.10.3.0 2015-01-26 Renamed 'FloatToFixXX<p>()' functions to 'FloatToRawFixXX<p>()' to avoid people trying to use them to directly convert to a fixed point number using the syntax 'myFpNum = FloatToFixx<8>(4.6);', closes #80. Added unit test for the 'FloatToRawFix32<p>()' function. Added some relevant information to the README.
 v5.10.2.2 2015-01-15 Fixed error in usage code in README. The include path for MFixedPointApi.hpp is incorrect, closes #77. Fixed error in the usage example in README where it incorrectly casts a fast fixed-point value to a double, closes #78. Turned more parts of the README into 'code' formatted sections rather than just plain text.
 v5.10.2.1 2015-01-14 Added a table of MFixedPoint's dependencies to the README, closes #76.
 v5.10.2.0 2014-09-24 Fixed all unit tests so they fit the format 'CHECK_EQUAL(actual, expected)'. Many have actual and expected around the wrong way, closes #75.

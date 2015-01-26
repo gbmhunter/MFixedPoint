@@ -2,7 +2,7 @@
 //! @file 				Fp64f.h
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2013-05-09
-//! @last-modified		2014-09-15
+//! @last-modified		2015-01-26
 //! @brief 				Fast fixed-point arithmetic for 64-bit numbers. Be careful of overflow!
 //! @details
 //!		See README.rst in root dir for more info.
@@ -16,8 +16,8 @@
 	#error Please build with C++ compiler
 #endif
 
-#ifndef FP64F_H
-#define FP64F_H
+#ifndef M_FIXED_POINT_FP64F_H
+#define M_FIXED_POINT_FP64F_H
 
 #include <stdint.h>
 
@@ -25,7 +25,7 @@ namespace Fp
 {
 
 	//! @brief		Perform a fixed point multiplication without a 128-bit intermediate result.
-	//!	@warning	This is fast but beware of intermediatry overflow!
+	//!	@warning	This is fast but beware of intermediary overflow!
 	template <uint8_t p> 
 	inline int64_t FixMulF(int64_t a, int64_t b)
 	{
@@ -36,7 +36,7 @@ namespace Fp
 	
 	//! @brief		Perform a fixed point division without a 128-bit intermediate result.
 	//! @details	No loss of precision since shift is done before division.
-	//!	@warning	This is fast but beware of intermediatry overflow!
+	//!	@warning	This is fast but beware of intermediary overflow!
 	template <uint8_t p> 
 	inline int64_t FixDiv(int64_t a, int64_t b)
 	{
@@ -45,20 +45,22 @@ namespace Fp
 		return (int64_t)(((a) << p) / b);
 	}
 
-	//! @brief		Converts from float to fixed-point
-	//! @details	Good for inputting values into fixed-point arithmetic
+	//! @brief		Converts from float to a raw fixed-point number.
+	//! @details	Do not write "myFpNum = FloatToRawFix64()"! This function outputs a raw
+	//!				number, so you would have to use the syntax "myFpNum.rawVal = FloatToRawFix64()".
 	//! @warning	Slow!
 	template <uint8_t p>
-	int64_t FloatToFix64(float f)
+	int64_t FloatToRawFix64(float f)
 	{
 		return (int64_t)(f * (1 << p));
 	}
 	
-	//! @brief		Converts from double to fixed-point
-	//! @details	Good for inputting values into fixed-point arithmetic
+	//! @brief		Converts from float to a raw fixed-point number.
+	//! @details	Do not write "myFpNum = DoubleToRawFix64()"! This function outputs a raw
+	//!				number, so you would have to use the syntax "myFpNum.rawVal = DoubleToRawFix64()".
 	//! @warning	Slow!
 	template <uint8_t p>
-	int64_t DoubleToFix64(double f)
+	int64_t DoubleToRawFix64(double f)
 	{
 		return (int64_t)(f * (double)(1 << p));
 	}
@@ -82,23 +84,27 @@ namespace Fp
 			
 			//! @brief			Constructor taking a int32_t.
 			//! @details		Uses initialiser lists. Make sure i is cast
-			//!					to 64-bit before shifting, overwise truncation
+			//!					to 64-bit before shifting, otherwise truncation
 			//!					will occur.
-			Fp64f(int32_t i) : rawVal((int64_t)i << p)
+			Fp64f(int32_t i) :
+				rawVal((int64_t)i << p)
 			{
 				// nothing
 			}
 			
-			Fp64f(int64_t i) : rawVal(i << p)
+			Fp64f(int64_t i) :
+				rawVal(i << p)
 			{
 				// nothing
 			}
 			
-			Fp64f(float f) : rawVal(FloatToFix64<p>(f))
+			Fp64f(float f) :
+				rawVal(FloatToRawFix64<p>(f))
 			{
 				// nothing
 			}
-			Fp64f(double f) : rawVal(FloatToFix64<p>((double)f))
+			Fp64f(double f) :
+				rawVal(FloatToRawFix64<p>((double)f))
 			{
 				// nothing
 			}
@@ -280,6 +286,6 @@ namespace Fp
 
 } // namespace Fp
 
-#endif // #ifndef FP64F_H
+#endif // #ifndef M_FIXED_POINT_FP64F_H
 
 // EOF
