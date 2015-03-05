@@ -74,10 +74,15 @@ This library contains a benchmarking program in :code:`benchmark/` which runs op
 
 Do not pay much attention to the benchmarking results when run on a pre-emptive OS such as Linux.
 
-Port Independence
-=================
+Platform Independent
+====================
 
-The library is designed to be port-independent. Port-specific functions are declared in separate files, Port.cpp and Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
+The library is designed to be platform independent. Port-specific functions are declared in separate files, Port.cpp and Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
+
+This library has been tested on:
+- An ARM Cortex-M3 microcontroller
+- Linux
+- A CodeAnywhere "DevBox"
 
 Configuration
 =============
@@ -87,7 +92,9 @@ Configuration settings are in :code:`include/Config.hpp`. This file allows you t
 Compiling
 =========
 
-Either use the provided Makefile in root directory, or integrate into an IDE. The Makefile builds the fixed point libraries and automatically runs all unit tests and benchmark programs.
+Either use the provided Makefile in root directory (for Linux-like systems), or integrate the source files into an IDE (for an embedded platform). The Makefile builds the fixed point libraries and automatically runs all unit tests and benchmark programs.
+
+Note: The repository must be downloaded into a folder called "MFixedPoint" (which it will do by default) for the Makefile to work correctly.
 
 To run the makefile, open a terminal in the root directory of this library, and type:
 
@@ -166,6 +173,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.10.3.1 2015-03-05 Renamed 'port independance' to 'platform independance' and modified description accordingly. Added list of platforms that this library has been tested on, closes #81.
 v5.10.3.0 2015-01-26 Renamed 'FloatToFixXX<p>()' functions to 'FloatToRawFixXX<p>()' to avoid people trying to use them to directly convert to a fixed point number using the syntax 'myFpNum = FloatToFixx<8>(4.6);', closes #80. Added unit test for the 'FloatToRawFix32<p>()' function. Added some relevant information to the README.
 v5.10.2.2 2015-01-15 Fixed error in usage code in README. The include path for MFixedPointApi.hpp is incorrect, closes #77. Fixed error in the usage example in README where it incorrectly casts a fast fixed-point value to a double, closes #78. Turned more parts of the README into 'code' formatted sections rather than just plain text.
 v5.10.2.1 2015-01-14 Added a table of MFixedPoint's dependencies to the README, closes #76.
