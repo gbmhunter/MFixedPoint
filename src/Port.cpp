@@ -3,7 +3,7 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-06-17
-//! @last-modified		2014-09-15
+//! @last-modified		2017-06-26
 //! @brief 				Port specific functions.
 //! @details
 //!		See README.rst in root dir for more info.
@@ -17,7 +17,7 @@
 //===============================================================================================//
 
 // Associated header file
-#include "../include/Port.hpp"
+#include "MFixedPoint/Port.hpp"
 
 #ifdef __linux__
 	#include <stdio.h>
