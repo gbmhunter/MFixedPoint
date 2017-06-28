@@ -3,7 +3,7 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-05-30
-//! @last-modified		2014-09-15
+//! @last-modified		2017-06-27
 //! @brief 				Performs unit tests on the slow 32-bit fixed point binary operations.
 //! @details
 //!		See README.rst
@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 //===== USER LIBRARIES =====//
-#include "MUnitTest/api/MUnitTestApi.hpp"
+#include "MUnitTest/MUnitTestApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../api/MFixedPointApi.hpp"

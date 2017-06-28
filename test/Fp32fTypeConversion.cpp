@@ -3,7 +3,7 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-05-30
-//! @last-modified		2015-01-26
+//! @last-modified		2017-06-27
 //! @brief 				Performs type conversion unit tests on the 32-bit fixed point library (Fp32f).
 //! @details
 //!		See README.rst in root dir for more info.
@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 //===== USER LIBRARIES =====//
-#include "MUnitTest/api/MUnitTestApi.hpp"
+#include "MUnitTest/MUnitTestApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../api/MFixedPointApi.hpp"
