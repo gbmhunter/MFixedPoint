@@ -12,7 +12,7 @@
 // none
 
 //===== USER LIBRARIES =====//
-#include "MUnitTest/api/MUnitTestApi.hpp"
+#include "MUnitTest/MUnitTestApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../api/MFixedPointApi.hpp"
