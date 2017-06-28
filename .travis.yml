@@ -39,4 +39,8 @@ install:
 
 # command to run tests
 script: 
+  - mkdir build
+  - cd build
+  - cmake ..
   - make
+  - ./test/MFixedPointTests
