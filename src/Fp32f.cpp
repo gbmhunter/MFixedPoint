@@ -3,7 +3,7 @@
 //! @author 			Markus Trenkwalder
 //! @edited 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2012-10-23
-//! @last-modified		2015-01-26
+//! @last-modified		2017-06-26
 //! @brief 				Fast 32-bit fixed point library.
 //! @details
 //!		See README.rst in root dir for more info.
@@ -16,7 +16,7 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-#include "./include/Fp32f.hpp"
+#include "MFixedPoint/Fp32f.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
