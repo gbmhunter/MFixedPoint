@@ -33,3 +33,15 @@ include_directories(include)
 
 add_subdirectory(src)
 add_subdirectory(test)
+add_subdirectory(benchmark)
+
+add_custom_target(
+    my_custom_target_that_always_runs ALL
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/__header.h MFixedPointTests
+    )
+
+add_custom_command(         
+	OUTPUT
+        ${CMAKE_CURRENT_BINARY_DIR}/__header.h  # fake! ensure we run!   
+    COMMAND ./test/MFixedPointTests)
+   

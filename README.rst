@@ -9,7 +9,7 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 .. image:: https://travis-ci.org/mbedded-ninja/MFixedPoint.png?branch=master   
 	:target: https://travis-ci.org/mbedded-ninja/MFixedPoint
 
-- Author: gbmhunter <gbmhunter@gmail.com> (http://www.mbedded.ninja)
+- Author: gbmhunter <gbmhunter@gmail.com> (http://blog.mbedded.ninja)
 - Created: 2012-10-23
 - Last Modified: 2017-06-27
 - Version: v6.0.2
@@ -92,21 +92,26 @@ Configuration settings are in :code:`include/Config.hpp`. This file allows you t
 Compiling
 =========
 
-Either use the provided Makefile in root directory (for Linux-like systems), or integrate the source files into an IDE (for an embedded platform). The Makefile builds the fixed point libraries and automatically runs all unit tests and benchmark programs.
+Either use cmake with the provided :code:`CMakeLists.txt` in the root directory, or integrate the source files into an IDE (for an embedded platform).
 
-Note: The repository must be downloaded into a folder called "MFixedPoint" (which it will do by default) for the Makefile to work correctly.
+The cmake method will build the fixed point libraries and automatically runs all unit tests and benchmark programs.
 
-To run the makefile, open a terminal in the root directory of this library, and type:
+
 
 ::
 
-	make all
+	~$ git clone https://github.com/mbedded-ninja/MFixedPoint.git
+	~$ cd MFixedPoint
+	~/MFixedPoint$ mkdir build
+	~/MFixedPoint$ cd build
+	~/MFixedPoint/build$ cmake ..
+	~/MFixedPoint/build$ make
 	
-To clean all files as a result of compilation, run:
+You can then the tests by calling:
 
 ::
 
-	make clean
+	~/MFixedPoint/build$ ./test/MFixedPointTests
 
 Usage
 =====
