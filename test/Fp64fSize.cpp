@@ -3,19 +3,19 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-07-17
-//! @last-modified		2014-09-15
+//! @last-modified		2017-06-27
 //! @brief 				Tests the size of the Fp64f object.
 //! @details
 //!		See README.rst in the root dir for more info.
 
-//===== SYSTEM LIBRARIES =====//
-#include <stdio.h>
+// System includes
+// none
 
-//===== USER LIBRARIES =====//
+// 3rd party includes
 #include "MUnitTest/MUnitTestApi.hpp"
 
-//===== USER SOURCE =====//
-#include "../api/MFixedPointApi.hpp"
+// User includes
+#include "MFixedPoint/Fp64f.hpp"
 
 using namespace Fp;
 

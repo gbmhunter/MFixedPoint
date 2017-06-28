@@ -3,19 +3,21 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-05-30
-//! @last-modified		2014-09-15
+//! @last-modified		2017-06-27
 //! @brief 				Has the entry point for the benchmark program.
 //! @details
 //!		See README.rst in root dir for more info.
 
-//==== SYSTEM LIBRARIES ====//
+// System includes
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-//==== USER SOURCE ====//
-#include "../api/MFixedPointApi.hpp"
+// User includes
+#include "MFixedPoint/Fp32f.hpp"
+#include "MFixedPoint/Fp64f.hpp"
+#include "MFixedPoint/Fp64s.hpp"
 
 using namespace Fp;
 

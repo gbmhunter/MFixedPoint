@@ -3,19 +3,19 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-05-30
-//! @last-modified		2014-09-15
+//! @last-modified		2017-06-27
 //! @brief 				Performs type conversion unit tests on the slow 32-bit fixed point library (Fp32s).
 //! @details
 //!		See README.rst in root dir for more info.
 
-//===== SYSTEM LIBRARIES =====//
-#include <stdio.h>
+// System includes
+// none
 
-//===== USER LIBRARIES =====//
+// 3rd party includes
 #include "MUnitTest/MUnitTestApi.hpp"
 
-//===== USER SOURCE =====//
-#include "../api/MFixedPointApi.hpp"
+// User includes
+#include "MFixedPoint/Fp32s.hpp"
 
 using namespace Fp;
 

@@ -1,21 +1,21 @@
 //!
-//! @file 				Fp64fTest.cpp
-//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+//! @file 				Fp64fBinary.cpp
+//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (blog.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-07-12
-//! @last-modified		2014-09-15
+//! @last-modified		2017-06-27
 //! @brief 				Performs unit tests on the 64-bit fixed point binary arithmetic.
 //! @details
 //!		See README.rst
 
-//===== SYSTEM LIBRARIES =====//
-#include <stdio.h>
+// System includes
+// none
 
-//===== USER LIBRARIES =====//
+// 3rd party includes
 #include "MUnitTest/MUnitTestApi.hpp"
 
-//===== USER SOURCE =====//
-#include "../api/MFixedPointApi.hpp"
+// User includes
+#include "MFixedPoint/Fp64f.hpp"
 
 using namespace Fp;
 

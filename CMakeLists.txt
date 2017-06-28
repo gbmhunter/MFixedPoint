@@ -28,7 +28,7 @@ if (BUILD_DEPENDENCIES)
     link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)
 endif ()
 
-include_directories(../)
+#include_directories(../)
 include_directories(include)
 
 add_subdirectory(src)
