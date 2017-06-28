@@ -8,14 +8,14 @@
 //! @details
 //!		See README.rst in the root dir for more info.
 
-//===== SYSTEM LIBRARIES =====//
-#include <stdio.h>
+// System includes
+// none
 
-//===== USER LIBRARIES =====//
+// 3rd party includes
 #include "MUnitTest/MUnitTestApi.hpp"
 
-//===== USER SOURCE =====//
-#include "../api/MFixedPointApi.hpp"
+// User includes
+#include "MFixedPoint/Fp32f.hpp"
 
 using namespace Fp;
 

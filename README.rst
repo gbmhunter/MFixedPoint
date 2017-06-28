@@ -94,8 +94,7 @@ Compiling
 
 Either use cmake with the provided :code:`CMakeLists.txt` in the root directory, or integrate the source files into an IDE (for an embedded platform).
 
-The cmake method will build the fixed point libraries and automatically runs all unit tests and benchmark programs.
-
+The cmake method will build the fixed point library and automatically runs all unit tests and the benchmark program.
 
 
 ::
