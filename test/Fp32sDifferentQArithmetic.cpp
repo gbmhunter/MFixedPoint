@@ -18,7 +18,7 @@
 // User includes
 #include "MFixedPoint/Fp32s.hpp"
 
-using namespace Fp;
+using namespace mn::MFixedPoint;
 
 MTEST_GROUP(Fp32sDiffQArithmeticTests)
 {

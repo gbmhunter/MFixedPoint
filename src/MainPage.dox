@@ -1,0 +1,15 @@
+/*! \mainpage MFixedPoint
+ *
+ * Welcome to the MFixedPoint formal documentation.
+ *
+ * Navigate on the right-hand side or use the quick links below:
+ *
+ * #mn::MFixedPoint::Fp32f
+ *
+ * #mn::MFixedPoint::Fp32s
+ *
+ * #mn::MFixedPoint::Fp64f
+ *
+ * #mn::MFixedPoint::Fp64s
+ *
+ */ 

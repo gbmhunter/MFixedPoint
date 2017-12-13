@@ -31,8 +31,8 @@
 //======================================== NAMESPACE ============================================//
 //===============================================================================================//
 
-namespace Fp 
-{
+namespace mn {
+namespace MFixedPoint {
 	void Port::DebugPrint(char* msg)
 	{
 		#ifdef __linux__
@@ -44,6 +44,7 @@ namespace Fp
 		#endif
 	}
 
-} // namespace Fp
+} // namespace MFixedPoint
+} // namespace mn
 
 // EOF

@@ -2,7 +2,7 @@
 //! @file 				Fp64f.h
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2013-05-09
-//! @last-modified		2015-01-26
+//! @last-modified		2017-12-13
 //! @brief 				Fast fixed-point arithmetic for 64-bit numbers. Be careful of overflow!
 //! @details
 //!		See README.rst in root dir for more info.
@@ -16,13 +16,13 @@
 	#error Please build with C++ compiler
 #endif
 
-#ifndef M_FIXED_POINT_FP64F_H
-#define M_FIXED_POINT_FP64F_H
+#ifndef MN_MFIXEDPOINT_FP64F_H
+#define MN_MFIXEDPOINT_FP64F_H
 
 #include <stdint.h>
 
-namespace Fp
-{
+namespace mn {
+namespace MFixedPoint {
 
 	//! @brief		Perform a fixed point multiplication without a 128-bit intermediate result.
 	//!	@warning	This is fast but beware of intermediary overflow!
@@ -201,7 +201,7 @@ namespace Fp
 			
 			//! @} Arithmetic Operator Overloads
 			
-			//! @defgroup Binary Operator Overloads
+			//! @defgroup Explicit Binary Operator Overloads
 			//! @{
 			
 			bool operator == (Fp64f r) const
@@ -234,21 +234,19 @@ namespace Fp
 				return rawVal >= r.rawVal;
 			}
 			
-			//! @}
+			/// @}
 			
-			//! @defgroup Explicit "From Fp64f" Conversion Overloads (casts)
-			//! @{
+			/// \defgroup Explicit "From Fp64f" Conversion Overloads (casts)
+			/// @{
 			
-			//! @brief		Conversion operator from fixed-point to float.
-			operator float()
-			{ 
+			/// \brief		Conversion operator from fixed-point to float.
+			operator float() { 
 				return (float)rawVal / (float)(1 << p);
 			}
 			
-			//! @brief		Conversion operator from fixed-point to double.
-			//! @note		Similar to float conversion.
-			operator double()
-			{ 
+			/// \brief		Conversion operator from fixed-point to double.
+			/// \note		Similar to float conversion.
+			operator double() { 
 				return (double)rawVal / (double)(1 << p);
 			}
 			
@@ -284,8 +282,9 @@ namespace Fp
 		return (double)f / (double)(1 << p);
 	}*/
 
-} // namespace Fp
+} // namespace MFixedPoint
+} // namesapce mn
 
-#endif // #ifndef M_FIXED_POINT_FP64F_H
+#endif // #ifndef MN_MFIXEDPOINT_FP64F_H
 
 // EOF

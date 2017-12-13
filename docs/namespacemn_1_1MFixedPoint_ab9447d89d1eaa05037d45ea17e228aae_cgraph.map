@@ -1,0 +1,8 @@
+<map id="mn::MFixedPoint::DoubleToRawFix32" name="mn::MFixedPoint::DoubleToRawFix32">
+<area shape="rect" id="node2" href="$namespacemn_1_1MFixedPoint.html#abe2435ffb4d1d6dac5744bb08d42df25" title="mn::MFixedPoint::fixcos16" alt="" coords="241,5,419,32"/>
+<area shape="rect" id="node3" href="$namespacemn_1_1MFixedPoint.html#a5f8f94c6e7eca6ba8233ac7f0da880eb" title="mn::MFixedPoint::fixrsqrt16" alt="" coords="239,56,421,83"/>
+<area shape="rect" id="node5" href="$namespacemn_1_1MFixedPoint.html#a8e0a611dd25e1fd08fa518c32584832a" title="mn::MFixedPoint::fixsin16" alt="" coords="243,107,417,133"/>
+<area shape="rect" id="node6" href="$namespacemn_1_1MFixedPoint.html#a67dbcc8f8829616f0928b35320c51d04" title="Calculates squareroot. " alt="" coords="241,157,419,184"/>
+<area shape="rect" id="node4" href="$namespacemn_1_1MFixedPoint_1_1detail.html#a23c916cea5a4b151e69bff7e828610f2" title="mn::MFixedPoint::detail\l::CountLeadingZeros" alt="" coords="469,49,629,90"/>
+<area shape="rect" id="node7" href="$namespacemn_1_1MFixedPoint.html#ae4a8dc561a9ea6b45837015139604367" title="mn::MFixedPoint::fast\l_div16" alt="" coords="474,150,625,191"/>
+</map>

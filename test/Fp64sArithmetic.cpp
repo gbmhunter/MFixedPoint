@@ -17,7 +17,7 @@
 // User includes
 #include "MFixedPoint/Fp64s.hpp"
 
-using namespace Fp;
+using namespace mn::MFixedPoint;
 
 MTEST_GROUP(Fp64sArithmeticTests)
 {

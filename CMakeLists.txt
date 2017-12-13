@@ -4,8 +4,16 @@ project(MFixedPoint)
 
 add_definitions(-std=c++11)
 
-option(BUILD_DEPENDENCIES "If set to ON, dependencies will be downloaded and built as part of the build process." ON)
+# Custom CMake module path that is part if this repo
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
+include(CodeCoverage)
+
+#=================================================================================================#
+#========================================= INPUT ARGUMENTS =======================================#
+#=================================================================================================#
+
+option(BUILD_DEPENDENCIES "If set to ON, dependencies will be downloaded and built as part of the build process." ON)
 if (BUILD_DEPENDENCIES)
     message("BUILD_DEPENDENCIES=ON, dependencies will be downloaded and built automatically.")
     # EXTERNAL_INSTALL_LOCATION is used by external projects, except for gtest
@@ -13,6 +21,20 @@ if (BUILD_DEPENDENCIES)
     set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
 else ()
     message("BUILD_DEPENDENCIES=OFF, dependencies have to be downloaded, built and installed manually.")
+endif ()
+
+option(BUILD_TESTS "If set to true, unit tests will be build as part of make all." TRUE)
+if (BUILD_TESTS)
+    message("BUILD_TESTS=TRUE, unit tests will be built.")
+else ()
+    message("BUILD_TESTS=FALSE, unit tests will NOT be built.")
+endif ()
+
+option(COVERAGE "If set to true, coverage will be enabled." FALSE)
+if (COVERAGE)
+    message("COVERAGE=TRUE, coverage will be enabled.")
+else ()
+    message("COVERAGE=FALSE, coverage will NOT be enabled.")
 endif ()
 
 #=================================================================================================#
@@ -32,7 +54,9 @@ endif ()
 include_directories(include)
 
 add_subdirectory(src)
-add_subdirectory(test)
+if(BUILD_TESTS)
+    add_subdirectory(test)
+endif()
 add_subdirectory(benchmark)
 
 
