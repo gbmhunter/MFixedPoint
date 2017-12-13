@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v7.0.0] - 2017-12-13
+
 ### Added
 - Added enclosing `mn` namespace for all source code, closes #84.
 - Added this CHANGELOG.md file, closes #85.
