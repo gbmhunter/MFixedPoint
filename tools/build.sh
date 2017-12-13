@@ -75,7 +75,7 @@ if [[ "$FLAGS_coverage" == $FLAGS_TRUE ]]; then
 
     # Uploading report to CodeCov
     # NOTE: This only works when invoked on TravisCI
-    bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+    bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 fi
 
 if [[ "$FLAGS_install" == $FLAGS_TRUE ]]; then
