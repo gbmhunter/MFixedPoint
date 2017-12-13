@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added enclosing `mn` namespace for all source code, closes #84.
 - Added this CHANGELOG.md file, closes #85.
+- Added documentation to 'docs/', closes #87.
 
 ### Changed
 - Changed the `Fp` namespace to `MFixedPoint` (to reflect actual project name), closes #86.

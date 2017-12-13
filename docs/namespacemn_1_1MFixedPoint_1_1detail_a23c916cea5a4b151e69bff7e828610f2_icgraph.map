@@ -1,0 +1,6 @@
+<map id="mn::MFixedPoint::detail::CountLeadingZeros" name="mn::MFixedPoint::detail::CountLeadingZeros">
+<area shape="rect" id="node2" href="$namespacemn_1_1MFixedPoint.html#ace853bfeeb42f244da813d2f43746db7" title="mn::MFixedPoint::fixinv" alt="" coords="225,5,385,32"/>
+<area shape="rect" id="node3" href="$namespacemn_1_1MFixedPoint.html#a5f8f94c6e7eca6ba8233ac7f0da880eb" title="mn::MFixedPoint::fixrsqrt16" alt="" coords="213,56,396,83"/>
+<area shape="rect" id="node4" href="$namespacemn_1_1MFixedPoint.html#ab9447d89d1eaa05037d45ea17e228aae" title="Converts from double to a raw fixed&#45;point number. " alt="" coords="444,19,629,61"/>
+<area shape="rect" id="node5" href="$namespacemn_1_1MFixedPoint.html#a0af48d61efa0fa7b024d71b2d11a487f" title="mn::MFixedPoint::rsqrt" alt="" coords="459,85,614,112"/>
+</map>
