@@ -16,21 +16,22 @@
 	#error Please build with C++ compiler
 #endif
 
-#ifndef FP_CONFIG_H
-#define FP_CONFIG_H
+#ifndef MN_MFIXEDPOINT_CONFIG_H
+#define MN_MFIXEDPOINT_CONFIG_H
 	
 //===============================================================================================//
 //========================================= NAMESPACE ===========================================//
 //===============================================================================================//
 	
-namespace Fp
-{
+namespace mn {
+namespace MFixedPoint {
 	//! @brief		(bool) If set to 1, general debug information will be printed to the
 	//!				port-specific output.
 	#define fpConfig_PRINT_DEBUG_GENERAL		1
 	
-} // namespace Fp
+} // namespace MFixedPoint
+} // namespace mn
 
-#endif // #ifndef FP_CONFIG_H
+#endif // #ifndef MN_MFIXEDPOINT_CONFIG_H
 
 // EOF

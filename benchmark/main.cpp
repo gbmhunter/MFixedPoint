@@ -19,7 +19,7 @@
 #include "MFixedPoint/Fp64f.hpp"
 #include "MFixedPoint/Fp64s.hpp"
 
-using namespace Fp;
+using namespace mn::MFixedPoint;
 
 #define NUM_TESTS	10000
 

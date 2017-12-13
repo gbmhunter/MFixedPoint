@@ -3,7 +3,7 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited				n/a
 //! @created			2013-06-17
-//! @last-modified		2014-09-15
+//! @last-modified		2017-12-13
 //! @brief 				Port specific functions.
 //! @details
 //! 	See README.rst in root dir for more info.
@@ -17,14 +17,14 @@
 	#error Please build with C++ compiler
 #endif
 
-#ifndef FP_PORT_H
-#define FP_PORT_H
+#ifndef MN_MFIXEDPOINT_PORT_H
+#define MN_MFIXEDPOINT_PORT_H
 
 #include "Config.hpp"
 #include <stdint.h>
 	
-namespace Fp
-{
+namespace mn {
+namespace MFixedPoint {
 
 	class Port
 	{
@@ -32,8 +32,9 @@ namespace Fp
 			static void DebugPrint(char* msg);
 	};
 	
-} // namespace Fp
+} // namespace MFixedPoint
+} // namespace mn
 
-#endif // #ifndef FP_PORT_H
+#endif // #ifndef MN_MFIXEDPOINT_PORT_H
 
 // EOF

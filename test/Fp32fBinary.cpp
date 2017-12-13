@@ -17,7 +17,7 @@
 // User includes
 #include "MFixedPoint/Fp32f.hpp"
 
-using namespace Fp;
+using namespace mn::MFixedPoint;
 
 MTEST_GROUP(Fp32fBinaryTests)
 {
