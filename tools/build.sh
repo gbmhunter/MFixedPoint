@@ -65,7 +65,7 @@ make -j8 run_unit_tests
 
 if [[ "$FLAGS_coverage" == $FLAGS_TRUE ]]; then
     printInfo 'Running coverage report...'
-    make -j8 CppTemplate_coverage
+    make -j8 MFixedPoint_coverage
     lcov --directory . --capture --output-file coverage.info # capture coverage info
     lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
     lcov --remove coverage.info '*/test/*' --output-file coverage.info # filter out test
