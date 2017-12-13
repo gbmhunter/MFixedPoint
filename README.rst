@@ -9,19 +9,10 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 .. image:: https://travis-ci.org/mbedded-ninja/MFixedPoint.png?branch=master   
 	:target: https://travis-ci.org/mbedded-ninja/MFixedPoint
 
-- Author: gbmhunter <gbmhunter@gmail.com> (http://blog.mbedded.ninja)
-- Created: 2012-10-23
-- Last Modified: 2017-06-27
-- Version: v6.0.2
-- Company: mbedded.ninja
-- Project: MToolkit
-- Language: C++
-- Compiler: GCC	
-- uC Model: Any
-- Computer Architecture: Any
-- Operating System: Any
-- Documentation Format: Doxygen
-- License: GPLv3
+
+.. image:: https://codecov.io/gh/mbedded-ninja/MFixedPoint/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/mbedded-ninja/MFixedPoint
+
 
 Description
 ===========
