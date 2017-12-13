@@ -9,7 +9,7 @@ add_executable (MFixedPointTests ${MFixedPointTests_SRC})
 add_dependencies (MFixedPointTests MUnitTest_Project)
 
 if(COVERAGE)
-    set_target_properties(CppTemplateTests PROPERTIES LINK_FLAGS "-coverage -lgcov")
+    set_target_properties(MFixedPointTests PROPERTIES LINK_FLAGS "-coverage -lgcov")
 endif ()
 
 target_link_libraries(MFixedPointTests LINK_PUBLIC MFixedPoint MUnitTest)
