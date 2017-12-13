@@ -388,107 +388,95 @@ class Fp32f {
 		return rawVal >= r.rawVal;
 	}
 	
-	//! @defgroup Explicit "From Fp32f" Conversion Overloads (casts)
-	//! @{
+	/// \defgroup From Fp32f Conversion Overloads (casts)
+	/// @{
 	
-	//! @brief		Conversion operator from fixed-point to int16_t.
-	//! @warning	Possible loss of accuracy from conversion from
-	//!				int32_t to int16_t.
-	operator int16_t()
-	{
+	/// \brief		Conversion operator from fixed-point to int16_t.
+	/// \warning	Possible loss of accuracy from conversion from
+	///				int32_t to int16_t.
+	operator int16_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
 		return (int16_t)(rawVal >> q);
 	}
 	
 	//! @brief		Conversion operator from fixed-point to int32_t.
-	operator int32_t()
-	{
+	operator int32_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
 		return (rawVal >> q);
 	}
 	
 	//! @brief		Conversion operator from fixed-point to int64_t.
-	operator int64_t()
-	{
+	operator int64_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
 		return (int64_t)(rawVal >> q);
 	}
 	
 	//! @brief		Conversion operator from fixed-point to float.
-	operator float()
-	{ 
+	operator float() { 
 		return (float)rawVal / (float)(1 << q);
 	}
 	
 	//! @brief		Conversion operator from fixed-point to double.
 	//! @note		Similar to float conversion.
-	operator double()
-	{ 
+	operator double() { 
 		return (double)rawVal / (double)(1 << q);
 	}
 	
 	//! @}
 	
-	// Overloads Between Fp32f And int32_t
+	/// \addgroup Overloads Between Fp32f And int32_t
+	/// @{
 
-	
-	Fp32f operator + (int32_t r) const
-	{
+	/// \brief		Addition operator overload.
+	Fp32f operator + (int32_t r) const {
 		Fp32f x = *this;
 		x += r;
 		return x;
 	}
 	
-	Fp32f operator - (int32_t r) const
-	{
+	Fp32f operator - (int32_t r) const {
 		Fp32f x = *this;
 		x -= r;
 		return x;
 	}
 	
-	Fp32f operator * (int32_t r) const
-	{
+	Fp32f operator * (int32_t r) const {
 		Fp32f x = *this;
 		x *= r;
 		return x;
 	}
 	
-	Fp32f operator / (int32_t r) const
-	{
+	Fp32f operator / (int32_t r) const {
 		Fp32f x = *this;
 		x /= r;
 		return x;
 	}
 	
-	bool operator >  (int32_t r) const
-	{
+	bool operator >  (int32_t r) const {
 		return rawVal > (r << q);
 	}
 	
-	bool operator >=  (int32_t r) const
-	{
+	bool operator >=  (int32_t r) const {
 		return rawVal >= (r << q);
 	}
 	
-	bool operator <  (int32_t r) const
-	{
+	bool operator <  (int32_t r) const {
 		return rawVal < (r << q);
 	}
 	
-	bool operator <=  (int32_t r) const
-	{
+	bool operator <=  (int32_t r) const	{
 		return rawVal < (r << q);
 	}
 	
-	bool operator ==  (int32_t r) const
-	{
+	bool operator ==  (int32_t r) const	{
 		return rawVal == (r << q);
 	}
 	
-	bool operator !=  (int32_t r) const
-	{
+	bool operator !=  (int32_t r) const	{
 		return rawVal != (r << q);
 	}
+
+	/// @}
 	
 };
 

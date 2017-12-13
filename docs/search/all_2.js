@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['debugprint',['DebugPrint',['../classmn_1_1MFixedPoint_1_1Port.html#a743f4e6b2cefc9f7d706ee68c086b279',1,'mn::MFixedPoint::Port']]],
-  ['doubletorawfix32',['DoubleToRawFix32',['../namespacemn_1_1MFixedPoint.html#ab9447d89d1eaa05037d45ea17e228aae',1,'mn::MFixedPoint']]],
-  ['doubletorawfix64',['DoubleToRawFix64',['../namespacemn_1_1MFixedPoint.html#a350beaed6c200882a3c194ef6983b65a',1,'mn::MFixedPoint']]]
+  ['config_2ehpp',['Config.hpp',['../Config_8hpp.html',1,'']]],
+  ['constructors',['Constructors',['../group__Constructors.html',1,'']]],
+  ['cos',['cos',['../namespacemn_1_1MFixedPoint.html#add093362bc33ef75dc54a91a2170be5d',1,'mn::MFixedPoint::cos(Fp32f&lt; q &gt; a)'],['../namespacemn_1_1MFixedPoint.html#ad63a51578943b11d73d329df904397d3',1,'mn::MFixedPoint::cos(Fp32f&lt; 16 &gt; a)']]],
+  ['countleadingzeros',['CountLeadingZeros',['../namespacemn_1_1MFixedPoint_1_1detail.html#a23c916cea5a4b151e69bff7e828610f2',1,'mn::MFixedPoint::detail']]]
 ];

@@ -201,7 +201,7 @@ namespace MFixedPoint {
 			
 			//! @} Arithmetic Operator Overloads
 			
-			//! @defgroup Binary Operator Overloads
+			//! @defgroup Explicit Binary Operator Overloads
 			//! @{
 			
 			bool operator == (Fp64f r) const
@@ -234,21 +234,19 @@ namespace MFixedPoint {
 				return rawVal >= r.rawVal;
 			}
 			
-			//! @}
+			/// @}
 			
-			//! @defgroup Explicit "From Fp64f" Conversion Overloads (casts)
-			//! @{
+			/// \defgroup Explicit "From Fp64f" Conversion Overloads (casts)
+			/// @{
 			
-			//! @brief		Conversion operator from fixed-point to float.
-			operator float()
-			{ 
+			/// \brief		Conversion operator from fixed-point to float.
+			operator float() { 
 				return (float)rawVal / (float)(1 << p);
 			}
 			
-			//! @brief		Conversion operator from fixed-point to double.
-			//! @note		Similar to float conversion.
-			operator double()
-			{ 
+			/// \brief		Conversion operator from fixed-point to double.
+			/// \note		Similar to float conversion.
+			operator double() { 
 				return (double)rawVal / (double)(1 << p);
 			}
 			

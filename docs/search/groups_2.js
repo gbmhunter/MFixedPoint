@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['operator_20overloads',['Operator Overloads',['../group__Arithmetic.html',1,'']]],
-  ['operator_20overloads',['Operator Overloads',['../group__Binary.html',1,'']]]
+  ['constructors',['Constructors',['../group__Constructors.html',1,'']]]
 ];
