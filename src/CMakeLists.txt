@@ -11,6 +11,8 @@ if(COVERAGE)
         set_target_properties(MFixedPoint PROPERTIES LINK_FLAGS "-coverage -lgcov")
 endif ()
 
+target_include_directories(MFixedPoint PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 # On Linux, "sudo make install" will typically copy the library
 # into the folder /usr/local/lib
 install(TARGETS MFixedPoint DESTINATION lib)
