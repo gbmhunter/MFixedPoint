@@ -23,4 +23,4 @@ add_custom_command(
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/MFixedPointTests)
 
 # Target name, executable that runs unit tests, output directory
-setup_target_for_coverage(${PROJECT_NAME}_coverage CppTemplateTests coverage)
+setup_target_for_coverage(${PROJECT_NAME}_coverage MFixedPointTests coverage)
