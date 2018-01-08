@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added Visual Studio Code project files, closes #89.
+
+### Changed
+- Improved the comments and code formatting of Fp32f.hpp.
+
 ## [v7.0.1] - 2018-01-04
 
 ### Added
