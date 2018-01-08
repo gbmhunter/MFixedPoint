@@ -18,6 +18,12 @@ using namespace mn::MFixedPoint;
 
 MTEST_GROUP(FpSTests) {
 
+	// MTEST(README) {
+	// 	FpS<int32_t> fp1(2.22, 8);	
+	// 	printf("ToInt<int32_t>() = %i\n", fp1.ToInt<int32_t>()); // Prints "ToInt<int32_t>() = 2"
+	// 	printf("ToDouble() = %.2f\n", fp1.ToDouble()); // Prints "ToDouble() = 2.22"
+	// }
+
 	MTEST(ToInt32Positive) {
 		FpS<int32_t> fp1(34.2, 8);
         CHECK_EQUAL(fp1.ToInt<int32_t>(), 34);

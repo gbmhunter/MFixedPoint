@@ -18,15 +18,15 @@ using namespace mn::MFixedPoint;
 
 MTEST_GROUP(FpSArithmetic) {
 
-	MTEST(ArithmeticOnReadme) {
-		FpS<int32_t> fp1(5.0, 8);
-		FpS<int32_t> fp2(1.5, 8);
+	// MTEST(ArithmeticOnReadme) {
+	// 	FpS<int32_t> fp1(5.0, 8);
+	// 	FpS<int32_t> fp2(1.5, 8);
 
-		printf("add = %.2f\n", (fp1 + fp2).ToDouble());
-		printf("sub = %.2f\n", (fp1 - fp2).ToDouble());
-		printf("mult = %.2f\n", (fp1 * fp2).ToDouble());
-		printf("div = %.2f\n", (fp1 / fp2).ToDouble());
-	}
+	// 	printf("add = %.2f\n", (fp1 + fp2).ToDouble());
+	// 	printf("sub = %.2f\n", (fp1 - fp2).ToDouble());
+	// 	printf("mult = %.2f\n", (fp1 * fp2).ToDouble());
+	// 	printf("div = %.2f\n", (fp1 / fp2).ToDouble());
+	// }
 
 	MTEST(AdditionSameNumFracBits) {
 		FpS<int32_t> fp1(1.11, 8);
@@ -68,9 +68,16 @@ MTEST_GROUP(FpSArithmetic) {
 	MTEST(MultiplicationSameNumFracBits) {
 		FpS<int32_t> fp1(1.5, 8);
 		FpS<int32_t> fp2(5.0, 8);
-		FpS<int32_t> fp3 = fp1 * fp2;
-		printf("fp3 = %f", fp3.ToDouble()); // Prints "fp3 = 3.33"
+		FpS<int32_t> fp3 = fp1 * fp2;		
         CHECK_CLOSE(fp3.ToDouble(), 7.5, 0.1);
+	}
+
+	MTEST(Modulus) {
+		FpS<int32_t> fp1(5.1, 10);
+		FpS<int32_t> fp2(1.5, 8);
+		FpS<int32_t> fp3 = fp1 % fp2;
+		printf("mod = %.2f\n", fp3.ToDouble());
+		CHECK_CLOSE(fp3.ToDouble(), 0.6, 0.1);
 	}
 
 }

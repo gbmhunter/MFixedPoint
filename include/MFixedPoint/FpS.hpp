@@ -44,12 +44,14 @@ class FpS {
 	
 	/// \brief		Create a fixed-point value from a integer and a num. of fractional bits.
 	FpS(int32_t integer, uint8_t numFracBits)	{
+		static_assert(std::is_integral<BaseType>::value, "Integral BaseType required for FpS class.");
 		rawVal_ = integer << numFracBits;
 		numFracBits_ = numFracBits;
 	}
 	
 	/// \brief		Create a fixed-point value from a double and a num. of fractional bits.
 	FpS(double dbl, uint8_t numFracBits) {
+		static_assert(std::is_integral<BaseType>::value, "Integral BaseType required for FpS class.");
 		rawVal_ = (BaseType)(dbl * (1 << numFracBits));
 		numFracBits_ = numFracBits;
 	}
@@ -64,8 +66,7 @@ class FpS {
 	}
 
 	/// \brief		Returns the number of fractional bits used in this fixed-point number.
-	uint8_t GetNumFracBits() const
-	 {
+	uint8_t GetNumFracBits() const {
 		return numFracBits_;
 	}
 

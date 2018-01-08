@@ -52,6 +52,28 @@ Addition/Subtraction/Multiplication/Division:
 	printf("mult = %.2f\n", (fp1 * fp2).ToDouble()); // Prints "mult = 7.50"
 	printf("div = %.2f\n", (fp1 / fp2).ToDouble()); // Prints "div = 3.33"
 
+Modulus:
+
+::
+	FpS<int32_t> fp1(5.1, 10);
+	FpS<int32_t> fp2(1.5, 8);
+
+	printf("mod = %.2f\n", (fp1 % fp2).ToDouble()); // Prints "mod = 0.60"
+
+Conversion/Casting:
+
+::
+	FpS<int32_t> fp1(2.22, 8);	
+
+	// Using the ToXXX() functions...
+	printf("ToInt<int32_t>() = %i\n", fp1.ToInt<int32_t>()); // Prints "ToInt<int32_t>() = 2"
+	printf("ToDouble() = %.2f\n", fp1.ToDouble()); // Prints "ToDouble() = 2.22"
+
+	// Direct casting is also supported
+	printf("(int32_t)fp1 = %i\n", (int32_t)fp1); // Prints "(int32_t)fp1 = 2"
+	printf("(double)fp1 = %.2f\n", (double)fp1); // Prints "(double)fp1 = 2.22"
+	
+
 The 32-bit Libraries (Fp32f, Fp32s)
 -----------------------------------
 
