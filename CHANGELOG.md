@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Added Visual Studio Code project files, closes #89.
+- Added generic fixed-point class with storage type for bits (aka base type) templated, closes #90.
 
 ### Changed
 - Improved the comments and code formatting of Fp32f.hpp.
