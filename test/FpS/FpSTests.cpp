@@ -1,11 +1,11 @@
 //!
-//! @file 				FpSTests.cpp
-//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @edited 			n/a
-//! @created			2018-01-08
-//! @last-modified		2017-01-08
-//! @brief 				Performs unit tests on the fixed point class.
-//! @details
+//! \file 				FpSTests.cpp
+//! \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+//! \edited 			n/a
+//! \created			2018-01-08
+//! \last-modified		2017-01-08
+//! \brief 				Performs unit tests on the fixed point FpS class.
+//! \details
 //!						See README.rst in root dir for more info.
 
 // 3rd party includes
@@ -62,13 +62,39 @@ MTEST_GROUP(FpSTests) {
 		FpS<int32_t> fp2(8.6, 10);
 		FpS<int32_t> fp3 = fp1 + fp2;
         CHECK_CLOSE(fp3.ToDouble(), 34.2 + 8.6, 0.1);
+		CHECK_EQUAL(fp3.GetNumFracBits(), 7);
 	}
 
-	MTEST(Subtraction) {
+	MTEST(SubtractionPositive) {
 		FpS<int32_t> fp1(34.2, 8);
 		FpS<int32_t> fp2(8.6, 8);
 		FpS<int32_t> fp3 = fp1 - fp2;
         CHECK_EQUAL(fp3.GetRawVal(), (int32_t)(34.2 * (1 << 8)) - (int32_t)(8.6 * (1 << 8)));
+	}
+
+	MTEST(SubtractionNegative) {
+		FpS<int32_t> fp1(5.8, 8);
+		FpS<int32_t> fp2(12.3, 8);
+		FpS<int32_t> fp3 = fp1 - fp2;
+        CHECK_CLOSE(fp3.ToDouble(), 5.8 - 12.3, 0.1);
+	}
+
+	MTEST(SubtractionDiffNumFracBits) {
+		FpS<int32_t> fp1(12.34, 20);
+		FpS<int32_t> fp2(2.2, 5);
+		FpS<int32_t> fp3 = fp1 - fp2;
+        CHECK_CLOSE(fp3.ToDouble(), 12.34 - 2.2, 0.1);
+		CHECK_EQUAL(fp3.GetNumFracBits(), 5);
+	}
+
+	MTEST(ToInt32Positive) {
+		FpS<int32_t> fp1(34.2, 8);
+        CHECK_EQUAL(fp1.ToInt<int32_t>(), 34);
+	}
+
+	MTEST(ToInt32Negative) {
+		FpS<int32_t> fp1(-66.3, 8);
+        CHECK_EQUAL(fp1.ToInt<int32_t>(), -67); // Rounds towards negative infinity
 	}
 
 	MTEST(ToFloat) {
@@ -79,6 +105,11 @@ MTEST_GROUP(FpSTests) {
 	MTEST(ToDouble) {
 		FpS<int32_t> fp1(123.4, 15);
         CHECK_CLOSE(fp1.ToDouble(), 123.4, 0.01);
+	}
+
+	MTEST(CastInt32Positive) {
+		FpS<int32_t> fp1(34.2, 8);
+        CHECK_EQUAL((int32_t)fp1, 34);
 	}
 
 	MTEST(CastFloat) {

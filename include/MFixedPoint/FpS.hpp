@@ -63,6 +63,11 @@ class FpS {
 		return rawVal_;
 	}
 
+	/// \brief		Returns the number of fractional bits used in this fixed-point number.
+	uint8_t GetNumFracBits() const {
+		return numFracBits_;
+	}
+
 	// Compound Arithmetic Operators
 	
 	/// \brief		Overload for '+=' operator.
@@ -360,7 +365,20 @@ class FpS {
 			return rawVal_ >= (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 		}
 	}
+
+	//===============================================================================================//
+	//======================================= CONVERSION METHODS ====================================//
+	//===============================================================================================//
 	
+	/// \brief		Converts the fixed-point number into an integer.
+	/// \details	Always rounds to negative infinity (66.3 becomes 66, -66.3 becomes -67).
+	template <class IntType>
+	IntType ToInt() const {
+		// Right-shift to get rid of all the decimal bits
+		// This rounds towards negative infinity
+		return (IntType)(rawVal_ >> numFracBits_);
+	}
+
 	float ToFloat() const {
 		return (float)rawVal_ / (float)(1 << numFracBits_);
 	}
@@ -372,26 +390,24 @@ class FpS {
 	// Explicit Conversion Operator Overloads (casts)
 	
 	/// \brief		Conversion operator from fixed-point to int32_t.
-	operator int32_t() {
-		// Right-shift to get rid of all the decimal bits
-		return (int32_t)(rawVal_ >> numFracBits_);
+	operator int32_t() const {
+		return ToInt<int32_t>();
 	}
 	
 	/// \brief		Conversion operator from fixed-point to int64_t.
-	operator int64_t() {
-		// Right-shift to get rid of all the decimal bits
-		return (int64_t)(rawVal_ >> numFracBits_);
+	operator int64_t() const {		
+		return ToInt<int64_t>();
 	}
 	
 	/// \brief		Conversion operator from fixed-point to float.
 	/// \note		Similar to double conversion.
-	operator float() { 
+	operator float() const { 
 		return ToFloat();
 	}
 	
 	/// \brief		Conversion operator from fixed-point to double.
 	/// \note		Similar to float conversion.
-	operator double() { 
+	operator double() const { 
 		return ToDouble();
 	}
 
