@@ -27,6 +27,31 @@ most libraries that use data type templates.
 
 Fixed-point numbers are signed. Q is the number of bits used for the decimal part of the number (the rest are used for the integer part). Q can vary from 0 up to the bit-width of the fixed-point number.
 
+The "Slow" Fixed-Point Class
+----------------------------
+
+The "slow" fixed-point class is called FpS (note that this class is not that slow, and is the recommend fixed-point class for almost all use cases). It allows for airthemtic between two fixed-point numbers that have different numbers of fractional bits. The underlying storage type of the fixed-point number is provided as the only template parameter.
+
+Create a fixed point number:
+
+::
+
+	// Create a fixed point number of 32-bits. 8 bits are used for the fractional part, leaving 24 for the integer part.
+	FpS<int32_t> fp1(12.34, 8);
+	
+
+Addition/Subtraction/Multiplication/Division:
+
+::
+
+	FpS<int32_t> fp1(5.0, 8);
+	FpS<int32_t> fp2(1.5, 8);
+
+	printf("add = %.2f\n", (fp1 + fp2).ToDouble()); // Prints "add = 6.50"
+	printf("sub = %.2f\n", (fp1 - fp2).ToDouble()); // Prints "sub = 3.50"
+	printf("mult = %.2f\n", (fp1 * fp2).ToDouble()); // Prints "mult = 7.50"
+	printf("div = %.2f\n", (fp1 / fp2).ToDouble()); // Prints "div = 3.33"
+
 The 32-bit Libraries (Fp32f, Fp32s)
 -----------------------------------
 

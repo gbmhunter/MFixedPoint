@@ -64,11 +64,14 @@ class FpS {
 	}
 
 	/// \brief		Returns the number of fractional bits used in this fixed-point number.
-	uint8_t GetNumFracBits() const {
+	uint8_t GetNumFracBits() const
+	 {
 		return numFracBits_;
 	}
 
-	// Compound Arithmetic Operators
+	//===============================================================================================//
+	//================================== COMPOUND ARITHMETIC OPERATORS ==============================//
+	//===============================================================================================//	
 	
 	/// \brief		Overload for '+=' operator.
 	/// \details	Result has the same num. frac bits as the lowest num. frac bits of the two inputs.
@@ -91,24 +94,21 @@ class FpS {
 	}
 	
 	/// \brief		Overload for '-=' operator.
+	/// \details	Result has the same num. frac bits as the lowest num. frac bits of the two inputs.
 	FpS& operator -= (FpS r) { 
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			rawVal_ = rawVal_ - r.rawVal_;
 			// No need to change Q, both are the same
 		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			rawVal_ = (rawVal_ >> (numFracBits_ - r.numFracBits_)) - r.rawVal_; 
 			// Change Q
 			numFracBits_ = r.numFracBits_;
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			rawVal_ = rawVal_ - (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 			// No need to change Q
@@ -121,21 +121,17 @@ class FpS {
 	FpS& operator *= (FpS r) {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers, shift right by Q
 			rawVal_ = (int32_t)(((int64_t)rawVal_ * (int64_t)r.rawVal_) >> numFracBits_);
 			// No need to change Q, both are the same
 		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			rawVal_ = (int32_t)((((int64_t)rawVal_ >> (numFracBits_ - r.numFracBits_)) * (int64_t)r.rawVal_) >> r.numFracBits_); 
 			// Change Q
 			numFracBits_ = r.numFracBits_;
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_	
 			// First number has smaller Q, so result is in that precision
 			rawVal_ = (int32_t)(((int64_t)rawVal_ * ((int64_t)r.rawVal_ >> (r.numFracBits_ - numFracBits_))) >> numFracBits_); 
 			// No need to change Q
@@ -148,21 +144,16 @@ class FpS {
 	FpS& operator /= (FpS r) {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers, shift right by Q
 			rawVal_ = (int32_t)((((int64_t)rawVal_ << numFracBits_) / (int64_t)r.rawVal_));
 			// No need to change Q, both are the same
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			rawVal_ = (int32_t)(((((int64_t)rawVal_ >> (numFracBits_ - r.numFracBits_)) << r.numFracBits_) / (int64_t)r.rawVal_)); 
 			// Change Q
 			numFracBits_ = r.numFracBits_;
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			rawVal_ = (int32_t)(((int64_t)rawVal_ << numFracBits_) / ((int64_t)r.rawVal_ >> (r.numFracBits_ - numFracBits_))); 
 			// No need to change Q
@@ -174,21 +165,16 @@ class FpS {
 	FpS& operator %= (FpS r) {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			rawVal_ = rawVal_ % r.rawVal_;
 			// No need to change Q, both are the same
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			rawVal_ = (rawVal_ >> (numFracBits_ - r.numFracBits_)) % r.rawVal_; 
 			// Change Q
 			numFracBits_ = r.numFracBits_;
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			rawVal_ = rawVal_ % (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 			// No need to change Q
