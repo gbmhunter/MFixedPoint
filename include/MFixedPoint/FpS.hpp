@@ -66,27 +66,21 @@ class FpS {
 	// Compound Arithmetic Operators
 	
 	/// \brief		Overload for '+=' operator.
+	/// \details	Result has the same num. frac bits as the lowest num. frac bits of the two inputs.
 	FpS& operator += (FpS r) { 
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
-			// First number smaller
+		if(numFracBits_ == r.numFracBits_) {			
 			rawVal_ = rawVal_ + r.rawVal_;
-			// No need to change Q, both are the same
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
-			// Second number has smaller Q, so result is in that precision
-			rawVal_ = (rawVal_ >> (numFracBits_ - r.numFracBits_)) + r.rawVal_; 
-			// Change Q
+			// No need to change num. frac. bits, both are the same
+		} else if(numFracBits_ > r.numFracBits_) {
+			// Second number has smaller num. of frac. bits, so result is in that precision
+			rawVal_ = (rawVal_ >> (numFracBits_ - r.numFracBits_)) + r.rawVal_; 			
 			numFracBits_ = r.numFracBits_;
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
-			// First number has smaller Q, so result is in that precision
+		} else { // numFracBits_ < r.numFracBits_
+			// First number has smaller num. of frac. bits, so result is in that precision
 			rawVal_ = rawVal_ + (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
-			// No need to change Q
+			// No need to change num. frac. bits
 		}
 		return *this;
 	}
@@ -367,6 +361,14 @@ class FpS {
 		}
 	}
 	
+	float ToFloat() const {
+		return (float)rawVal_ / (float)(1 << numFracBits_);
+	}
+
+	double ToDouble() const {
+		return (double)rawVal_ / (double)(1 << numFracBits_);
+	}
+
 	// Explicit Conversion Operator Overloads (casts)
 	
 	/// \brief		Conversion operator from fixed-point to int32_t.
@@ -384,13 +386,13 @@ class FpS {
 	/// \brief		Conversion operator from fixed-point to float.
 	/// \note		Similar to double conversion.
 	operator float() { 
-		return (float)rawVal_ / (float)(1 << numFracBits_);
+		return ToFloat();
 	}
 	
 	/// \brief		Conversion operator from fixed-point to double.
 	/// \note		Similar to float conversion.
 	operator double() { 
-		return (double)rawVal_ / (double)(1 << numFracBits_);
+		return ToDouble();
 	}
 
 	private:
