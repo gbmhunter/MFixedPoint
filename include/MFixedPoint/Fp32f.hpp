@@ -1,12 +1,12 @@
-//!
-//! @file 				Fp32f.hpp
-//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja), Markus Trenkwalder
-//! @edited 			n/a
-//! @created			2012-10-23
-//! @last-modified		2017-12-13
-//! @brief 				Fast 32-bit fixed point library.
-//! @details
-//!		See README.rst in root dir for more info.
+///
+/// \file 				Fp32f.hpp
+/// \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja), Markus Trenkwalder
+/// \edited 			n/a
+/// \created			2012-10-23
+/// \last-modified		2018-01-08
+/// \brief 				Fast 32-bit fixed point library.
+/// \details
+///		See README.rst in root dir for more info.
 
 
 /* Original copyright notice
@@ -66,17 +66,17 @@ namespace MFixedPoint {
 // The template argument q in all of the following functions refers to the 
 // fixed point precision (e.g. q = 8 gives 24.8 fixed point functions).
 
-//! @brief		Perform a fixed point multiplication without a 64-bit intermediate result.
-//!	@note 		This is fast but beware of intermediary overflow!
+/// \brief		Perform a fixed point multiplication without a 64-bit intermediate result.
+///	\note 		This is fast but beware of intermediary overflow!
 template <uint8_t q> 
 inline int32_t FixMulF(int32_t a, int32_t b)
 {
 	return (a * b) >> q;
 }
 
-//! @brief		Perform a fixed point multiplication using a 64-bit intermediate result to
-//! 			prevent intermediary overflow problems.
-//! @note 		Slower than Fp32f::FixMulF()
+/// \brief		Perform a fixed point multiplication using a 64-bit intermediate result to
+/// 			prevent intermediary overflow problems.
+/// \note 		Slower than Fp32f::FixMulF()
 template <uint8_t q>
 inline int32_t FixMul(int32_t a, int32_t b)
 {
@@ -176,23 +176,21 @@ inline int32_t fixinv(int32_t a)
 		return x;
 }
 
-//! @brief		Converts from float to a raw fixed-point number.
-//! @details	Do not write "myFpNum = FloatToRawFix32()"! This function outputs a raw
-//!				number, so you would have to use the syntax "myFpNum.rawVal = FloatToRawFix32()".
-//! @warning	Slow!
+/// \brief		Converts from float to a raw 32-bit fixed-point number.
+/// \details	Do not write "myFpNum = FloatToRawFix32()"! This function outputs a raw
+///				number, so you would have to use the syntax "myFpNum.rawVal = FloatToRawFix32()".
+/// \warning	Slow!
 template <uint8_t q>
-int32_t FloatToRawFix32(float f)
-{
+int32_t FloatToRawFix32(float f) {
 	return (int32_t)(f * (1 << q));
 }
 
-//! @brief		Converts from double to a raw fixed-point number.
-//! @details	Do not write "myFpNum = FloatToRawFix32()"! This function outputs a raw
-//!				number, so you would have to use the syntax "myFpNum.rawVal = FloatToRawFix32()".
-//! @warning	Slow!
+/// \brief		Converts from double to a raw 32-bit fixed-point number.
+/// \details	Do not write "myFpNum = DoubleToRawFix32()"! This function outputs a raw
+///				number, so you would have to use the syntax "myFpNum.rawVal = DoubleToRawFix32()".
+/// \warning	Slow!
 template <uint8_t q>
-int32_t DoubleToRawFix32(double f)
-{
+int32_t DoubleToRawFix32(double f) {
 	return (int32_t)(f * (double)(1 << q));
 }
 
@@ -203,15 +201,18 @@ int32_t fixsin16(int32_t a);
 int32_t fixrsqrt16(int32_t a);
 int32_t fixsqrt16(int32_t a);
 
-//! The template argument p in all of the following functions refers to the 
-//! fixed point precision (e.g. q = 8 gives 24.8 fixed point functions).
-//! Contains mathematical operator overloading. Doesn't have modulus (%) overloading
+/// \brief		Represents a 32-bit fixed point number, with the template argument providing
+///				the number of fractional bits (and consequentially also defining the number of
+///				integer bits).
+/// \details	The template argument p in all of the following functions refers to the 
+/// 			number of fractional bits (e.g. q = 8 gives Q24.8 fixed point functions).
+/// 			Contains mathematical operator overloading. Doesn't have modulus (%) overloading
 template <uint8_t q>
 class Fp32f {
 	
 	public:
 	
-	//! @brief		The fixed-point number is stored in this basic data type.
+	/// \brief		The fixed-point number is stored in this basic data type.
 	int32_t rawVal;			
 	
 	Fp32f()
@@ -222,88 +223,68 @@ class Fp32f {
 	}
 	
 	Fp32f(int8_t i) :
-		rawVal((int32_t)i << q)
-	{
-		
-	}
+		rawVal((int32_t)i << q)	{}
 	
 	Fp32f(int16_t i) :
-		rawVal((int32_t)i << q)
-	{
-		
-	}
+		rawVal((int32_t)i << q)	{}
 	
 	Fp32f(int32_t i) :
-		rawVal(i << q)
-	{
+		rawVal(i << q) { }
 	
-	}
-	
+	/// \brief		Constructor that accepts a float.
 	Fp32f(float f) :
-		rawVal(FloatToRawFix32<q>(f))
-	{
+		rawVal(FloatToRawFix32<q>(f)) {}
 	
-	}
-	
+	/// \warning	Double is converted to float first.
 	Fp32f(double f) :
-		rawVal(FloatToRawFix32<q>((float)f))
-	{
-	
-	}
+		rawVal(FloatToRawFix32<q>((float)f)) {}
 	
 	// Compound Arithmetic Overloads
 	
-	Fp32f& operator += (Fp32f r)
-	{
+	Fp32f& operator += (Fp32f r) {
 		rawVal += r.rawVal;
 		return *this;
 	}
 	
-	Fp32f& operator -= (Fp32f r)
-	{
+	Fp32f& operator -= (Fp32f r) {
 		rawVal -= r.rawVal;
 		return *this;
 	}
 	
-	//! @brief		Overlaod for '*=' operator.
-	//! @details	Uses intermediatary casting to int64_t to prevent overflows.
-	Fp32f& operator *= (Fp32f r)
-	{
+	/// \brief		Overlaod for '*=' operator.
+	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
+	Fp32f& operator *= (Fp32f r) {
 		rawVal = FixMul<q>(rawVal, r.rawVal);
 		return *this;
 	}
 	
-	//! @brief		Overlaod for '/=' operator.
-	//! @details	Uses intermediatary casting to int64_t to prevent overflows.
-	Fp32f& operator /= (Fp32f r)
-	{
+	/// \brief		Overlaod for '/=' operator.
+	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
+	Fp32f& operator /= (Fp32f r) {
 		rawVal = fixdiv<q>(rawVal, r.rawVal);
 		return *this;
 	}
 	
-	//! @brief		Overlaod for '%=' operator.
-	Fp32f& operator %= (Fp32f r)
-	{
+	/// \brief		Overlaod for '%=' operator.
+	Fp32f& operator %= (Fp32f r) {
 		rawVal %= r.rawVal;
 		return *this;
 	}
 	
 	
-	Fp32f& operator *= (int32_t r)
-	{
+	Fp32f& operator *= (int32_t r) {
 		rawVal *= r;
 		return *this;
 	}
 	
-	Fp32f& operator /= (int32_t r)
-	{ 
+	Fp32f& operator /= (int32_t r) { 
 		rawVal /= r;
 		return *this;
 	}
 	
 	// Simple Arithmetic Overloads
 	
-	//! @brief		Overload for '-itself' operator.
+	/// \brief		Overload for '-itself' operator.
 	Fp32f operator - () const
 	{
 		Fp32f x;
@@ -311,8 +292,8 @@ class Fp32f {
 		return x;
 	}
 	
-	//! @brief		Overload for '+' operator.
-	//! @details	Uses '+=' operator.
+	/// \brief		Overload for '+' operator.
+	/// \details	Uses '+=' operator.
 	Fp32f operator + (Fp32f r) const
 	{
 		Fp32f x = *this;
@@ -320,8 +301,8 @@ class Fp32f {
 		return x;
 	}
 	
-	//! @brief		Overload for '-' operator.
-	//! @details	Uses '-=' operator.
+	/// \brief		Overload for '-' operator.
+	/// \details	Uses '-=' operator.
 	Fp32f operator - (Fp32f r) const
 	{
 		Fp32f x = *this;
@@ -329,8 +310,8 @@ class Fp32f {
 		return x;
 	}
 	
-	//! @brief		Overload for '*' operator.
-	//! @details	Uses '*=' operator.
+	/// \brief		Overload for '*' operator.
+	/// \details	Uses '*=' operator.
 	Fp32f operator * (Fp32f r) const
 	{
 		Fp32f x = *this;
@@ -338,8 +319,8 @@ class Fp32f {
 		return x;
 	}
 	
-	//! @brief		Overload for '/' operator.
-	//! @details	Uses '/=' operator.
+	/// \brief		Overload for '/' operator.
+	/// \details	Uses '/=' operator.
 	Fp32f operator / (Fp32f r) const
 	{
 		Fp32f x = *this;
@@ -347,8 +328,8 @@ class Fp32f {
 		return x;
 	}
 	
-	//! @brief		Overload for '%' operator.
-	//! @details	Uses '%=' operator.
+	/// \brief		Overload for '%' operator.
+	/// \details	Uses '%=' operator.
 	Fp32f operator % (Fp32f r) const
 	{
 		Fp32f x = *this;
@@ -389,7 +370,7 @@ class Fp32f {
 	}
 	
 	/// \defgroup From Fp32f Conversion Overloads (casts)
-	/// @{
+	/// \{
 	
 	/// \brief		Conversion operator from fixed-point to int16_t.
 	/// \warning	Possible loss of accuracy from conversion from
@@ -399,33 +380,33 @@ class Fp32f {
 		return (int16_t)(rawVal >> q);
 	}
 	
-	//! @brief		Conversion operator from fixed-point to int32_t.
+	/// \brief		Conversion operator from fixed-point to int32_t.
 	operator int32_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
 		return (rawVal >> q);
 	}
 	
-	//! @brief		Conversion operator from fixed-point to int64_t.
+	/// \brief		Conversion operator from fixed-point to int64_t.
 	operator int64_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
 		return (int64_t)(rawVal >> q);
 	}
 	
-	//! @brief		Conversion operator from fixed-point to float.
+	/// \brief		Conversion operator from fixed-point to float.
 	operator float() { 
 		return (float)rawVal / (float)(1 << q);
 	}
 	
-	//! @brief		Conversion operator from fixed-point to double.
-	//! @note		Similar to float conversion.
+	/// \brief		Conversion operator from fixed-point to double.
+	/// \note		Similar to float conversion.
 	operator double() { 
 		return (double)rawVal / (double)(1 << q);
 	}
 	
-	//! @}
+	/// \}
 	
 	/// \addgroup Overloads Between Fp32f And int32_t
-	/// @{
+	/// \{
 
 	/// \brief		Addition operator overload.
 	Fp32f operator + (int32_t r) const {
@@ -476,27 +457,27 @@ class Fp32f {
 		return rawVal != (r << q);
 	}
 
-	/// @}
+	/// \}
 	
 };
 
 // Specializations for use with plain integers
 
-//! @note 		Assumes integer has the same precision as Fp32f
+/// \note 		Assumes integer has the same precision as Fp32f
 template <uint8_t q>
 inline Fp32f<q> operator + (int32_t a, Fp32f<q> b)
 { 
 	return b + a; 
 }
 
-//! @note 		Assumes integer has the same precision as Fp32f
+/// \note 		Assumes integer has the same precision as Fp32f
 template <uint8_t q>
 inline Fp32f<q> operator - (int32_t a, Fp32f<q> b)
 {
 	return -b + a;
 }
 
-//! @note 		Assumes integer has the same precision as Fp32f
+/// \note 		Assumes integer has the same precision as Fp32f
 template <uint8_t q>
 inline Fp32f<q> operator * (int32_t a, Fp32f<q> b)
 { return b * a; }
@@ -598,18 +579,18 @@ inline Fp32f<q> multiply_accumulate(
 //===============================================================================================//
 
 /*
-//! @brief		Conversion from fixed-point to float.
-//! @details	Good for debugging fixed-point arithmetic.
-//! @warning 	Slow!
+/// \brief		Conversion from fixed-point to float.
+/// \details	Good for debugging fixed-point arithmetic.
+/// \warning 	Slow!
 template <uint8_t q>
 float Fix32ToFloat(int32_t f)
 {
 	return (float)f / (1 << q);
 }
 
-//! @brief		Conversion from fixed-point to float.
-//! @details	Good for debugging fixed-point arithmetic.
-//! @warning 	Slow!
+/// \brief		Conversion from fixed-point to float.
+/// \details	Good for debugging fixed-point arithmetic.
+/// \warning 	Slow!
 template <uint8_t q>
 double Fix32ToDouble(int32_t f)
 {
