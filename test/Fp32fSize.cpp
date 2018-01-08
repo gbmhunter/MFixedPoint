@@ -19,14 +19,8 @@
 
 using namespace mn::MFixedPoint;
 
-MTEST_GROUP(Fp32fSizeTests)
-{
-	MTEST(SizeTest)
-	{
-		// Run unit tests
-		//return UnitTest::RunAllTests();
-		printf("FP: Size of Fp32f object (bytes) = '%lu'.\r\n", sizeof(Fp32f<12>));
-	
+MTEST_GROUP(Fp32fSizeTests) {
+	MTEST(SizeTest) {
 		CHECK_EQUAL(sizeof(Fp32f<12>), (size_t)4);
 	}
 }

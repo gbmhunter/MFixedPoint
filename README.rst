@@ -150,6 +150,11 @@ See the unit tests in :code:`test/` for more usage examples!
 		return 0;
 	}
 
+Visual Studio Code
+==================
+
+Project files for Visual Studio Code are included in this repository. Include paths have been added to :code:`c_cpp_properties.json` to improve auto-complete. This includes the directory :code:`${workspaceRoot}/build/external/include` (which contains the 3rd party libraries MFixedPoint depends on that are automatically downloaded by CMake) but is only valid once CMake has been run at least once from with a build directory called :code:`build`.
+
 Code Dependencies
 =================
 
