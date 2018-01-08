@@ -1,5 +1,5 @@
 ///
-/// \file 				Fpf.hpp
+/// \file 				FpF.hpp
 /// \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja), Markus Trenkwalder
 /// \edited 			n/a
 /// \created			2012-10-23
@@ -7,39 +7,6 @@
 /// \brief 				Fast 32-bit fixed point library.
 /// \details
 ///		See README.rst in root dir for more info.
-
-
-/* Original copyright notice
-Copyright (c) 2007, Markus Trenkwalder
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without 
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, 
-  this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation 
-  and/or other materials provided with the distribution.
-
-* Neither the name of the library's copyright owner nor the names of its 
-  contributors may be used to endorse or promote products derived from this 
-  software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 
 //===============================================================================================//
 //====================================== HEADER GUARD ===========================================//
@@ -49,9 +16,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#error Please build with C++ compiler
 #endif
 
-#ifndef MN_MFIXEDPOINT_FPF_H
-#define MN_MFIXEDPOINT_FPF_H
+#ifndef MN_MFIXEDPOINT_FpF_H
+#define MN_MFIXEDPOINT_FpF_H
 
+// System includes
 #include <stdint.h>
 
 // Fixed-point configuration file
@@ -76,7 +44,7 @@ inline int32_t FixMulF(int32_t a, int32_t b)
 
 /// \brief		Perform a fixed point multiplication using a 64-bit intermediate result to
 /// 			prevent intermediary overflow problems.
-/// \note 		Slower than Fpf::FixMulF()
+/// \note 		Slower than FpF::FixMulF()
 template <uint8_t q>
 inline int32_t FixMul(int32_t a, int32_t b)
 {
@@ -208,76 +176,76 @@ int32_t fixsqrt16(int32_t a);
 /// 			number of fractional bits (e.g. q = 8 gives Q24.8 fixed point functions).
 /// 			Contains mathematical operator overloading. Doesn't have modulus (%) overloading
 template <class BaseType, std::size_t numFracBits>
-class Fpf {
+class FpF {
 	
 	public:
 	
 	/// \brief		The fixed-point number is stored in this basic data type.
 	BaseType rawVal;			
 	
-	Fpf()
+	FpF()
 	{
 		#if(fpConfig_PRINT_DEBUG_GENERAL == 1)
 			//Port::DebugPrint("FP: New fixed-point object created.");
 		#endif
 	}
 	
-	Fpf(int8_t i) :
+	FpF(int8_t i) :
 		rawVal((int32_t)i << numFracBits)	{}
 	
-	Fpf(int16_t i) :
+	FpF(int16_t i) :
 		rawVal((int32_t)i << numFracBits)	{}
 	
-	Fpf(int32_t i) :
+	FpF(int32_t i) :
 		rawVal(i << numFracBits) { }
 	
 	/// \brief		Constructor that accepts a float.
-	Fpf(float f) :
+	FpF(float f) :
 		rawVal(FloatToRawFix32<numFracBits>(f)) {}
 	
 	/// \warning	Double is converted to float first.
-	Fpf(double f) :
+	FpF(double f) :
 		rawVal(FloatToRawFix32<numFracBits>((float)f)) {}
 	
 	// Compound Arithmetic Overloads
 	
-	Fpf& operator += (Fpf r) {
+	FpF& operator += (FpF r) {
 		rawVal += r.rawVal;
 		return *this;
 	}
 	
-	Fpf& operator -= (Fpf r) {
+	FpF& operator -= (FpF r) {
 		rawVal -= r.rawVal;
 		return *this;
 	}
 	
 	/// \brief		Overlaod for '*=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
-	Fpf& operator *= (Fpf r) {
+	FpF& operator *= (FpF r) {
 		rawVal = FixMul<numFracBits>(rawVal, r.rawVal);
 		return *this;
 	}
 	
 	/// \brief		Overlaod for '/=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
-	Fpf& operator /= (Fpf r) {
+	FpF& operator /= (FpF r) {
 		rawVal = fixdiv<numFracBits>(rawVal, r.rawVal);
 		return *this;
 	}
 	
 	/// \brief		Overlaod for '%=' operator.
-	Fpf& operator %= (Fpf r) {
+	FpF& operator %= (FpF r) {
 		rawVal %= r.rawVal;
 		return *this;
 	}
 	
 	
-	Fpf& operator *= (int32_t r) {
+	FpF& operator *= (int32_t r) {
 		rawVal *= r;
 		return *this;
 	}
 	
-	Fpf& operator /= (int32_t r) { 
+	FpF& operator /= (int32_t r) { 
 		rawVal /= r;
 		return *this;
 	}
@@ -285,91 +253,91 @@ class Fpf {
 	// Simple Arithmetic Overloads
 	
 	/// \brief		Overload for '-itself' operator.
-	Fpf operator - () const
+	FpF operator - () const
 	{
-		Fpf x;
+		FpF x;
 		x.rawVal = -rawVal;
 		return x;
 	}
 	
 	/// \brief		Overload for '+' operator.
 	/// \details	Uses '+=' operator.
-	Fpf operator + (Fpf r) const
+	FpF operator + (FpF r) const
 	{
-		Fpf x = *this;
+		FpF x = *this;
 		x += r;
 		return x;
 	}
 	
 	/// \brief		Overload for '-' operator.
 	/// \details	Uses '-=' operator.
-	Fpf operator - (Fpf r) const
+	FpF operator - (FpF r) const
 	{
-		Fpf x = *this;
+		FpF x = *this;
 		x -= r;
 		return x;
 	}
 	
 	/// \brief		Overload for '*' operator.
 	/// \details	Uses '*=' operator.
-	Fpf operator * (Fpf r) const
+	FpF operator * (FpF r) const
 	{
-		Fpf x = *this;
+		FpF x = *this;
 		x *= r;
 		return x;
 	}
 	
 	/// \brief		Overload for '/' operator.
 	/// \details	Uses '/=' operator.
-	Fpf operator / (Fpf r) const
+	FpF operator / (FpF r) const
 	{
-		Fpf x = *this;
+		FpF x = *this;
 		x /= r;
 		return x;
 	}
 	
 	/// \brief		Overload for '%' operator.
 	/// \details	Uses '%=' operator.
-	Fpf operator % (Fpf r) const
+	FpF operator % (FpF r) const
 	{
-		Fpf x = *this;
+		FpF x = *this;
 		x %= r;
 		return x;
 	}
 	
-	// Fpf-Fpf Binary Operator Overloads
+	// FpF-FpF Binary Operator Overloads
 	
-	bool operator == (Fpf r) const
+	bool operator == (FpF r) const
 	{
 		return rawVal == r.rawVal;
 	}
 	
-	bool operator != (const Fpf &r)
+	bool operator != (const FpF &r)
 	{
 		return !(*this == r);
 	}
 	
-	bool operator <  (const Fpf &r)
+	bool operator <  (const FpF &r)
 	{
 		return rawVal < r.rawVal;
 	}
 	
-	bool operator >  (const Fpf &r)
+	bool operator >  (const FpF &r)
 	{
 		return rawVal > r.rawVal;
 	}
 	
-	bool operator <= (Fpf r) const
+	bool operator <= (FpF r) const
 	{
 		return rawVal <= r.rawVal;
 	}
 	
-	bool operator >= (Fpf r) const
+	bool operator >= (FpF r) const
 	{
 		return rawVal >= r.rawVal;
 	}
 	
-	/// \defgroup From Fpf Conversion Overloads (casts)
+	/// \defgroup From FpF Conversion Overloads (casts)
 	/// \{
 	
 	/// \brief		Conversion operator from fixed-point to int16_t.
@@ -405,30 +373,30 @@ class Fpf {
 	
 	/// \}
 	
-	/// \addgroup Overloads Between Fpf And int32_t
+	/// \addgroup Overloads Between FpF And int32_t
 	/// \{
 
 	/// \brief		Addition operator overload.
-	Fpf operator + (int32_t r) const {
-		Fpf x = *this;
+	FpF operator + (int32_t r) const {
+		FpF x = *this;
 		x += r;
 		return x;
 	}
 	
-	Fpf operator - (int32_t r) const {
-		Fpf x = *this;
+	FpF operator - (int32_t r) const {
+		FpF x = *this;
 		x -= r;
 		return x;
 	}
 	
-	Fpf operator * (int32_t r) const {
-		Fpf x = *this;
+	FpF operator * (int32_t r) const {
+		FpF x = *this;
 		x *= r;
 		return x;
 	}
 	
-	Fpf operator / (int32_t r) const {
-		Fpf x = *this;
+	FpF operator / (int32_t r) const {
+		FpF x = *this;
 		x /= r;
 		return x;
 	}
@@ -463,29 +431,29 @@ class Fpf {
 
 // Specializations for use with plain integers
 
-/// \note 		Assumes integer has the same precision as Fpf
+/// \note 		Assumes integer has the same precision as FpF
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> operator + (int32_t a, Fpf<numFracBits> b)
+// inline FpF<numFracBits> operator + (int32_t a, FpF<numFracBits> b)
 // { 
 // 	return b + a; 
 // }
 
-// /// \note 		Assumes integer has the same precision as Fpf
+// /// \note 		Assumes integer has the same precision as FpF
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> operator - (int32_t a, Fpf<numFracBits> b)
+// inline FpF<numFracBits> operator - (int32_t a, FpF<numFracBits> b)
 // {
 // 	return -b + a;
 // }
 
-// /// \note 		Assumes integer has the same precision as Fpf
+// /// \note 		Assumes integer has the same precision as FpF
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> operator * (int32_t a, Fpf<numFracBits> b)
+// inline FpF<numFracBits> operator * (int32_t a, FpF<numFracBits> b)
 // { return b * a; }
 
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> operator / (int32_t a, Fpf<numFracBits> b)
+// inline FpF<numFracBits> operator / (int32_t a, FpF<numFracBits> b)
 // { 
-// 	Fpf<numFracBits> r(a); 
+// 	FpF<numFracBits> r(a); 
 // 	r /= b; 
 // 	return r;
 // }
@@ -494,24 +462,24 @@ class Fpf {
 // no default implementation
 
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> sin(Fpf<numFracBits> a);
+// inline FpF<numFracBits> sin(FpF<numFracBits> a);
 
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> cos(Fpf<numFracBits> a);
+// inline FpF<numFracBits> cos(FpF<numFracBits> a);
 
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> sqrt(Fpf<numFracBits> a);
+// inline FpF<numFracBits> sqrt(FpF<numFracBits> a);
 
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> rsqrt(Fpf<numFracBits> a);
+// inline FpF<numFracBits> rsqrt(FpF<numFracBits> a);
 
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> inv(Fpf<numFracBits> a);
+// inline FpF<numFracBits> inv(FpF<numFracBits> a);
 
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> abs(Fpf<numFracBits> a)
+// inline FpF<numFracBits> abs(FpF<numFracBits> a)
 // { 
-// 	Fpf<numFracBits> r; 
+// 	FpF<numFracBits> r; 
 // 	r.rawVal = a.rawVal > 0 ? a.rawVal : -a.rawVal; 
 // 	return r; 
 // }
@@ -519,57 +487,57 @@ class Fpf {
 // // Specializations for 16.16 format
 
 // template <>
-// inline Fpf<16> sin(Fpf<16> a)
+// inline FpF<16> sin(FpF<16> a)
 // {
-// 	Fpf<16> r;
+// 	FpF<16> r;
 // 	r.rawVal = fixsin16(a.rawVal);
 // 	return r;
 // }
 
 // template <>
-// inline Fpf<16> cos(Fpf<16> a)
+// inline FpF<16> cos(FpF<16> a)
 // {
-// 	Fpf<16> r;
+// 	FpF<16> r;
 // 	r.rawVal = fixcos16(a.rawVal);
 // 	return r;
 // }
 
 
 // template <>
-// inline Fpf<16> sqrt(Fpf<16> a)
+// inline FpF<16> sqrt(FpF<16> a)
 // {
-// 	Fpf<16> r;
+// 	FpF<16> r;
 // 	r.rawVal = fixsqrt16(a.rawVal);
 // 	return r;
 // }
 
 // template <>
-// inline Fpf<16> rsqrt(Fpf<16> a)
+// inline FpF<16> rsqrt(FpF<16> a)
 // {
-// 	Fpf<16> r;
+// 	FpF<16> r;
 // 	r.rawVal = fixrsqrt16(a.rawVal);
 // 	return r;
 // }
 
 // template <>
-// inline Fpf<16> inv(Fpf<16> a)
+// inline FpF<16> inv(FpF<16> a)
 // {
-// 	Fpf<16> r;
+// 	FpF<16> r;
 // 	r.rawVal = fixinv<16>(a.rawVal);
 // 	return r;
 // }
 
 // // The multiply accumulate case can be optimized.
 // template <uint8_t numFracBits>
-// inline Fpf<numFracBits> multiply_accumulate(
+// inline FpF<numFracBits> multiply_accumulate(
 // 	int32_t count, 
-// 	const Fpf<numFracBits> *a,
-// 	const Fpf<numFracBits> *b)
+// 	const FpF<numFracBits> *a,
+// 	const FpF<numFracBits> *b)
 // {
 // 	long long result = 0;
 // 	for (int32_t i = 0; i < count; ++i)
 // 		result += static_cast<long long>(a[i].rawVal) * b[i].rawVal;
-// 	Fpf<numFracBits> r;
+// 	FpF<numFracBits> r;
 // 	r.rawVal = static_cast<int32_t>(result >> numFracBits);
 // 	return r;
 // }
@@ -601,6 +569,6 @@ double Fix32ToDouble(int32_t f)
 } // namespace MFixedPoint
 } //namespace mn
 
-#endif // #ifndef MN_MFIXEDPOINT_FPF_H
+#endif // #ifndef MN_MFIXEDPOINT_FpF_H
 
 // EOF
