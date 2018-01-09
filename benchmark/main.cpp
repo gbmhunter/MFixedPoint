@@ -3,7 +3,7 @@
 //! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 			n/a
 //! @created			2013-05-30
-//! @last-modified		2017-06-27
+//! @last-modified		2018-01-08
 //! @brief 				Has the entry point for the benchmark program.
 //! @details
 //!		See README.rst in root dir for more info.
@@ -15,9 +15,8 @@
 #include <stdio.h>
 
 // User includes
-#include "MFixedPoint/Fp32f.hpp"
-#include "MFixedPoint/Fp64f.hpp"
-#include "MFixedPoint/Fp64s.hpp"
+#include "MFixedPoint/FpF.hpp"
+#include "MFixedPoint/FpS.hpp"
 
 using namespace mn::MFixedPoint;
 
@@ -26,8 +25,7 @@ using namespace mn::MFixedPoint;
 #define ADDITION_AVG 0.010
 #define SUBTRACTION_AVG 0.010
 
-typedef struct tag_time_measure
-{
+typedef struct tag_time_measure {
   struct timeval startTimeVal;
   struct timeval stopTimeVal;
 
@@ -35,8 +33,7 @@ typedef struct tag_time_measure
   struct rusage stopTimeUsage;
 } time_measure;
 
-time_measure* StartTimeMeasuring()
-{
+time_measure* StartTimeMeasuring() {
   time_measure* tu = (time_measure*)malloc(sizeof(time_measure));
   if(!tu)
     exit(1);
@@ -47,14 +44,12 @@ time_measure* StartTimeMeasuring()
   return tu;
 }
 
-void StopTimeMeasuring(time_measure * tu)
-{
+void StopTimeMeasuring(time_measure * tu) {
   getrusage(RUSAGE_SELF, &tu->stopTimeUsage);
   gettimeofday(&tu->stopTimeVal,0);
 }
 
-void PrintMeasuredTime(time_measure * tu)
-{
+void PrintMeasuredTime(time_measure * tu) {
 	struct timeval elapsedVal;
 	struct timeval userVal;
 	struct timeval systemVal;
@@ -75,8 +70,7 @@ void PrintMeasuredTime(time_measure * tu)
 	printf("Total:\t\t %f\nUser:\t\t %f\nSystem:\t\t %f\n", elapsed_millis, user_millis, system_millis);
 }
 
-void PrintMetrics(time_measure * tu, char* testName, uint32_t testCount, double avg)
-{
+void PrintMetrics(time_measure * tu, char* testName, uint32_t testCount, double avg) {
 	struct timeval elapsedVal;
 	struct timeval userVal;
 	struct timeval systemVal;
@@ -109,19 +103,18 @@ void PrintMetrics(time_measure * tu, char* testName, uint32_t testCount, double 
 		(timePerSingleTestUs/avg)*100.0);
 }
 
-int main()
-{
-	Fp32f<8> fp1 = Fp32f<8>(5.6);
-	Fp32f<8> fp2 = Fp32f<8>(8.9);
-	Fp32f<8> fp3;
+int main() {
+	FpF<int32_t, 8> fp1(5.6);
+	FpF<int32_t, 8> fp2(8.9);
+	FpF<int32_t, 8> fp3;
 	
-	Fp64f<8> fp64f1 = Fp64f<8>(5.6);
-	Fp64f<8> fp64f2 = Fp64f<8>(8.9);
-	Fp64f<8> fp64f3;
+	FpF<int64_t, 8> fp64f1(5.6);
+	FpF<int64_t, 8> fp64f2(8.9);
+	FpF<int64_t, 8> fp64f3;
 	
-	Fp64s fp64s1 = Fp64s(5.6, 12);
-	Fp64s fp64s2 = Fp64s(8.9, 12);
-	Fp64s fp64s3;
+	FpS<int64_t> fp64s1(5.6, 12);
+	FpS<int64_t> fp64s2(8.9, 12);
+	FpS<int64_t> fp64s3(0.0, 12);
 
 	time_measure * tu = StartTimeMeasuring();
 	
@@ -135,7 +128,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, (char*)"Fp32f Addition", NUM_TESTS, ADDITION_AVG);
+	PrintMetrics(tu, (char*)"FpF<int32_t> Addition", NUM_TESTS, ADDITION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
@@ -151,7 +144,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, (char*)"Fp32f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"FpF<int32_t> Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
@@ -167,7 +160,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, (char*)"Fp64f Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"FpF<int64_t> Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
@@ -183,7 +176,7 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, (char*)"Fp64s Addition", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"FpS<int64_t> Addition", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 	
 	tu = StartTimeMeasuring();
@@ -198,6 +191,6 @@ int main()
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, (char*)"Fp64s Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"FpS<int64_t> Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 }

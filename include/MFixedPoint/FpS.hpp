@@ -21,6 +21,7 @@
 
 // System includes
 #include <stdint.h>
+#include <type_traits>
 
 namespace mn {
 namespace MFixedPoint {
