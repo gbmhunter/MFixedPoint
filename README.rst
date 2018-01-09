@@ -108,7 +108,7 @@ Benchmarking
 
 This library contains a benchmarking program in :code:`benchmark/` which runs operations on the fixed-point libraries and reports back on their performance. It is run automatically as part of :code:`make all`.
 
-Do not pay much attention to the benchmarking results when run on a pre-emptive OS such as Linux.
+The benchmarking is compared to software-based float arithmetic (using the custom header SoftFloat.hpp), since most benchmarking will be run on a development computer which has an FPU which will be used if float + float was written in code. If benchmarking on a device which does not have an FPU, you should compare the fixed-point operations against the native software float arithmetic implementation instead.
 
 Platform Independent
 ====================
@@ -116,8 +116,8 @@ Platform Independent
 The library is designed to be platform independent. Port-specific functions are declared in separate files, Port.cpp and Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
 
 This library has been tested on:
-- An ARM Cortex-M3 microcontroller
-- Linux
+- ARM Cortex-M3 microcontrollers
+- Linux (Ubuntu)
 - A CodeAnywhere "DevBox"
 
 Configuration
