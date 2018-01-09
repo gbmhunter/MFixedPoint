@@ -28,7 +28,24 @@ NOTE: This fixed point library will usually be slower when running of a CPU whic
 The "Slow" Fixed-Point Class
 ----------------------------
 
-The "slow" fixed-point class is called FpS (note that this class is not that slow, and is the recommend fixed-point class for almost all use cases). It allows for airthemtic between two fixed-point numbers that have different numbers of fractional bits. The underlying storage type of the fixed-point number is provided as the only template parameter.
+The "slow" fixed-point class is called FpS (note that this class is not that slow, and is the recommend fixed-point class for almost all use cases). It allows for airthemtic between two fixed-point numbers that have different numbers of fractional bits. The underlying storage type of the fixed-point number and the overflow type are provided as the template parameters.
+
+It is recommended that you use one of the predefined FpS classes (available with :code:`#include <MFixedPoint/FpS.h>`), which include:
+
+::
+
+	FpS8
+	FpS16
+	FpS32
+	FpS64 // Note: FpS64 is not protected from intermediatary overflows!
+
+The number of fractional bits is stored in the fixed-point object (it is a template parameter in the fast library). This gives slightly slower arithmetic speed than the fast library, but allows for more functionality and should use less code space..
+
+The extra functionality includes the ability to add two numbers with a different number of fractional bits transparently, and to ability to cast the fixed-point number into different types (e.g. :code:`(double)myFpSNum` will convert the number to a double).
+
+When adding two fixed-point numbers which have a different number of fractional bits, the result's number of fractional bits is always that of lowest of the two operands. For example :code:`FpS32(3.4, 10) + FpS32(1.2, 14)` will result in same object being created as would the code :code:`FpS32(4.6, 10)`. 
+
+Casting to an :code:`int` rounds to negative infinity; e.g. 5.67 becomes 5, and -12.2 becomes -13.
 
 Create a fixed point number:
 
@@ -72,36 +89,19 @@ Conversion/Casting:
 	printf("(double)fp1 = %.2f\n", (double)fp1); // Prints "(double)fp1 = 2.22"
 	
 
-The 32-bit Libraries (Fp32f, Fp32s)
------------------------------------
+Overflows
+---------
 
-Intermediary overflows are protected with int64_t casting, end-result overflows will wrap like usual. 
+:code:`FpS8, FpS16, FpS32` are protected from intermediary overflows. :code:`FpS64` is not, due to the lack of a :code:`int128_t` type on most embeded platforms.
 
-The 64-bit Libraries (Fp64f, Fp64s)
------------------------------------
+On any 32-bit architecture, :code:`FpS64` numbers will be slower than :code:`FpS64` numbers. Use only if 32-bit numbers don't offer the range/precision required.
 
-Intermediary overflows are **NOT** protected from overflowing, due to the inability of intermediate casting to :code:`int128_t` on most embedded platforms.
-
-On any 32-bit or lower architecture, 64-bit numbers will be slower than 32-bit numbers. Use only if 32-bit numbers don't offer
-the range/precision required.
-
-The Fast Libraries (Fp32f, Fp64f)
----------------------------------
+The Fast Libraries (FpF)
+------------------------
 
 The number of bits used for the decimal part of the number (Q) is given as a template parameter (e.g. :code:`Fp32f<12>(3.4)` will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality and a tad more code space.
 
 You have to be aware that when adding numbers with different Q, you have to perform the bit-shifting yourself. Also, if you want to convert a fast fixed-point number to a double, you cannot use a cast (e.g. :code:`(double)myFp32fNum` won't work, you have to use provided functions (e.g. :code:`Fix32ToDouble(myFp32fNum);`).
-
-The Slow Libraries (Fp32s, Fp64s)
----------------------------------
-
-The number of bits used for the decimal part of the number (Q) is given as a function argument (e.g. :code:`Fp32s(3.4, 12)` will create the number 3.4 with 12 bits of decimal precision). The Q is stored in the fixed-point object (it is a template parameter in the fast libraries). This gives slightly slower arithmetic speed than the fast libraries, but allows for more functionality and should use less code space..
-
-The extra functionality includes the ability to add two numbers with a different Q transparently, and to ability to cast the fixed-point number into different types (e.g. :code:`(double)myFp32sNum` will convert the number to a double).
-
-When adding two fixed-point numbers which have a different Q, the result's Q is always that of lowest Q of the two operands. For example :code:`Fp32s(3.4, 10) + Fp32s(1.2, 14)` will result in same object being created as would the code :code:`Fp32s(4.6, 10)`. 
-
-Casting to an :code:`int` rounds down to the nearest integer; e.g. 5.67 becomes 5, and -12.2 becomes -13.
 
 Benchmarking
 ============

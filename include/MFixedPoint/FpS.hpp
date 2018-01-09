@@ -3,7 +3,7 @@
 /// @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 /// @edited 			n/a
 /// @created			2013-07-22
-/// @last-modified		2018-01-08
+/// @last-modified		2018-01-09
 /// \brief 				A slower, more powerful fixed point library.
 /// \details
 ///		See README.rst in root dir for more info.
@@ -26,10 +26,15 @@
 namespace mn {
 namespace MFixedPoint {
 
-/// \brief 	The template argument p in all of the following functions refers to the 
-/// 		fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
-/// 		Contains mathematical operator overloading. Doesn't have modulus (%) overloading.
-template <class BaseType, class OverloadType>
+/// \brief 		A class which represents a "slow" fixed-point number, where each instance supports an arbitrary number of fractional bits,
+///				and arithmetic is supported between these instances.
+/// \tparam		BaseType		The underlying data type which will be store the raw fixed point data. It is recommended that
+///								this should be a signed integer type (e.g. int32_t).
+/// \tparam		OverflowType	The type that the basetype will be cast to before doing fixed point operations
+///								that have a possibility of intermediate overflowing (e.g. multiplication, division).
+///								It is recommended that this should be twice the bit size of the BaseType 
+///								(e.g. if BaseType = int32_t, OverflowType = int64_t).
+template <class BaseType, class OverflowType>
 class FpS {
 	
 	public:
@@ -114,45 +119,56 @@ class FpS {
 	}
 	
 	/// \brief		Overlaod for '*=' operator.
-	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
+	/// \details	Uses intermediatary casting to OverflowType to prevent overflows.
 	FpS& operator *= (FpS r) {
+
 		// Optimised for when numFracBits_ is the same for both
+	
 		// operators (first if statement).
 		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers, shift right by Q
-			rawVal_ = (BaseType)(((OverloadType)rawVal_ * (OverloadType)r.rawVal_) >> numFracBits_);
+			rawVal_ = (BaseType)(((OverflowType)rawVal_ * (OverflowType)r.rawVal_) >> numFracBits_);
+		
 			// No need to change Q, both are the same
+		
 		}
 		else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
-			rawVal_ = (BaseType)((((OverloadType)rawVal_ >> (numFracBits_ - r.numFracBits_)) * (OverloadType)r.rawVal_) >> r.numFracBits_); 
+			rawVal_ = (BaseType)((((OverflowType)rawVal_ >> (numFracBits_ - r.numFracBits_)) * (OverflowType)r.rawVal_) >> r.numFracBits_);  
+		
 			// Change Q
 			numFracBits_ = r.numFracBits_;
 		} else { // numFracBits_ < r.numFracBits_	
 			// First number has smaller Q, so result is in that precision
-			rawVal_ = (BaseType)(((OverloadType)rawVal_ * ((OverloadType)r.rawVal_ >> (r.numFracBits_ - numFracBits_))) >> numFracBits_); 
+			rawVal_ = (BaseType)(((OverflowType)rawVal_ * ((OverflowType)r.rawVal_ >> (r.numFracBits_ - numFracBits_))) >> numFracBits_); 
 			// No need to change Q
 		}
 		return *this;
 	}
 	
 	/// \brief		Overlaod for '/=' operator.
-	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
-	FpS& operator /= (FpS r) {
-		// Optimised for when numFracBits_ is the same for both
+	/// \details	Uses intermediatary casting to OverflowType to prevent overflows.
+	FpS& operator /= (FpS r) { 
+
+		// Optimised for when numFracBits_ is the same for both 
+	
 		// operators (first if statement).
 		if(numFracBits_ == r.numFracBits_) {
-			// Q the same for both numbers, shift right by Q
-			rawVal_ = (BaseType)((((OverloadType)rawVal_ << numFracBits_) / (OverloadType)r.rawVal_));
+			// Q the same for both numbers, shift right by Q 
+		
+			rawVal_ = (BaseType)((((OverflowType)rawVal_ << numFracBits_) / (OverflowType)r.rawVal_)); 
+		
 			// No need to change Q, both are the same
 		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
-			rawVal_ = (BaseType)(((((OverloadType)rawVal_ >> (numFracBits_ - r.numFracBits_)) << r.numFracBits_) / (OverloadType)r.rawVal_)); 
-			// Change Q
+			rawVal_ = (BaseType)(((((OverflowType)rawVal_ >> (numFracBits_ - r.numFracBits_)) << r.numFracBits_) / (OverflowType)r.rawVal_));  
+		
+			// Change Q 
+		
 			numFracBits_ = r.numFracBits_;
 		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
-			rawVal_ = (BaseType)(((OverloadType)rawVal_ << numFracBits_) / ((OverloadType)r.rawVal_ >> (r.numFracBits_ - numFracBits_))); 
+			rawVal_ = (BaseType)(((OverflowType)rawVal_ << numFracBits_) / ((OverflowType)r.rawVal_ >> (r.numFracBits_ - numFracBits_))); 
 			// No need to change Q
 		}
 		return *this;
@@ -179,7 +195,9 @@ class FpS {
 		return *this;
 	}
 	
-	// Simple Arithmetic Operators
+	//===============================================================================================//
+	//==================================== SIMPLE ARITHMETIC OPERATORS ==============================//
+	//===============================================================================================//	
 	
 	/// \brief		Overload for '+' operator.
 	/// \details	Uses '+=' operator.
@@ -221,24 +239,21 @@ class FpS {
 		return x;
 	}
 	
-	// Binary Operator Overloads
+	//===============================================================================================//
+	//====================================== COMPARISON OVERLOADS ===================================//
+	//===============================================================================================//
 	
 	/// \brief		Overload for the '==' operator.
 	bool operator == (FpS r) const {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			return rawVal_ == r.rawVal_;
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			return (rawVal_ >> (numFracBits_ - r.numFracBits_)) == r.rawVal_; 
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			return rawVal_ == (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 		}
@@ -248,18 +263,13 @@ class FpS {
 	bool operator != (FpS r) const {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			return rawVal_ != r.rawVal_;
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			return (rawVal_ >> (numFracBits_ - r.numFracBits_)) != r.rawVal_; 
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			return rawVal_ != (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 		}
@@ -269,18 +279,13 @@ class FpS {
 	bool operator < (FpS r) const {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			return rawVal_ < r.rawVal_;
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			return (rawVal_ >> (numFracBits_ - r.numFracBits_)) < r.rawVal_; 
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			return rawVal_ < (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 		}
@@ -290,18 +295,13 @@ class FpS {
 	bool operator > (FpS r) const {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			return rawVal_ > r.rawVal_;
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			return (rawVal_ >> (numFracBits_ - r.numFracBits_)) > r.rawVal_; 
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			return rawVal_ > (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 		}
@@ -311,18 +311,13 @@ class FpS {
 	bool operator <= (FpS r) const {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			return rawVal_ <= r.rawVal_;
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			return (rawVal_ >> (numFracBits_ - r.numFracBits_)) <= r.rawVal_; 
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_
 			// First number has smaller Q, so result is in that precision
 			return rawVal_ <= (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 		}
@@ -332,18 +327,13 @@ class FpS {
 	bool operator >= (FpS r) const {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
-		if(numFracBits_ == r.numFracBits_)
-		{
+		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers
 			return rawVal_ >= r.rawVal_;
-		}
-		else if(numFracBits_ > r.numFracBits_)
-		{
+		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
 			return (rawVal_ >> (numFracBits_ - r.numFracBits_)) >= r.rawVal_; 
-		}
-		else // numFracBits_ < r.numFracBits_
-		{
+		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
 			return rawVal_ >= (r.rawVal_ >> (r.numFracBits_ - numFracBits_)); 
 		}
@@ -355,6 +345,7 @@ class FpS {
 	
 	/// \brief		Converts the fixed-point number into an integer.
 	/// \details	Always rounds to negative infinity (66.3 becomes 66, -66.3 becomes -67).
+	/// \tparam		IntType		The return integer type.
 	template <class IntType>
 	IntType ToInt() const {
 		// Right-shift to get rid of all the decimal bits
@@ -362,10 +353,12 @@ class FpS {
 		return (IntType)(rawVal_ >> numFracBits_);
 	}
 
+	/// \brief		Converts the fixed-point number to a float.
 	float ToFloat() const {
 		return (float)rawVal_ / (float)(1 << numFracBits_);
 	}
 
+	/// \brief		Converts the fixed-point number to a double.
 	double ToDouble() const {
 		return (double)rawVal_ / (double)(1 << numFracBits_);
 	}
@@ -399,10 +392,15 @@ class FpS {
 	/// \brief		The fixed-point number is stored in this basic data type.
 	BaseType rawVal_;			
 	
-	/// \brief		This stores the number of fractional bits.
+	/// \brief		This stores the number of fractional bits (specified in the
+	///				constructor).
 	uint8_t numFracBits_;
 	
 };
+
+//===============================================================================================//
+//========================================= SPECIALIZATIONS =====================================//
+//===============================================================================================//
 
 using FpS8 = FpS<int8_t, int16_t>;
 using FpS16 = FpS<int16_t, int32_t>;
