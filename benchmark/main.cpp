@@ -1,12 +1,12 @@
-//!
-//! @file 				main.cpp
-//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @edited 			n/a
-//! @created			2013-05-30
-//! @last-modified		2018-01-08
-//! @brief 				Has the entry point for the benchmark program.
-//! @details
-//!		See README.rst in root dir for more info.
+///
+/// \file 				main.cpp
+/// \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+/// \edited 			n/a
+/// \reated			2013-05-30
+/// \last-modified		2018-01-08
+/// \brief 				Has the entry point for the benchmark program.
+/// \details
+///		See README.rst in root dir for more info.
 
 // System includes
 #include <sys/time.h>
@@ -20,10 +20,11 @@
 
 using namespace mn::MFixedPoint;
 
-#define NUM_TESTS	10000
+#define NUM_TESTS	100000
 
 #define ADDITION_AVG 0.010
 #define SUBTRACTION_AVG 0.010
+#define EXPECTED_TIME_PER_FLOAT_OR_DOUBLE_OPERATION_ms 0.002 // 2us
 
 typedef struct tag_time_measure {
   struct timeval startTimeVal;
@@ -87,6 +88,7 @@ void PrintMetrics(time_measure * tu, char* testName, uint32_t testCount, double 
 	user_millis = userVal.tv_sec * 1000 + (double) userVal.tv_usec / 1000;
 	system_millis = systemVal.tv_sec * 1000 + (double) systemVal.tv_usec / 1000;
 	double timePerSingleTestUs = (elapsed_millis*1000.)/((double)testCount);
+	double percGreaterThanAvg = ((timePerSingleTestUs-avg)/avg)*100.0;
 
 	printf("\n\n---%s--- \n", testName);
 	printf(
@@ -100,7 +102,7 @@ void PrintMetrics(time_measure * tu, char* testName, uint32_t testCount, double 
 		system_millis,
 		testCount,
 		timePerSingleTestUs,
-		(timePerSingleTestUs/avg)*100.0);
+		percGreaterThanAvg);
 }
 
 int main() {
@@ -115,6 +117,14 @@ int main() {
 	FpS<int64_t> fp64s1(5.6, 12);
 	FpS<int64_t> fp64s2(8.9, 12);
 	FpS<int64_t> fp64s3(0.0, 12);
+
+	float float1 = 5.6;
+	float float2 = 8.9;
+	float float3 = 0.0; 
+
+	double double1 = 5.6;
+	double double2 = 8.9;
+	double double3 = 0.0;
 
 	time_measure * tu = StartTimeMeasuring();
 	
@@ -188,9 +198,41 @@ int main() {
 			fp64s3 = fp64s1 - fp64s2;
 		}
 	
-	}
-	
+	}	
 	StopTimeMeasuring(tu);
 	PrintMetrics(tu, (char*)"FpS<int64_t> Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	free(tu);
+
+	tu = StartTimeMeasuring();	
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++) {
+			float3 = float1 - float2;
+		}
+	}	
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, (char*)"Float Addition", NUM_TESTS, EXPECTED_TIME_PER_FLOAT_OR_DOUBLE_OPERATION_ms);
+	free(tu);
+
+	tu = StartTimeMeasuring();	
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++) {
+			double3 = double1 + double2;
+		}
+	}	
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, (char*)"Double Addition", NUM_TESTS, EXPECTED_TIME_PER_FLOAT_OR_DOUBLE_OPERATION_ms);
+	free(tu);
+
+	tu = StartTimeMeasuring();	
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++) {
+			double3 = double1 * double2;
+		}
+	}	
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, (char*)"Double Multiplication", NUM_TESTS, EXPECTED_TIME_PER_FLOAT_OR_DOUBLE_OPERATION_ms);
 	free(tu);
 }

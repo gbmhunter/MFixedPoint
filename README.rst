@@ -17,15 +17,13 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 Description
 ===========
 
-32-bit and 64-bit fixed-point libraries for fast arithmetic operations. Suitable for performing computationally intensive operations
-on a computing platform that does not have a floating-point unit (like most smaller embedded systems, such as Cortex-M3, CortexM0,
-ATmega, PSoC 5, PSoC 5 LP, PSoC 4, Arduino platforms e.t.c). Common applications include BLDC motor control and image processing.
-Best performance on a 32-bit or higher architecture (although 8-bit architectures should still be fine). 
+32-bit and 64-bit fixed-point libraries for fast arithmetic operations. Suitable for performing computationally intensive operations on a computing platform that does not have a floating-point unit (like most smaller embedded systems, such as Cortex-M3, CortexM0, ATmega, PSoC 5, PSoC 5 LP, PSoC 4, Arduino platforms e.t.c). Common applications include BLDC motor control and image processing. Best performance on a 32-bit or higher architecture (although 8-bit architectures should still be fine). 
 
-The libraries are designed to be a fully-functional data types within their limits (e.g. supports operator overloads and implicit/explicit casting). Can be used with
-most libraries that use data type templates.
+The libraries are designed to be a fully-functional data types within their limits (e.g. supports operator overloads and implicit/explicit casting). Can be used with most libraries that use data type templates.
 
 Fixed-point numbers are signed. Q is the number of bits used for the decimal part of the number (the rest are used for the integer part). Q can vary from 0 up to the bit-width of the fixed-point number.
+
+NOTE: This fixed point library will usually be slower when running of a CPU which has associated floating point unit (FPU), e.g. when running on your desktop/laptop. The benchmark performance tests (found in :code:`benchmark/`) suggest simple fixed-point operations such as addition/subtraction/multiplication/division are about 10x slower than their float/double counterparts when there is a FPU. However, this library is designed to be used on CPU's where there is no FPU present. This library comes in useful when there is no FPU present, which is the case for lower-end microcontrollers such as ARM Cortex M0/M3, Atmel ATMEGA, TI MSP430's e.t.c.
 
 The "Slow" Fixed-Point Class
 ----------------------------
