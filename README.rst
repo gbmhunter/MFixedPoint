@@ -25,8 +25,8 @@ Fixed-point numbers are signed. Q is the number of bits used for the decimal par
 
 NOTE: This fixed point library will usually be slower when running of a CPU which has associated floating point unit (FPU), e.g. when running on your desktop/laptop. The benchmark performance tests (found in :code:`benchmark/`) suggest simple fixed-point operations such as addition/subtraction/multiplication/division are about 10x slower than their float/double counterparts when there is a FPU. However, this library is designed to be used on CPU's where there is no FPU present. This library comes in useful when there is no FPU present, which is the case for lower-end microcontrollers such as ARM Cortex M0/M3, Atmel ATMEGA, TI MSP430's e.t.c.
 
-The "Slow" Fixed-Point Class
-----------------------------
+The "Slow" Library (FpS)
+------------------------
 
 The "slow" fixed-point class is called FpS (note that this class is not that slow, and is the recommend fixed-point class for almost all use cases). It allows for airthemtic between two fixed-point numbers that have different numbers of fractional bits. The underlying storage type of the fixed-point number and the overflow type are provided as the template parameters.
 
@@ -96,10 +96,10 @@ Overflows
 
 On any 32-bit architecture, :code:`FpS64` numbers will be slower than :code:`FpS64` numbers. Use only if 32-bit numbers don't offer the range/precision required.
 
-The Fast Libraries (FpF)
+The "Fast" Library (FpF)
 ------------------------
 
-The number of bits used for the decimal part of the number (Q) is given as a template parameter (e.g. :code:`Fp32f<12>(3.4)` will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality and a tad more code space.
+The number of fractional bits is given as a template parameter (e.g. :code:`FpF<int32_t, 12>(3.4)` will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality and a tad more code space.
 
 You have to be aware that when adding numbers with different Q, you have to perform the bit-shifting yourself. Also, if you want to convert a fast fixed-point number to a double, you cannot use a cast (e.g. :code:`(double)myFp32fNum` won't work, you have to use provided functions (e.g. :code:`Fix32ToDouble(myFp32fNum);`).
 

@@ -39,10 +39,9 @@ inline int32_t FixMulF(int32_t a, int32_t b)
 /// \brief		Perform a fixed point multiplication using a 64-bit intermediate result to
 /// 			prevent intermediary overflow problems.
 /// \note 		Slower than FpF::FixMulF()
-template <uint8_t q>
-inline int32_t FixMul(int32_t a, int32_t b)
-{
-	return (int32_t)(((int64_t)a * b) >> q);
+template <class BaseType, class OverflowType, uint8_t numFracBits>
+inline BaseType FpFMultiply(int32_t a, int32_t b) {
+	return (BaseType)(((OverflowType)a * b) >> numFracBits);
 }
 
 // Fixed point division
@@ -129,8 +128,8 @@ inline int32_t fixinv(int32_t a)
 		x <<= exp;
 
 	// Two iterations of newton-raphson  x = x(2-ax)
-	x = FixMul<(32-q)>(x,((2<<(32-q)) - FixMul<q>(a,x)));
-	x = FixMul<(32-q)>(x,((2<<(32-q)) - FixMul<q>(a,x)));
+	x = FpFMultiply<(32-q)>(x,((2<<(32-q)) - FpFMultiply<q>(a,x)));
+	x = FpFMultiply<(32-q)>(x,((2<<(32-q)) - FpFMultiply<q>(a,x)));
 
 	if (sign)
 		return -x;
@@ -169,7 +168,7 @@ int32_t fixsqrt16(int32_t a);
 /// \details	The template argument p in all of the following functions refers to the 
 /// 			number of fractional bits (e.g. q = 8 gives Q24.8 fixed point functions).
 /// 			Contains mathematical operator overloading. Doesn't have modulus (%) overloading
-template <class BaseType, std::size_t numFracBits>
+template <class BaseType, class OverflowType, uint8_t numFracBits>
 class FpF {
 	
 	public:
@@ -216,7 +215,7 @@ class FpF {
 	/// \brief		Overlaod for '*=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
 	FpF& operator *= (FpF r) {
-		rawVal = FixMul<numFracBits>(rawVal, r.rawVal);
+		rawVal = FpFMultiply<numFracBits>(rawVal, r.rawVal);
 		return *this;
 	}
 	
@@ -422,6 +421,18 @@ class FpF {
 	/// \}
 	
 };
+
+template <uint8_t numFracBits>
+using FpF8 = FpF<int8_t, int16_t, numFracBits>;
+
+template <uint8_t numFracBits>
+using FpF16 = FpF<int16_t, int32_t, numFracBits>;
+
+template <uint8_t numFracBits>
+using FpF32 = FpF<int32_t, int64_t, numFracBits>;
+
+template <uint8_t numFracBits>
+using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 
 // Specializations for use with plain integers
 

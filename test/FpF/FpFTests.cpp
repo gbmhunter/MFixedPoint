@@ -18,48 +18,48 @@ using namespace mn::MFixedPoint;
 
 MTEST_GROUP(FpFTests) {
 	MTEST(NoFractionalBits)	{
-		FpF<int32_t, 0> fp1 = 34;		
+		FpF32<0> fp1 = 34;		
         CHECK_EQUAL(fp1.rawVal, 34);
 	}
 
 	MTEST(OneFractionalBit)	{
-		FpF<int32_t, 1> fp1 = 34;		
+		FpF32<1> fp1 = 34;		
         CHECK_EQUAL(fp1.rawVal, 34 << 1);
 	}
 
 	MTEST(CreateFromInteger)	{
-		FpF<int32_t, 8> fp1 = 34;		
+		FpF32<8> fp1 = 34;		
         CHECK_EQUAL(fp1.rawVal, 34 << 8);
 	}
 
 	MTEST(CreateFromFloat)	{
-		FpF<int32_t, 8> fp1 = 34.2f;		
+		FpF32<8> fp1 = 34.2f;		
         CHECK_EQUAL(fp1.rawVal, (int32_t)(34.2f * (1 << 8)));
 	}
 
 	MTEST(CreateFromDouble)	{
-		FpF<int32_t, 8> fp1 = 34.2; // No suffix denotes a double		
+		FpF32<8> fp1 = 34.2; // No suffix denotes a double		
         CHECK_EQUAL(fp1.rawVal, (int32_t)(34.2 * (1 << 8)));
 	}
 
 	MTEST(SizeTest) {	
-		CHECK_EQUAL(sizeof(FpF<int8_t, 8>), (size_t)1);
-		CHECK_EQUAL(sizeof(FpF<int16_t, 8>), (size_t)2);
-		CHECK_EQUAL(sizeof(FpF<int32_t, 8>), (size_t)4);
-		CHECK_EQUAL(sizeof(FpF<int64_t, 8>), (size_t)8);
+		CHECK_EQUAL(sizeof(FpF<int8_t, int16_t, 8>), (size_t)1);
+		CHECK_EQUAL(sizeof(FpF<int16_t, int32_t, 8>), (size_t)2);
+		CHECK_EQUAL(sizeof(FpF<int32_t, int64_t, 8>), (size_t)4);
+		CHECK_EQUAL(sizeof(FpF<int64_t, int64_t, 8>), (size_t)8);
 	}
 
 	MTEST(Addition)	{
-		FpF<int32_t, 8> fp1 = 34.2;
-		FpF<int32_t, 8> fp2 = 8.6;
-		FpF<int32_t, 8> fp3 = fp1 + fp2;
+		FpF32<8> fp1 = 34.2;
+		FpF32<8> fp2 = 8.6;
+		FpF32<8> fp3 = fp1 + fp2;
         CHECK_EQUAL(fp3.rawVal, (int32_t)(34.2 * (1 << 8)) + (int32_t)(8.6 * (1 << 8)));
 	}
 
 	MTEST(Subtraction)	{
-		FpF<int32_t, 8> fp1 = 34.2;
-		FpF<int32_t, 8> fp2 = 8.6;
-		FpF<int32_t, 8> fp3 = fp1 - fp2;
+		FpF32<8> fp1 = 34.2;
+		FpF32<8> fp2 = 8.6;
+		FpF32<8> fp3 = fp1 - fp2;
         CHECK_EQUAL(fp3.rawVal, (int32_t)(34.2 * (1 << 8)) - (int32_t)(8.6 * (1 << 8)));
 	}
 }

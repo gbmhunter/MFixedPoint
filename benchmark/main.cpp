@@ -130,13 +130,13 @@ int main() {
 	}
 
 
-	FpF<int32_t, 8> fp1(5.6);
-	FpF<int32_t, 8> fp2(8.9);
-	FpF<int32_t, 8> fp3;
+	FpF32<8> fp1(5.6);
+	FpF32<8> fp2(8.9);
+	FpF32<8> fp3;
 	
-	FpF<int64_t, 8> fp64f1(5.6);
-	FpF<int64_t, 8> fp64f2(8.9);
-	FpF<int64_t, 8> fp64f3;
+	FpF64<8> fp64f1(5.6);
+	FpF64<8> fp64f2(8.9);
+	FpF64<8> fp64f3;
 	
 	FpS64 fp64s1(5.6, 12);
 	FpS64 fp64s2(8.9, 12);
