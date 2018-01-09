@@ -22,36 +22,36 @@ using namespace mn::MFixedPoint;
 MTEST_GROUP(FpSCompoundArithmeticTests)
 {
 	MTEST(CompoundAdditionTest)	{
-		FpS<int32_t> fp1(3.2, 12);
-		FpS<int32_t> fp2(0.6, 12);
+		FpS32 fp1(3.2, 12);
+		FpS32 fp2(0.6, 12);
 		fp1 += fp2;
 		CHECK_CLOSE(3.8, (double)fp1, 0.1);
 	}
 
 	MTEST(CompoundSubtractionTest) {
-		FpS<int32_t> fp1(3.2, 12);
-		FpS<int32_t> fp2(0.6, 12);		
+		FpS32 fp1(3.2, 12);
+		FpS32 fp2(0.6, 12);		
 		fp1 -= fp2;
 		CHECK_CLOSE(2.6, (double)fp1, 0.1);
 	}
 
 	MTEST(CompoundMultiplicationTest) {
-		FpS<int32_t> fp1(3.2, 12);
-		FpS<int32_t> fp2(0.6, 12);		
+		FpS32 fp1(3.2, 12);
+		FpS32 fp2(0.6, 12);		
 		fp1 *= fp2;
 		CHECK_CLOSE(1.92, (double)fp1, 0.1);
 	}
 
 	MTEST(CompoundDivisionTest) {
-		FpS<int32_t> fp1(3.2, 12);
-		FpS<int32_t> fp2(0.6, 12);		
+		FpS32 fp1(3.2, 12);
+		FpS32 fp2(0.6, 12);		
 		fp1 /= fp2;
 		CHECK_CLOSE(5.33, (double)fp1, 0.1);
 	}
 	
 	MTEST(CompoundModuloTest) {
-		FpS<int32_t> fp1(20.2, 12);
-		FpS<int32_t> fp2(1.5, 12);		
+		FpS32 fp1(20.2, 12);
+		FpS32 fp2(1.5, 12);		
 		fp1 %= fp2;
 		//20.2 % 1.5 = 0.7
 		CHECK_CLOSE(0.7, (double)fp1, 0.1);

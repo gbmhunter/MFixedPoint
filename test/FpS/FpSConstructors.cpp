@@ -19,17 +19,17 @@ using namespace mn::MFixedPoint;
 MTEST_GROUP(FpSTests) {
 
 	MTEST(CreateFromInteger)	{
-		FpS<int32_t> fp1(34, 0);		
+		FpS32 fp1(34, 0);		
         CHECK_EQUAL(fp1.GetRawVal(), 34 << 0);
 	}
 
 	MTEST(CreateFromFloat)	{
-		FpS<int32_t> fp1(34.2f, 8);		
+		FpS32 fp1(34.2f, 8);		
         CHECK_EQUAL(fp1.GetRawVal(), (int32_t)(34.2f * (1 << 8)));
 	}
 
 	MTEST(CreateFromDouble)	{
-		FpS<int32_t> fp1(34.2, 8); // No suffix denotes a double		
+		FpS32 fp1(34.2, 8); // No suffix denotes a double		
         CHECK_EQUAL(fp1.GetRawVal(), (int32_t)(34.2 * (1 << 8)));
 	}
 

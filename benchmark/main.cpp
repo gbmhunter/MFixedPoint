@@ -138,9 +138,9 @@ int main() {
 	FpF<int64_t, 8> fp64f2(8.9);
 	FpF<int64_t, 8> fp64f3;
 	
-	FpS<int64_t> fp64s1(5.6, 12);
-	FpS<int64_t> fp64s2(8.9, 12);
-	FpS<int64_t> fp64s3(0.0, 12);
+	FpS64 fp64s1(5.6, 12);
+	FpS64 fp64s2(8.9, 12);
+	FpS64 fp64s3(0.0, 12);
 
 	float float1 = 5.6;
 	float float2 = 8.9;
@@ -210,7 +210,7 @@ int main() {
 	}
 	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, (char*)"FpS<int64_t> Addition", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"FpS64 Addition", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 	
 	tu = StartTimeMeasuring();
@@ -224,7 +224,7 @@ int main() {
 	
 	}	
 	StopTimeMeasuring(tu);
-	PrintMetrics(tu, (char*)"FpS<int64_t> Subtraction", NUM_TESTS, SUBTRACTION_AVG);
+	PrintMetrics(tu, (char*)"FpS64 Subtraction", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 
 	tu = StartTimeMeasuring();	

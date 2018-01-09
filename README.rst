@@ -35,15 +35,15 @@ Create a fixed point number:
 ::
 
 	// Create a fixed point number of 32-bits. 8 bits are used for the fractional part, leaving 24 for the integer part.
-	FpS<int32_t> fp1(12.34, 8);
+	FpS32 fp1(12.34, 8);
 	
 
 Addition/Subtraction/Multiplication/Division:
 
 ::
 
-	FpS<int32_t> fp1(5.0, 8);
-	FpS<int32_t> fp2(1.5, 8);
+	FpS32 fp1(5.0, 8);
+	FpS32 fp2(1.5, 8);
 
 	printf("add = %.2f\n", (fp1 + fp2).ToDouble()); // Prints "add = 6.50"
 	printf("sub = %.2f\n", (fp1 - fp2).ToDouble()); // Prints "sub = 3.50"
@@ -53,15 +53,15 @@ Addition/Subtraction/Multiplication/Division:
 Modulus:
 
 ::
-	FpS<int32_t> fp1(5.1, 10);
-	FpS<int32_t> fp2(1.5, 8);
+	FpS32 fp1(5.1, 10);
+	FpS32 fp2(1.5, 8);
 
 	printf("mod = %.2f\n", (fp1 % fp2).ToDouble()); // Prints "mod = 0.60"
 
 Conversion/Casting:
 
 ::
-	FpS<int32_t> fp1(2.22, 8);	
+	FpS32 fp1(2.22, 8);	
 
 	// Using the ToXXX() functions...
 	printf("ToInt<int32_t>() = %i\n", fp1.ToInt<int32_t>()); // Prints "ToInt<int32_t>() = 2"

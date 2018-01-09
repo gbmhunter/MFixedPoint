@@ -19,19 +19,19 @@ using namespace mn::MFixedPoint;
 MTEST_GROUP(FpSMisc) {
 
 	MTEST(NoFractionalBits)	{
-		FpS<int32_t> fp1(34, 0);		
+		FpS32 fp1(34, 0);		
         CHECK_EQUAL(fp1.GetRawVal(), 34);
 	}
 
 	MTEST(OneFractionalBit)	{
-		FpS<int32_t> fp1(34, 1);		
+		FpS32 fp1(34, 1);		
         CHECK_EQUAL(fp1.GetRawVal(), 34 << 1);
 	}
 
 	MTEST(SizeTest) {	
-		CHECK_EQUAL(sizeof(FpS<int8_t>), (size_t)2);
-		CHECK_EQUAL(sizeof(FpS<int16_t>), (size_t)4);
-		CHECK_EQUAL(sizeof(FpS<int32_t>), (size_t)8);
-		CHECK_EQUAL(sizeof(FpS<int64_t>), (size_t)16);
+		CHECK_EQUAL(sizeof(FpS<int8_t, int16_t>), (size_t)2);
+		CHECK_EQUAL(sizeof(FpS<int16_t, int32_t>), (size_t)4);
+		CHECK_EQUAL(sizeof(FpS32), (size_t)8);
+		CHECK_EQUAL(sizeof(FpS<int64_t, int64_t>), (size_t)16);
 	}
 }

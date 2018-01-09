@@ -29,7 +29,7 @@ namespace MFixedPoint {
 /// \brief 	The template argument p in all of the following functions refers to the 
 /// 		fixed point precision (e.g. p = 8 gives 24.8 fixed point functions).
 /// 		Contains mathematical operator overloading. Doesn't have modulus (%) overloading.
-template <class BaseType>
+template <class BaseType, class OverloadType>
 class FpS {
 	
 	public:
@@ -120,17 +120,17 @@ class FpS {
 		// operators (first if statement).
 		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers, shift right by Q
-			rawVal_ = (int32_t)(((int64_t)rawVal_ * (int64_t)r.rawVal_) >> numFracBits_);
+			rawVal_ = (BaseType)(((OverloadType)rawVal_ * (OverloadType)r.rawVal_) >> numFracBits_);
 			// No need to change Q, both are the same
 		}
 		else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
-			rawVal_ = (int32_t)((((int64_t)rawVal_ >> (numFracBits_ - r.numFracBits_)) * (int64_t)r.rawVal_) >> r.numFracBits_); 
+			rawVal_ = (BaseType)((((OverloadType)rawVal_ >> (numFracBits_ - r.numFracBits_)) * (OverloadType)r.rawVal_) >> r.numFracBits_); 
 			// Change Q
 			numFracBits_ = r.numFracBits_;
 		} else { // numFracBits_ < r.numFracBits_	
 			// First number has smaller Q, so result is in that precision
-			rawVal_ = (int32_t)(((int64_t)rawVal_ * ((int64_t)r.rawVal_ >> (r.numFracBits_ - numFracBits_))) >> numFracBits_); 
+			rawVal_ = (BaseType)(((OverloadType)rawVal_ * ((OverloadType)r.rawVal_ >> (r.numFracBits_ - numFracBits_))) >> numFracBits_); 
 			// No need to change Q
 		}
 		return *this;
@@ -143,16 +143,16 @@ class FpS {
 		// operators (first if statement).
 		if(numFracBits_ == r.numFracBits_) {
 			// Q the same for both numbers, shift right by Q
-			rawVal_ = (int32_t)((((int64_t)rawVal_ << numFracBits_) / (int64_t)r.rawVal_));
+			rawVal_ = (BaseType)((((OverloadType)rawVal_ << numFracBits_) / (OverloadType)r.rawVal_));
 			// No need to change Q, both are the same
 		} else if(numFracBits_ > r.numFracBits_) {
 			// Second number has smaller Q, so result is in that precision
-			rawVal_ = (int32_t)(((((int64_t)rawVal_ >> (numFracBits_ - r.numFracBits_)) << r.numFracBits_) / (int64_t)r.rawVal_)); 
+			rawVal_ = (BaseType)(((((OverloadType)rawVal_ >> (numFracBits_ - r.numFracBits_)) << r.numFracBits_) / (OverloadType)r.rawVal_)); 
 			// Change Q
 			numFracBits_ = r.numFracBits_;
 		} else { // numFracBits_ < r.numFracBits_		
 			// First number has smaller Q, so result is in that precision
-			rawVal_ = (int32_t)(((int64_t)rawVal_ << numFracBits_) / ((int64_t)r.rawVal_ >> (r.numFracBits_ - numFracBits_))); 
+			rawVal_ = (BaseType)(((OverloadType)rawVal_ << numFracBits_) / ((OverloadType)r.rawVal_ >> (r.numFracBits_ - numFracBits_))); 
 			// No need to change Q
 		}
 		return *this;
@@ -403,6 +403,11 @@ class FpS {
 	uint8_t numFracBits_;
 	
 };
+
+using FpS8 = FpS<int8_t, int16_t>;
+using FpS16 = FpS<int16_t, int32_t>;
+using FpS32 = FpS<int32_t, int64_t>;
+using FpS64 = FpS<int64_t, int64_t>; // Not protected from overflow!
 
 } // namespace MFixedPoint
 } // namespace mn
