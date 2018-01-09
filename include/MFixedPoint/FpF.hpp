@@ -22,12 +22,6 @@
 // System includes
 #include <stdint.h>
 
-// Fixed-point configuration file
-#include "Config.hpp"
-
-// Port-specific code
-#include "Port.hpp"
-
 namespace mn {
 namespace MFixedPoint {
 

@@ -1,9 +1,9 @@
 //!
-//! \file 				FpSArithmetic.cpp
+//! \file 				FpSArithmeticTests.cpp
 //! \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! \edited 			n/a
-//! \created			2018-01-08
-//! \last-modified		2017-01-08
+//! \created			2013-07-22
+//! \last-modified		2018-01-08
 //! \brief 				Performs unit tests on the fixed point FpS class.
 //! \details
 //!						See README.rst in root dir for more info.
@@ -16,7 +16,7 @@
 
 using namespace mn::MFixedPoint;
 
-MTEST_GROUP(FpSArithmetic) {
+MTEST_GROUP(FpSArithmeticTests) {
 
 	// MTEST(ArithmeticOnReadme) {
 	// 	FpS<int32_t> fp1(5.0, 8);
@@ -41,6 +41,13 @@ MTEST_GROUP(FpSArithmetic) {
 		FpS<int32_t> fp3 = fp1 + fp2;
         CHECK_CLOSE(fp3.ToDouble(), 34.2 + 8.6, 0.1);
 		CHECK_EQUAL(fp3.GetNumFracBits(), 7);
+	}
+
+	MTEST(NegativeAdditionTest)	{
+		FpS<int32_t> fp1(-3.2, 12);
+		FpS<int32_t> fp2(-0.6, 12);
+		auto fp3 = fp1 + fp2;
+		CHECK_CLOSE(-3.8, fp3.ToDouble(), 0.1);
 	}
 
 	MTEST(SubtractionPositive) {
@@ -72,11 +79,32 @@ MTEST_GROUP(FpSArithmetic) {
         CHECK_CLOSE(fp3.ToDouble(), 7.5, 0.1);
 	}
 
+	MTEST(NegativeMultiplicationTest) {
+		FpS<int32_t> fp1(-3.2, 12);
+		FpS<int32_t> fp2(-0.6, 12);
+		
+		auto fp3 = fp1 * fp2;
+		CHECK_CLOSE(1.92, fp3.ToDouble(), 0.1);
+	}
+
+	MTEST(PositiveDivisionTest)	{
+		FpS<int32_t> fp1(3.2, 12);
+		FpS<int32_t> fp2(0.6, 12);		
+		auto fp3 = fp1 / fp2;
+		CHECK_CLOSE(5.33, fp3.ToDouble(), 0.1);
+	}
+
+	MTEST(NegativeDivisionTest) {
+		FpS<int32_t> fp1(-3.2, 12);
+		FpS<int32_t> fp2(-0.6, 12);	
+		auto fp3 = fp1 / fp2;
+		CHECK_CLOSE(5.33, fp3.ToDouble(), 0.1);
+	}
+
 	MTEST(Modulus) {
 		FpS<int32_t> fp1(5.1, 10);
 		FpS<int32_t> fp2(1.5, 8);
-		FpS<int32_t> fp3 = fp1 % fp2;
-		printf("mod = %.2f\n", fp3.ToDouble());
+		FpS<int32_t> fp3 = fp1 % fp2;		
 		CHECK_CLOSE(fp3.ToDouble(), 0.6, 0.1);
 	}
 

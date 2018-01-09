@@ -2,8 +2,8 @@
 /// @file 				FpS.hpp
 /// @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 /// @edited 			n/a
-/// @created			2018-01-08
-/// @last-modified		2017-01-08
+/// @created			2013-07-22
+/// @last-modified		2018-01-08
 /// \brief 				A slower, more powerful fixed point library.
 /// \details
 ///		See README.rst in root dir for more info.
@@ -19,13 +19,8 @@
 #ifndef MN_MFIXEDPOINT_FPS_H
 #define MN_MFIXEDPOINT_FPS_H
 
+// System includes
 #include <stdint.h>
-
-// Fixed-point configuration file
-#include "Config.hpp"
-
-// Port-specific code
-#include "Port.hpp"
 
 namespace mn {
 namespace MFixedPoint {
