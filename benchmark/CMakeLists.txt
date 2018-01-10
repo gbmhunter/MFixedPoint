@@ -3,7 +3,7 @@ file(GLOB_RECURSE MFixedPoint_Benchmark_SRC
         "*.hpp")
 
 add_executable (MFixedPoint_Benchmark ${MFixedPoint_Benchmark_SRC})
-
+target_compile_options(MFixedPoint_Benchmark PUBLIC -Wall)
 
 target_link_libraries(MFixedPoint_Benchmark LINK_PUBLIC MFixedPoint)
 

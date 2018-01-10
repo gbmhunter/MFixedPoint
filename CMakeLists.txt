@@ -9,6 +9,8 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
 include(CodeCoverage)
 
+set(HEADER_ONLY true)
+
 #=================================================================================================#
 #========================================= INPUT ARGUMENTS =======================================#
 #=================================================================================================#
@@ -53,7 +55,10 @@ endif ()
 #include_directories(../)
 include_directories(include)
 
-add_subdirectory(src)
+if(!HEADER_ONLY)
+    add_subdirectory(src)
+endif()
+
 if(BUILD_TESTS)
     add_subdirectory(test)
 endif()
