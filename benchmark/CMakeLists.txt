@@ -5,7 +5,7 @@ file(GLOB_RECURSE MFixedPoint_Benchmark_SRC
 add_executable (MFixedPoint_Benchmark ${MFixedPoint_Benchmark_SRC})
 target_compile_options(MFixedPoint_Benchmark PUBLIC -Wall)
 
-target_link_libraries(MFixedPoint_Benchmark LINK_PUBLIC MFixedPoint)
+# target_link_libraries(MFixedPoint_Benchmark LINK_PUBLIC MFixedPoint)
 
 add_custom_target(
     fake_target_to_run_benchmark ALL

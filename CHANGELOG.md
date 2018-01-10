@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Removed reference to non-existant MFixedPoint library when linking the benchmark code.
+
 ## [v8.0.0-beta.1] - 2018-01-09
 
 ### Added
@@ -34,3 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Changed the `Fp` namespace to `MFixedPoint` (to reflect actual project name), closes #86.
 - Modified header guard macros to include the text `MN_MFIXEDPOINT_...` (to include organization/project name).
+
+[Unreleased]: https://github.com/mbedded-ninja/CppTemplate/compare/v8.0.0-beta.1...HEAD
+[v8.0.0-beta.1]: https://github.com/mbedded-ninja/CppTemplate/compare/v7.0.1...v8.0.0-beta.1
+[v7.0.1]: https://github.com/mbedded-ninja/CppTemplate/compare/v7.0.0...v7.0.1
