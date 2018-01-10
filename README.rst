@@ -108,7 +108,7 @@ Benchmarking
 
 This library contains a benchmarking program in :code:`benchmark/` which runs operations on the fixed-point libraries and reports back on their performance. It is run automatically as part of :code:`make all`.
 
-The benchmarking is compared to software-based float arithmetic (using the custom header SoftFloat.hpp), since most benchmarking will be run on a development computer which has an FPU which will be used if float + float was written in code. If benchmarking on a device which does not have an FPU, you should compare the fixed-point operations against the native software float arithmetic implementation instead.
+The benchmarking is compared to software-based float arithmetic (using the custom header SoftFloat.hpp), since most benchmarking will be run on a development computer which has an FPU which will be used if float + float was written in code. If benchmarking on a device which does not have an FPU, you should compare the fixed-point operations against the native software float arithmetic implementation instead. Software-based 32-bit float addition and multiplication are performed and compared with the equivalent fixed-point operations.
 
 Platform Independent
 ====================
