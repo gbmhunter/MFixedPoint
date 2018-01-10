@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added compile time check to FpF class to make sure template parameters are the same before doing multiplication.
+
 ### Fixed
 - Removed reference to non-existant MFixedPoint library when linking the benchmark and unit test code.
 - Fixed failing `sudo make install` command.
+- Fixed failing FpF multiplication.
+- Fixed bug where `FpF` constructor accepting a double was first converting value to a float.
 
 ## [v8.0.0-beta.1] - 2018-01-09
 

@@ -40,7 +40,7 @@ inline int32_t FixMulF(int32_t a, int32_t b)
 /// 			prevent intermediary overflow problems.
 /// \note 		Slower than FpF::FixMulF()
 template <class BaseType, class OverflowType, uint8_t numFracBits>
-inline BaseType FpFMultiply(int32_t a, int32_t b) {
+inline BaseType FpFMultiply(int32_t a, int32_t b) {	
 	return (BaseType)(((OverflowType)a * b) >> numFracBits);
 }
 
@@ -194,11 +194,11 @@ class FpF {
 	
 	/// \brief		Constructor that accepts a float.
 	FpF(float f) :
-		rawVal(FloatToRawFix32<numFracBits>(f)) {}
+		rawVal((BaseType)(f * (float)(1 << numFracBits))) {}
 	
-	/// \warning	Double is converted to float first.
+	
 	FpF(double f) :
-		rawVal(FloatToRawFix32<numFracBits>((float)f)) {}
+		rawVal((BaseType)(f * (double)(1 << numFracBits))) {}
 	
 	// Compound Arithmetic Overloads
 	
@@ -214,8 +214,8 @@ class FpF {
 	
 	/// \brief		Overlaod for '*=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
-	FpF& operator *= (FpF r) {
-		rawVal = FpFMultiply<numFracBits>(rawVal, r.rawVal);
+	FpF& operator *= (FpF r) {				
+		rawVal = FpFMultiply<BaseType, OverflowType, numFracBits>(rawVal, r.rawVal);
 		return *this;
 	}
 	
@@ -246,8 +246,7 @@ class FpF {
 	// Simple Arithmetic Overloads
 	
 	/// \brief		Overload for '-itself' operator.
-	FpF operator - () const
-	{
+	FpF operator - () const	{
 		FpF x;
 		x.rawVal = -rawVal;
 		return x;
@@ -255,8 +254,7 @@ class FpF {
 	
 	/// \brief		Overload for '+' operator.
 	/// \details	Uses '+=' operator.
-	FpF operator + (FpF r) const
-	{
+	FpF operator + (FpF r) const {
 		FpF x = *this;
 		x += r;
 		return x;
@@ -264,8 +262,7 @@ class FpF {
 	
 	/// \brief		Overload for '-' operator.
 	/// \details	Uses '-=' operator.
-	FpF operator - (FpF r) const
-	{
+	FpF operator - (FpF r) const {
 		FpF x = *this;
 		x -= r;
 		return x;
@@ -273,9 +270,14 @@ class FpF {
 	
 	/// \brief		Overload for '*' operator.
 	/// \details	Uses '*=' operator.
-	FpF operator * (FpF r) const
-	{
-		FpF x = *this;
+	template <class BaseTypeR, class OverflowTypeR, uint8_t numFracBitsR>
+	FpF<BaseType, OverflowType, numFracBits> operator * (FpF<BaseTypeR, OverflowTypeR, numFracBitsR> r) const {	
+		// Following compile-time checks make sure the two fixed-point numbers have the
+		// same template parameters
+		static_assert(std::is_same<BaseType, BaseTypeR>::value, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+		static_assert(std::is_same<OverflowType, OverflowTypeR>::value, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+		static_assert(numFracBits == numFracBitsR, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+		FpF<BaseType, OverflowType, numFracBits> x = *this;
 		x *= r;
 		return x;
 	}
@@ -333,6 +335,11 @@ class FpF {
 	/// \defgroup From FpF Conversion Overloads (casts)
 	/// \{
 	
+	/// \brief		Converts the fixed-point number to a double.
+	double ToDouble() const {
+		return (double)rawVal / (double)(1 << numFracBits);
+	}
+
 	/// \brief		Conversion operator from fixed-point to int16_t.
 	/// \warning	Possible loss of accuracy from conversion from
 	///				int32_t to int16_t.
@@ -382,7 +389,7 @@ class FpF {
 		return x;
 	}
 	
-	FpF operator * (int32_t r) const {
+	FpF operator * (int32_t r) const {		
 		FpF x = *this;
 		x *= r;
 		return x;
