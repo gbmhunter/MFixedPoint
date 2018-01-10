@@ -32,7 +32,7 @@ The "slow" fixed-point class is called :code:`FpS` (note that this class is not 
 
 It is recommended that you use one of the predefined :code:`FpSxx` aliases (available with :code:`#include <MFixedPoint/FpS.h>`), which include:
 
-.. code:: python
+.. code:: cpp
 
 	FpS8
 	FpS16
