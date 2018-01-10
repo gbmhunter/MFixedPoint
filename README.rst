@@ -17,20 +17,20 @@ A microcontroller-friendly fixed-point library specifically designed for embedde
 Description
 ===========
 
-32-bit and 64-bit fixed-point libraries for fast arithmetic operations. Suitable for performing computationally intensive operations on a computing platform that does not have a floating-point unit (like most smaller embedded systems, such as Cortex-M3, CortexM0, ATmega, PSoC 5, PSoC 5 LP, PSoC 4, Arduino platforms e.t.c). Common applications include BLDC motor control and image processing. Best performance on a 32-bit or higher architecture (although 8-bit architectures should still be fine). 
+MFixedPoint is a header-only fixed-point C++ library suitable for fast arithmetic operations on systems which don't have a FPU (e.g. embedded systems). Suitable for performing computationally intensive operations on a computing platform that does not have a floating-point unit (like most smaller embedded systems, such as Cortex-M3, CortexM0, ATmega, PSoC 5, PSoC 5 LP, PSoC 4, Arduino platforms e.t.c). Common applications include BLDC motor control and image processing. Best performance on a 32-bit or higher architecture (although 8-bit architectures should still be fine). 
 
 The libraries are designed to be a fully-functional data types within their limits (e.g. supports operator overloads and implicit/explicit casting). Can be used with most libraries that use data type templates.
 
-Fixed-point numbers are signed. Q is the number of bits used for the decimal part of the number (the rest are used for the integer part). Q can vary from 0 up to the bit-width of the fixed-point number.
+Fixed-point numbers are signed.
 
 NOTE: This fixed point library will usually be slower when running of a CPU which has associated floating point unit (FPU), e.g. when running on your desktop/laptop. The benchmark performance tests (found in :code:`benchmark/`) suggest simple fixed-point operations such as addition/subtraction/multiplication/division are about 10x slower than their float/double counterparts when there is a FPU. However, this library is designed to be used on CPU's where there is no FPU present. This library comes in useful when there is no FPU present, which is the case for lower-end microcontrollers such as ARM Cortex M0/M3, Atmel ATMEGA, TI MSP430's e.t.c.
 
-The "Slow" Library (FpS)
-------------------------
+The "Slow" Fixed-Point Library (FpS)
+------------------------------------
 
-The "slow" fixed-point class is called FpS (note that this class is not that slow, and is the recommend fixed-point class for almost all use cases). It allows for airthemtic between two fixed-point numbers that have different numbers of fractional bits. The underlying storage type of the fixed-point number and the overflow type are provided as the template parameters.
+The "slow" fixed-point class is called :code:`FpS` (note that this class is not that slow, and is the recommend fixed-point class for almost all use cases). It allows for airthemtic between two fixed-point numbers that have different numbers of fractional bits. The underlying storage type of the fixed-point number and the overflow type are provided as the template parameters.
 
-It is recommended that you use one of the predefined FpS classes (available with :code:`#include <MFixedPoint/FpS.h>`), which include:
+It is recommended that you use one of the predefined :code:`FpSxx` aliases (available with :code:`#include <MFixedPoint/FpS.h>`), which include:
 
 ::
 
@@ -51,7 +51,11 @@ Create a fixed point number:
 
 ::
 
-	// Create a fixed point number of 32-bits. 8 bits are used for the fractional part, leaving 24 for the integer part.
+	#include "MFixedPoint/FpS.hpp"
+
+	// Create a 32-bit fixed-point number.
+	// Assign a value of 12.34
+	// Use 8 bits for the fractional part, leaving 24 for the integer part.
 	FpS32 fp1(12.34, 8);
 	
 
@@ -98,8 +102,8 @@ Overflows
 
 On any 32-bit architecture, :code:`FpS64` numbers will be slower than :code:`FpS64` numbers. Use only if 32-bit numbers don't offer the range/precision required.
 
-The "Fast" Library (FpF)
-------------------------
+The "Fast" Fixed-Point Library (FpF)
+------------------------------------
 
 The number of fractional bits is given as a template parameter (e.g. :code:`FpF<int32_t, 12>(3.4)` will create the number 3.4 with 12 bits of decimal precision). It is not stored in the fixed-point object. This gives the fastest possible arithmetic speeds, at the expense of loosing some functionality and a tad more code space.
 
