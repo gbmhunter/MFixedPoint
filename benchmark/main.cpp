@@ -32,7 +32,9 @@ using namespace mn::MFixedPoint;
 #define EXPECTED_TIME_PER_FLOAT_OR_DOUBLE_OPERATION_ms 0.002 // 2us
 class Constants {
 public:
+	static constexpr double expectedTimeFp32SMultiply_us = 0.014;
 	static constexpr double expectedTimeSoftwareFloatAdd_us = 0.017;
+	static constexpr double expectedTimeSoftwareFloatMultiply_us = 0.028;
 };
 
 typedef struct tag_time_measure {
@@ -122,9 +124,10 @@ int main() {
 	// Make sure our custom float addition works
 	float testFloat1 = 4.32f;
 	float testFloat2 = 7.89f;
-	uint32_t rawResult = SoftFloat::Add(reinterpret_cast<uint32_t&>(testFloat1), reinterpret_cast<uint32_t&>(testFloat2));
+
+	f32 rawResult = SoftFloat::Multiply(reinterpret_cast<uint32_t&>(testFloat1), reinterpret_cast<uint32_t&>(testFloat2));
 	float result = reinterpret_cast<float&>(rawResult);
-	if(result > 4.32 + 7.89 + 0.1 || result < 4.32 + 7.89 - 0.1) {
+	if(result > 4.32 * 7.89 + 0.1 || result < 4.32 * 7.89 - 0.1) {
 		std::cout << "result = " << result;
 		throw std::runtime_error("add() did not work.");
 	}
@@ -133,6 +136,10 @@ int main() {
 	FpF32<8> fp1(5.6);
 	FpF32<8> fp2(8.9);
 	FpF32<8> fp3;
+
+	FpS32 fpS32_1(5.6, 8);
+	FpS32 fpS32_2(8.9, 8);
+	FpS32 fpS32_3(8.9, 8);
 	
 	FpF64<8> fp64f1(5.6);
 	FpF64<8> fp64f2(8.9);
@@ -198,8 +205,21 @@ int main() {
 	//PrintMeasuredTime(tu);
 	free(tu);
 	
+	//===== FpS32 MULTIPLICATION =====//
 	tu = StartTimeMeasuring();
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++)
+		{
+			fpS32_3 = fpS32_1*fpS32_2;
+		}
 	
+	}
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, (char*)"FpS32 Multiplication", NUM_TESTS, Constants::expectedTimeFp32SMultiply_us);
+	free(tu);
+
+	tu = StartTimeMeasuring();
 	{	
 		int x = 0;
 		for(x = 0; x < NUM_TESTS; x++)
@@ -208,13 +228,11 @@ int main() {
 		}
 	
 	}
-	
 	StopTimeMeasuring(tu);
 	PrintMetrics(tu, (char*)"FpS64 Addition", NUM_TESTS, SUBTRACTION_AVG);
 	free(tu);
 	
 	tu = StartTimeMeasuring();
-	
 	{	
 		int x = 0;
 		for(x = 0; x < NUM_TESTS; x++)
@@ -238,6 +256,19 @@ int main() {
 	StopTimeMeasuring(tu);
 	PrintMetrics(tu, (char*)"Software Float Addition", NUM_TESTS, Constants::expectedTimeSoftwareFloatAdd_us);
 	free(tu);
+
+	tu = StartTimeMeasuring();	
+	{	
+		int x = 0;
+		for(x = 0; x < NUM_TESTS; x++) {
+			uint32_t rawFloat = SoftFloat::Multiply(reinterpret_cast<uint32_t&>(float1), reinterpret_cast<uint32_t&>(float2));
+			float3 = *(float*)&rawFloat;
+		}
+	}	
+	StopTimeMeasuring(tu);
+	PrintMetrics(tu, (char*)"Software Float Multiplication", NUM_TESTS, Constants::expectedTimeSoftwareFloatMultiply_us);
+	free(tu);
+
 
 	tu = StartTimeMeasuring();	
 	{	
