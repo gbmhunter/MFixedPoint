@@ -70,6 +70,7 @@ Addition/Subtraction/Multiplication/Division:
 Modulus:
 
 ::
+
 	FpS32 fp1(5.1, 10);
 	FpS32 fp2(1.5, 8);
 
@@ -78,6 +79,7 @@ Modulus:
 Conversion/Casting:
 
 ::
+
 	FpS32 fp1(2.22, 8);	
 
 	// Using the ToXXX() functions...
@@ -116,6 +118,7 @@ Platform Independent
 The library is designed to be platform independent. Port-specific functions are declared in separate files, Port.cpp and Port.hpp. These files include functions for printing debug information. Fill in the functions as desired.
 
 This library has been tested on:
+
 - ARM Cortex-M3 microcontrollers
 - Linux (Ubuntu)
 - A CodeAnywhere "DevBox"
