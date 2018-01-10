@@ -125,7 +125,8 @@ int main() {
 	float testFloat1 = 4.32f;
 	float testFloat2 = 7.89f;
 
-	f32 rawResult = SoftFloat::Multiply(reinterpret_cast<uint32_t&>(testFloat1), reinterpret_cast<uint32_t&>(testFloat2));
+	SoftFloat softFloat;
+	f32 rawResult = softFloat.Multiply(reinterpret_cast<uint32_t&>(testFloat1), reinterpret_cast<uint32_t&>(testFloat2));
 	float result = reinterpret_cast<float&>(rawResult);
 	if(result > 4.32 * 7.89 + 0.1 || result < 4.32 * 7.89 - 0.1) {
 		std::cout << "result = " << result;
@@ -249,7 +250,8 @@ int main() {
 	{	
 		int x = 0;
 		for(x = 0; x < NUM_TESTS; x++) {
-			uint32_t rawFloat = SoftFloat::Add(*(uint32_t*)&float1, *(uint32_t*)&float2);
+			SoftFloat softFloat;
+			uint32_t rawFloat = softFloat.Multiply(*(uint32_t*)&float1, *(uint32_t*)&float2);
 			float3 = *(float*)&rawFloat;
 		}
 	}	
@@ -261,7 +263,8 @@ int main() {
 	{	
 		int x = 0;
 		for(x = 0; x < NUM_TESTS; x++) {
-			uint32_t rawFloat = SoftFloat::Multiply(reinterpret_cast<uint32_t&>(float1), reinterpret_cast<uint32_t&>(float2));
+			SoftFloat softFloat;
+			uint32_t rawFloat = softFloat.Multiply(reinterpret_cast<uint32_t&>(float1), reinterpret_cast<uint32_t&>(float2));
 			float3 = *(float*)&rawFloat;
 		}
 	}	
