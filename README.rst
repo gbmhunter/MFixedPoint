@@ -49,7 +49,7 @@ Casting to an :code:`int` rounds to negative infinity; e.g. 5.67 becomes 5, and 
 
 Create a fixed point number:
 
-::
+.. code:: cpp
 
 	#include "MFixedPoint/FpS.hpp"
 
@@ -61,7 +61,7 @@ Create a fixed point number:
 
 Addition/Subtraction/Multiplication/Division:
 
-::
+.. code:: cpp
 
 	FpS32 fp1(5.0, 8);
 	FpS32 fp2(1.5, 8);
@@ -73,7 +73,7 @@ Addition/Subtraction/Multiplication/Division:
 
 Modulus:
 
-::
+.. code:: cpp
 
 	FpS32 fp1(5.1, 10);
 	FpS32 fp2(1.5, 8);
@@ -82,7 +82,7 @@ Modulus:
 
 Conversion/Casting:
 
-::
+.. code:: cpp
 
 	FpS32 fp1(2.22, 8);	
 
@@ -140,7 +140,7 @@ Either use cmake with the provided :code:`CMakeLists.txt` in the root directory,
 The cmake method will build the fixed point library and automatically runs all unit tests and the benchmark program.
 
 
-::
+.. code:: bash
 
 	~$ git clone https://github.com/mbedded-ninja/MFixedPoint.git
 	~$ cd MFixedPoint
@@ -151,7 +151,7 @@ The cmake method will build the fixed point library and automatically runs all u
 	
 You can then the tests by calling:
 
-::
+.. code:: bash
 
 	~/MFixedPoint/build$ ./test/MFixedPointTests
 
@@ -160,7 +160,7 @@ Usage
 
 See the unit tests in :code:`test/` for more usage examples!
 
-::
+.. code:: cpp
 
 	// Include the API header which provides access to all of the fixed-point
 	// data types
