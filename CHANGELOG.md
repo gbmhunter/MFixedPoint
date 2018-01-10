@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Removed reference to non-existant MFixedPoint library when linking the benchmark and unit test code.
+- Fixed failing `sudo make install` command.
 
 ## [v8.0.0-beta.1] - 2018-01-09
 
