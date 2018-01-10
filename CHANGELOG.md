@@ -6,12 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v8.0.0-beta.1] - 2018-01-09
+
 ### Added
 - Added Visual Studio Code project files, closes #89.
-- Added generic fixed-point class with storage type for bits (aka base type) templated, closes #90.
+- Added generic fixed-point classes (both slow and fast) with storage type for bits (aka base type) and overflow type templated, closes #90.
 
 ### Changed
 - Improved the comments and code formatting of Fp32f.hpp.
+
+### Removed
+- All existing fixed-point classes! This is in favour of the generic fixed-point classes mentioned in the 'Added' section.
 
 ## [v7.0.1] - 2018-01-04
 
