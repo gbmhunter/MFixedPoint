@@ -19,27 +19,27 @@ using namespace mn::MFixedPoint;
 MTEST_GROUP(FpFRawValTests) {
 	MTEST(NoFractionalBits)	{
 		FpF32<0> fp1 = 34;		
-        CHECK_EQUAL(fp1.rawVal, 34);
+        CHECK_EQUAL(fp1.GetRawVal(), 34);
 	}
 
 	MTEST(OneFractionalBit)	{
 		FpF32<1> fp1 = 34;		
-        CHECK_EQUAL(fp1.rawVal, 34 << 1);
+        CHECK_EQUAL(fp1.GetRawVal(), 34 << 1);
 	}
 
 	MTEST(CreateFromInteger)	{
 		FpF32<8> fp1 = 34;		
-        CHECK_EQUAL(fp1.rawVal, 34 << 8);
+        CHECK_EQUAL(fp1.GetRawVal(), 34 << 8);
 	}
 
 	MTEST(CreateFromFloat)	{
 		FpF32<24> fp1 = 34.2f;		
-        CHECK_EQUAL(fp1.rawVal, (int32_t)(34.2f * (1 << 24)));
+        CHECK_EQUAL(fp1.GetRawVal(), (int32_t)(34.2f * (1 << 24)));
 	}
 
 	MTEST(CreateFromDouble)	{
 		FpF32<24> fp1 = 34.2; // No suffix denotes a double		
-        CHECK_EQUAL(fp1.rawVal, (int32_t)(34.2 * (1 << 24)));
+        CHECK_EQUAL(fp1.GetRawVal(), (int32_t)(34.2 * (1 << 24)));
 	}
 
 }
