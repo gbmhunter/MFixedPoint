@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v8.0.0-beta.2] - 2018-01-11
+
+### Added
+- Added compile time check to `FpF` class to make sure template parameters are the same before doing multiplication.
+- Added README code to a new example folder (to make sure it compiles correctly).
+- Added conversion methods, casting capabilities and associated unit tests for the `FpF` class.
+
+### Fixed
+- Removed reference to non-existant MFixedPoint library when linking the benchmark and unit test code.
+- Fixed failing `sudo make install` command.
+- Fixed failing FpF multiplication.
+- Fixed bug where `FpF` constructor accepting a double was first converting value to a float.
+- Example in README now compiles correctly.
+- Fixed bug where bit-shifting was overflowing in fixed-point constructors from doubles because '1' was not being cast to BaseType first.
+
 ## [v8.0.0-beta.1] - 2018-01-09
 
 ### Added
@@ -34,3 +49,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Changed the `Fp` namespace to `MFixedPoint` (to reflect actual project name), closes #86.
 - Modified header guard macros to include the text `MN_MFIXEDPOINT_...` (to include organization/project name).
+
+[Unreleased]: https://github.com/mbedded-ninja/CppTemplate/compare/v8.0.0-beta.2...HEAD
+[v8.0.0-beta.2]: https://github.com/mbedded-ninja/CppTemplate/compare/v8.0.0-beta.1...v8.0.0-beta.2
+[v8.0.0-beta.1]: https://github.com/mbedded-ninja/CppTemplate/compare/v7.0.1...v8.0.0-beta.1
+[v7.0.1]: https://github.com/mbedded-ninja/CppTemplate/compare/v7.0.0...v7.0.1

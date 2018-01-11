@@ -13,7 +13,7 @@ if(COVERAGE)
     set_target_properties(MFixedPointTests PROPERTIES LINK_FLAGS "-coverage -lgcov")
 endif ()
 
-target_link_libraries(MFixedPointTests LINK_PUBLIC MFixedPoint MUnitTest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(MFixedPointTests LINK_PUBLIC MUnitTest ${CMAKE_THREAD_LIBS_INIT})
 
 add_custom_target(
     run_unit_tests ALL

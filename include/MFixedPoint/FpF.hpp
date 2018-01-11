@@ -40,7 +40,7 @@ inline int32_t FixMulF(int32_t a, int32_t b)
 /// 			prevent intermediary overflow problems.
 /// \note 		Slower than FpF::FixMulF()
 template <class BaseType, class OverflowType, uint8_t numFracBits>
-inline BaseType FpFMultiply(int32_t a, int32_t b) {
+inline BaseType FpFMultiply(int32_t a, int32_t b) {	
 	return (BaseType)(((OverflowType)a * b) >> numFracBits);
 }
 
@@ -139,7 +139,7 @@ inline int32_t fixinv(int32_t a)
 
 /// \brief		Converts from float to a raw 32-bit fixed-point number.
 /// \details	Do not write "myFpNum = FloatToRawFix32()"! This function outputs a raw
-///				number, so you would have to use the syntax "myFpNum.rawVal = FloatToRawFix32()".
+///				number, so you would have to use the syntax "myFpNum.rawVal_ = FloatToRawFix32()".
 /// \warning	Slow!
 template <uint8_t q>
 int32_t FloatToRawFix32(float f) {
@@ -148,7 +148,7 @@ int32_t FloatToRawFix32(float f) {
 
 /// \brief		Converts from double to a raw 32-bit fixed-point number.
 /// \details	Do not write "myFpNum = DoubleToRawFix32()"! This function outputs a raw
-///				number, so you would have to use the syntax "myFpNum.rawVal = DoubleToRawFix32()".
+///				number, so you would have to use the syntax "myFpNum.rawVal_ = DoubleToRawFix32()".
 /// \warning	Slow!
 template <uint8_t q>
 int32_t DoubleToRawFix32(double f) {
@@ -172,9 +172,10 @@ template <class BaseType, class OverflowType, uint8_t numFracBits>
 class FpF {
 	
 	public:
-	
-	/// \brief		The fixed-point number is stored in this basic data type.
-	BaseType rawVal;			
+
+	//===============================================================================================//
+	//================================== CONSTRUCTORS/DESTRUCTORS ===================================//
+	//===============================================================================================//		
 	
 	FpF()
 	{
@@ -182,81 +183,88 @@ class FpF {
 			//Port::DebugPrint("FP: New fixed-point object created.");
 		#endif
 	}
+
+	//===============================================================================================//
+	//========================================= GETTERS/SETTERS =====================================//
+	//===============================================================================================//
+	
+	/// \brief		Get the raw value (memory representation) of this fixed-point number,
+	BaseType GetRawVal() const {
+		return rawVal_;
+	}
 	
 	FpF(int8_t i) :
-		rawVal((int32_t)i << numFracBits)	{}
+		rawVal_((int32_t)i << numFracBits)	{}
 	
 	FpF(int16_t i) :
-		rawVal((int32_t)i << numFracBits)	{}
+		rawVal_((int32_t)i << numFracBits)	{}
 	
 	FpF(int32_t i) :
-		rawVal(i << numFracBits) { }
+		rawVal_(i << numFracBits) { }
 	
 	/// \brief		Constructor that accepts a float.
 	FpF(float f) :
-		rawVal(FloatToRawFix32<numFracBits>(f)) {}
+		rawVal_((BaseType)(f * (float)((BaseType)1 << numFracBits))) {}
 	
-	/// \warning	Double is converted to float first.
+	/// \brief		Create a fixed-point number from a double.
 	FpF(double f) :
-		rawVal(FloatToRawFix32<numFracBits>((float)f)) {}
+		rawVal_((BaseType)(f * (double)((BaseType)1 << numFracBits))) {}
 	
 	// Compound Arithmetic Overloads
 	
 	FpF& operator += (FpF r) {
-		rawVal += r.rawVal;
+		rawVal_ += r.rawVal_;
 		return *this;
 	}
 	
 	FpF& operator -= (FpF r) {
-		rawVal -= r.rawVal;
+		rawVal_ -= r.rawVal_;
 		return *this;
 	}
 	
 	/// \brief		Overlaod for '*=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
-	FpF& operator *= (FpF r) {
-		rawVal = FpFMultiply<numFracBits>(rawVal, r.rawVal);
+	FpF& operator *= (FpF r) {				
+		rawVal_ = FpFMultiply<BaseType, OverflowType, numFracBits>(rawVal_, r.rawVal_);
 		return *this;
 	}
 	
 	/// \brief		Overlaod for '/=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
 	FpF& operator /= (FpF r) {
-		rawVal = fixdiv<numFracBits>(rawVal, r.rawVal);
+		rawVal_ = fixdiv<numFracBits>(rawVal_, r.rawVal_);
 		return *this;
 	}
 	
 	/// \brief		Overlaod for '%=' operator.
 	FpF& operator %= (FpF r) {
-		rawVal %= r.rawVal;
+		rawVal_ %= r.rawVal_;
 		return *this;
 	}
 	
 	
 	FpF& operator *= (int32_t r) {
-		rawVal *= r;
+		rawVal_ *= r;
 		return *this;
 	}
 	
 	FpF& operator /= (int32_t r) { 
-		rawVal /= r;
+		rawVal_ /= r;
 		return *this;
 	}
 	
 	// Simple Arithmetic Overloads
 	
 	/// \brief		Overload for '-itself' operator.
-	FpF operator - () const
-	{
+	FpF operator - () const	{
 		FpF x;
-		x.rawVal = -rawVal;
+		x.rawVal_ = -rawVal_;
 		return x;
 	}
 	
 	/// \brief		Overload for '+' operator.
 	/// \details	Uses '+=' operator.
-	FpF operator + (FpF r) const
-	{
+	FpF operator + (FpF r) const {
 		FpF x = *this;
 		x += r;
 		return x;
@@ -264,8 +272,7 @@ class FpF {
 	
 	/// \brief		Overload for '-' operator.
 	/// \details	Uses '-=' operator.
-	FpF operator - (FpF r) const
-	{
+	FpF operator - (FpF r) const {
 		FpF x = *this;
 		x -= r;
 		return x;
@@ -273,9 +280,14 @@ class FpF {
 	
 	/// \brief		Overload for '*' operator.
 	/// \details	Uses '*=' operator.
-	FpF operator * (FpF r) const
-	{
-		FpF x = *this;
+	template <class BaseTypeR, class OverflowTypeR, uint8_t numFracBitsR>
+	FpF<BaseType, OverflowType, numFracBits> operator * (FpF<BaseTypeR, OverflowTypeR, numFracBitsR> r) const {	
+		// Following compile-time checks make sure the two fixed-point numbers have the
+		// same template parameters
+		static_assert(std::is_same<BaseType, BaseTypeR>::value, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+		static_assert(std::is_same<OverflowType, OverflowTypeR>::value, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+		static_assert(numFracBits == numFracBitsR, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+		FpF<BaseType, OverflowType, numFracBits> x = *this;
 		x *= r;
 		return x;
 	}
@@ -302,7 +314,7 @@ class FpF {
 	
 	bool operator == (FpF r) const
 	{
-		return rawVal == r.rawVal;
+		return rawVal_ == r.rawVal_;
 	}
 	
 	bool operator != (const FpF &r)
@@ -312,56 +324,77 @@ class FpF {
 	
 	bool operator <  (const FpF &r)
 	{
-		return rawVal < r.rawVal;
+		return rawVal_ < r.rawVal_;
 	}
 	
 	bool operator >  (const FpF &r)
 	{
-		return rawVal > r.rawVal;
+		return rawVal_ > r.rawVal_;
 	}
 	
 	bool operator <= (FpF r) const
 	{
-		return rawVal <= r.rawVal;
+		return rawVal_ <= r.rawVal_;
 	}
 	
 	bool operator >= (FpF r) const
 	{
-		return rawVal >= r.rawVal;
+		return rawVal_ >= r.rawVal_;
 	}
 	
 	/// \defgroup From FpF Conversion Overloads (casts)
 	/// \{
-	
+
+
+	/// \brief		Converts the fixed-point number into an integer.
+	/// \details	Always rounds to negative infinity (66.3 becomes 66, -66.3 becomes -67).
+	/// \tparam		IntType		The return integer type.
+	template <class IntType>
+	IntType ToInt() const {
+		// Right-shift to get rid of all the decimal bits
+		// This rounds towards negative infinity
+		return (IntType)(rawVal_ >> numFracBits);
+	}
+
+	/// \brief		Converts the fixed-point number to a float.
+	float ToFloat() const {
+		return (float)rawVal_ / (float)((BaseType)1 << numFracBits);
+	}
+
+	/// \brief		Converts the fixed-point number to a double.
+	double ToDouble() const {
+		return (double)rawVal_ / (double)((BaseType)1 << numFracBits);
+	}
+
 	/// \brief		Conversion operator from fixed-point to int16_t.
 	/// \warning	Possible loss of accuracy from conversion from
 	///				int32_t to int16_t.
 	operator int16_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
-		return (int16_t)(rawVal >> numFracBits);
+		return (int16_t)(rawVal_ >> numFracBits);
 	}
 	
 	/// \brief		Conversion operator from fixed-point to int32_t.
 	operator int32_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
-		return (rawVal >> numFracBits);
+		return (rawVal_ >> numFracBits);
 	}
 	
 	/// \brief		Conversion operator from fixed-point to int64_t.
 	operator int64_t() {
 		// Right-shift to get rid of all the decimal bits (truncate)
-		return (int64_t)(rawVal >> numFracBits);
+		return (int64_t)(rawVal_ >> numFracBits);
 	}
 	
 	/// \brief		Conversion operator from fixed-point to float.
 	operator float() { 
-		return (float)rawVal / (float)(1 << numFracBits);
+		return (float)rawVal_ / (float)(1 << numFracBits);
 	}
 	
 	/// \brief		Conversion operator from fixed-point to double.
 	/// \note		Similar to float conversion.
 	operator double() { 
-		return (double)rawVal / (double)(1 << numFracBits);
+		return (double)rawVal_ / (double)(1 << numFracBits);
 	}
 	
 	/// \}
@@ -382,7 +415,7 @@ class FpF {
 		return x;
 	}
 	
-	FpF operator * (int32_t r) const {
+	FpF operator * (int32_t r) const {		
 		FpF x = *this;
 		x *= r;
 		return x;
@@ -395,30 +428,35 @@ class FpF {
 	}
 	
 	bool operator >  (int32_t r) const {
-		return rawVal > (r << numFracBits);
+		return rawVal_ > (r << numFracBits);
 	}
 	
 	bool operator >=  (int32_t r) const {
-		return rawVal >= (r << numFracBits);
+		return rawVal_ >= (r << numFracBits);
 	}
 	
 	bool operator <  (int32_t r) const {
-		return rawVal < (r << numFracBits);
+		return rawVal_ < (r << numFracBits);
 	}
 	
 	bool operator <=  (int32_t r) const	{
-		return rawVal < (r << numFracBits);
+		return rawVal_ < (r << numFracBits);
 	}
 	
 	bool operator ==  (int32_t r) const	{
-		return rawVal == (r << numFracBits);
+		return rawVal_ == (r << numFracBits);
 	}
 	
 	bool operator !=  (int32_t r) const	{
-		return rawVal != (r << numFracBits);
+		return rawVal_ != (r << numFracBits);
 	}
 
 	/// \}
+
+	private:
+
+	/// \brief		The fixed-point number is stored in this basic data type.
+	BaseType rawVal_;
 	
 };
 
@@ -485,7 +523,7 @@ using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 // inline FpF<numFracBits> abs(FpF<numFracBits> a)
 // { 
 // 	FpF<numFracBits> r; 
-// 	r.rawVal = a.rawVal > 0 ? a.rawVal : -a.rawVal; 
+// 	r.rawVal_ = a.rawVal_ > 0 ? a.rawVal_ : -a.rawVal_; 
 // 	return r; 
 // }
 
@@ -495,7 +533,7 @@ using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 // inline FpF<16> sin(FpF<16> a)
 // {
 // 	FpF<16> r;
-// 	r.rawVal = fixsin16(a.rawVal);
+// 	r.rawVal_ = fixsin16(a.rawVal_);
 // 	return r;
 // }
 
@@ -503,7 +541,7 @@ using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 // inline FpF<16> cos(FpF<16> a)
 // {
 // 	FpF<16> r;
-// 	r.rawVal = fixcos16(a.rawVal);
+// 	r.rawVal_ = fixcos16(a.rawVal_);
 // 	return r;
 // }
 
@@ -512,7 +550,7 @@ using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 // inline FpF<16> sqrt(FpF<16> a)
 // {
 // 	FpF<16> r;
-// 	r.rawVal = fixsqrt16(a.rawVal);
+// 	r.rawVal_ = fixsqrt16(a.rawVal_);
 // 	return r;
 // }
 
@@ -520,7 +558,7 @@ using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 // inline FpF<16> rsqrt(FpF<16> a)
 // {
 // 	FpF<16> r;
-// 	r.rawVal = fixrsqrt16(a.rawVal);
+// 	r.rawVal_ = fixrsqrt16(a.rawVal_);
 // 	return r;
 // }
 
@@ -528,7 +566,7 @@ using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 // inline FpF<16> inv(FpF<16> a)
 // {
 // 	FpF<16> r;
-// 	r.rawVal = fixinv<16>(a.rawVal);
+// 	r.rawVal_ = fixinv<16>(a.rawVal_);
 // 	return r;
 // }
 
@@ -541,9 +579,9 @@ using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 // {
 // 	long long result = 0;
 // 	for (int32_t i = 0; i < count; ++i)
-// 		result += static_cast<long long>(a[i].rawVal) * b[i].rawVal;
+// 		result += static_cast<long long>(a[i].rawVal_) * b[i].rawVal_;
 // 	FpF<numFracBits> r;
-// 	r.rawVal = static_cast<int32_t>(result >> numFracBits);
+// 	r.rawVal_ = static_cast<int32_t>(result >> numFracBits);
 // 	return r;
 // }
 
