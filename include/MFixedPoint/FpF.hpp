@@ -204,11 +204,11 @@ class FpF {
 	
 	/// \brief		Constructor that accepts a float.
 	FpF(float f) :
-		rawVal_((BaseType)(f * (float)(1 << numFracBits))) {}
+		rawVal_((BaseType)(f * (float)((BaseType)1 << numFracBits))) {}
 	
-	
+	/// \brief		Create a fixed-point number from a double.
 	FpF(double f) :
-		rawVal_((BaseType)(f * (double)(1 << numFracBits))) {}
+		rawVal_((BaseType)(f * (double)((BaseType)1 << numFracBits))) {}
 	
 	// Compound Arithmetic Overloads
 	
@@ -358,12 +358,12 @@ class FpF {
 
 	/// \brief		Converts the fixed-point number to a float.
 	float ToFloat() const {
-		return (float)rawVal_ / (float)(1 << numFracBits);
+		return (float)rawVal_ / (float)((BaseType)1 << numFracBits);
 	}
 
 	/// \brief		Converts the fixed-point number to a double.
 	double ToDouble() const {
-		return (double)rawVal_ / (double)(1 << numFracBits);
+		return (double)rawVal_ / (double)((BaseType)1 << numFracBits);
 	}
 
 	/// \brief		Conversion operator from fixed-point to int16_t.

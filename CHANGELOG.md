@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed failing `sudo make install` command.
 - Fixed failing FpF multiplication.
 - Fixed bug where `FpF` constructor accepting a double was first converting value to a float.
+- Example in README now compiles correctly.
+- Fixed bug where bit-shifting was overflowing in fixed-point constructors from doubles because '1' was not being cast to BaseType first.
 
 ## [v8.0.0-beta.1] - 2018-01-09
 

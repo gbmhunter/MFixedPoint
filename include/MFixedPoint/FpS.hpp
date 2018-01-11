@@ -53,7 +53,7 @@ class FpS {
 	/// \brief		Create a fixed-point value from a double and a num. of fractional bits.
 	FpS(double dbl, uint8_t numFracBits) {
 		static_assert(std::is_integral<BaseType>::value, "Integral BaseType required for FpS class.");
-		rawVal_ = (BaseType)(dbl * (1 << numFracBits));
+		rawVal_ = (BaseType)(dbl * ((BaseType)1 << numFracBits));
 		numFracBits_ = numFracBits;
 	}
 
@@ -355,12 +355,12 @@ class FpS {
 
 	/// \brief		Converts the fixed-point number to a float.
 	float ToFloat() const {
-		return (float)rawVal_ / (float)(1 << numFracBits_);
+		return (float)rawVal_ / (float)((BaseType)1 << numFracBits_);
 	}
 
 	/// \brief		Converts the fixed-point number to a double.
 	double ToDouble() const {
-		return (double)rawVal_ / (double)(1 << numFracBits_);
+		return (double)rawVal_ / (double)((BaseType)1 << numFracBits_);
 	}
 
 	// Explicit Conversion Operator Overloads (casts)

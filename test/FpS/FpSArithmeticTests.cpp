@@ -50,6 +50,20 @@ MTEST_GROUP(FpSArithmeticTests) {
 		CHECK_CLOSE(-3.8, fp3.ToDouble(), 0.1);
 	}
 
+	MTEST(Addition64SameFracBitsTest) {		
+		FpS64 fp1(3.21, 42);
+		FpS64 fp2(12.789, 42);		
+		auto fp3 = fp1 + fp2;
+		CHECK_CLOSE(fp3.ToDouble(), 3.21 + 12.789, 0.1);		
+	}
+
+	MTEST(Addition64DiffFracBitsTest) {		
+		FpS64 fp1(3.21, 42);
+		FpS64 fp2(12.789, 50);		
+		auto fp3 = fp1 + fp2;
+		CHECK_CLOSE(fp3.ToDouble(), 3.21 + 12.789, 0.1);		
+	}
+
 	MTEST(SubtractionPositive) {
 		FpS32 fp1(34.2, 8);
 		FpS32 fp2(8.6, 8);

@@ -35,6 +35,13 @@ MTEST_GROUP(FpFArithmeticTests) {
         CHECK_CLOSE(fp3.ToDouble(), 3.33, 0.1);
 	}
 
+	MTEST(Addition64SameFracBitsTest) {		
+		FpF64<42> fp1(3.21);
+		FpF64<42> fp2(12.789);		
+		auto fp3 = fp1 + fp2;
+		CHECK_CLOSE(fp3.ToDouble(), 3.21 + 12.789, 0.1);		
+	}
+
 	MTEST(NegativeAdditionTest)	{
 		FpF32<12> fp1(-3.2);
 		FpF32<12> fp2(-0.6);
