@@ -64,6 +64,8 @@ if(BUILD_TESTS)
 endif()
 add_subdirectory(benchmark)
 
+add_subdirectory(example)
+
 # On Linux, "sudo make install" will typically copy the 
 # folder into /usr/local/include
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/MFixedPoint DESTINATION include)

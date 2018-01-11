@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
-- Added compile time check to FpF class to make sure template parameters are the same before doing multiplication.
+- Added compile time check to `FpF` class to make sure template parameters are the same before doing multiplication.
 
 ### Fixed
 - Removed reference to non-existant MFixedPoint library when linking the benchmark and unit test code.

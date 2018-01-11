@@ -170,11 +170,11 @@ See the unit tests in :code:`test/` for more usage examples!
 	{
 		// Create two 32-bit fast fixed-point numbers with 24 decimal bits and 8 fractional bits.
 		// This constructor converts from doubles
-		Fp32f<8> aFpNum1 = Fp32f<8>(3.2);
-		Fp32f<8> aFpNum2 = Fp32f<8>(0.6);
+		FpF32<8> fpNum1(3.2);
+		FpF32<8> fpNum2(0.6);
 		
 		// Performing a quick fixed-point addition
-		Fp32f<8> aFpNum3 = aFpNum1 + aFpNum2;
+		auto fpNum3 = aFpNum1 + aFpNum2;
 		
 		// Performing a quick fixed-point multiplication
 		Fp32f<8> aFpNm4 = aFpNum1 * aFpNum2;

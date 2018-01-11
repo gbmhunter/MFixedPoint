@@ -1,12 +1,12 @@
-//!
-//! @file 				FpF.cpp
-//! @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @edited 			n/a
-//! @created			2018-01-08
-//! @last-modified		2017-01-08
-//! @brief 				Performs unit tests on the fixed point class.
-//! @details
-//!						See README.rst in root dir for more info.
+///
+/// \file 				FpF.cpp
+/// \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+/// \edited 			n/a
+/// \created			2018-01-08
+/// \last-modified		2017-01-08
+/// \brief 				Performs unit tests on the fixed point class.
+/// \details
+///						See README.rst in root dir for more info.
 
 // 3rd party includes
 #include "MUnitTest/MUnitTestApi.hpp"
