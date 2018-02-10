@@ -36,7 +36,7 @@ inline int32_t FixMulF(int32_t a, int32_t b)
 	return (a * b) >> q;
 }
 
-/// \brief		Perform a fixed point multiplication using a 64-bit intermediate result to
+/// \brief		Perform a fixed point multiplication using a #OverflowType intermediate result to
 /// 			prevent intermediary overflow problems.
 /// \note 		Slower than FpF::FixMulF()
 template <class BaseType, class OverflowType, uint8_t numFracBits>

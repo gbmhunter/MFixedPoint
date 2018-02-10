@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added CLion project files, closes 92.
+
+### Fixed
+- Fixed bug where code coverage library was looked for even if COVERAGE set to false, closes #91.
+
 ## [v8.0.0-beta.2] - 2018-01-11
 
 ### Added
