@@ -387,6 +387,21 @@ class FpS {
 		return ToDouble();
 	}
 
+    //===============================================================================================//
+    //====================================== STRING/STREAM RELATED ==================================//
+    //===============================================================================================//
+
+	/// \brief		Converts the fixed-point number into a string representation, using a fixed-point->double->string
+	/// 				conversion process.
+	std::string ToString() const {
+		return std::to_string(ToDouble());
+	}
+
+    friend std::ostream&operator<<(std::ostream& stream, FpS obj) {
+        stream << obj.ToDouble();
+        return stream;
+    }
+
 	private:
 
 	/// \brief		The fixed-point number is stored in this basic data type.
