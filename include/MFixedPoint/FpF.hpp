@@ -30,28 +30,28 @@ namespace MFixedPoint {
 
 /// \brief		Perform a fixed point multiplication without a 64-bit intermediate result.
 ///	\note 		This is fast but beware of intermediary overflow!
-template <uint8_t q> 
-inline int32_t FixMulF(int32_t a, int32_t b)
-{
-	return (a * b) >> q;
-}
+//template <uint8_t q>
+//inline int32_t FixMulF(int32_t a, int32_t b)
+//{
+//	return (a * b) >> q;
+//}
 
 /// \brief		Perform a fixed point multiplication using a #OverflowType intermediate result to
 /// 			prevent intermediary overflow problems.
 /// \note 		Slower than FpF::FixMulF()
 template <class BaseType, class OverflowType, uint8_t numFracBits>
-inline BaseType FpFMultiply(int32_t a, int32_t b) {	
+inline BaseType FpFMultiply(int32_t a, int32_t b) {
 	return (BaseType)(((OverflowType)a * b) >> numFracBits);
 }
 
 // Fixed point division
 template <uint8_t q>
-inline int32_t fixdiv(int32_t a, int32_t b)
+inline int32_t FpFDivide(int32_t a, int32_t b)
 {
 	#if 0
 		return (int32_t)((((int64_t)a) << q) / b);
-	#else	
-		// The following produces the same results as the above but gcc 4.0.3 
+	#else
+		// The following produces the same results as the above but gcc 4.0.3
 		// generates fewer instructions (at least on the ARM processor).
 		union {
 			int64_t a;
@@ -67,75 +67,75 @@ inline int32_t fixdiv(int32_t a, int32_t b)
 	#endif
 }
 
-namespace detail {
-	inline uint32_t CountLeadingZeros(uint32_t x)
-	{
-		uint32_t exp = 31;
-	
-		if (x & 0xffff0000) { 
-			exp -= 16; 
-			x >>= 16; 
-		}
-	
-		if (x & 0xff00) { 
-			exp -= 8; 
-			x >>= 8; 
-		}
-		
-		if (x & 0xf0) { 
-			exp -= 4; 
-			x >>= 4; 
-		}
-	
-		if (x & 0xc) { 
-			exp -= 2; 
-			x >>= 2; 
-		}
-		
-		if (x & 0x2) { 
-			exp -= 1; 
-		}
-	
-		return exp;
-	}
-}
+//namespace detail {
+//	inline uint32_t CountLeadingZeros(uint32_t x)
+//	{
+//		uint32_t exp = 31;
+//
+//		if (x & 0xffff0000) {
+//			exp -= 16;
+//			x >>= 16;
+//		}
+//
+//		if (x & 0xff00) {
+//			exp -= 8;
+//			x >>= 8;
+//		}
+//
+//		if (x & 0xf0) {
+//			exp -= 4;
+//			x >>= 4;
+//		}
+//
+//		if (x & 0xc) {
+//			exp -= 2;
+//			x >>= 2;
+//		}
+//
+//		if (x & 0x2) {
+//			exp -= 1;
+//		}
+//
+//		return exp;
+//	}
+//}
 
 // q is the precision of the input
 // output has 32-q bits of fraction
-template <uint8_t q>
-inline int32_t fixinv(int32_t a)
-{
-	int32_t x;
-
-	bool sign = false;
-
-	if (a < 0) {
-		sign = true;
-		a = -a;
-	}
-
-	static const uint16_t rcp_tab[] = { 
-		0x8000, 0x71c7, 0x6666, 0x5d17, 0x5555, 0x4ec4, 0x4924, 0x4444
-	};
-		
-	int32_t exp = detail::CountLeadingZeros(a);
-	x = ((int32_t)rcp_tab[(a>>(28-exp))&0x7]) << 2;
-	exp -= 16;
-
-	if (exp <= 0)
-		x >>= -exp;
-	else
-		x <<= exp;
-
-	// Two iterations of newton-raphson  x = x(2-ax)
-	x = FpFMultiply<(32-q)>(x,((2<<(32-q)) - FpFMultiply<q>(a,x)));
-	x = FpFMultiply<(32-q)>(x,((2<<(32-q)) - FpFMultiply<q>(a,x)));
-
-	if (sign)
-		return -x;
-	else
-		return x;
-}
+//template <uint8_t q>
+//inline int32_t fixinv(int32_t a)
+//{
+//	int32_t x;
+//
+//	bool sign = false;
+//
+//	if (a < 0) {
+//		sign = true;
+//		a = -a;
+//	}
+//
+//	static const uint16_t rcp_tab[] = {
+//		0x8000, 0x71c7, 0x6666, 0x5d17, 0x5555, 0x4ec4, 0x4924, 0x4444
+//	};
+//
+//	int32_t exp = detail::CountLeadingZeros(a);
+//	x = ((int32_t)rcp_tab[(a>>(28-exp))&0x7]) << 2;
+//	exp -= 16;
+//
+//	if (exp <= 0)
+//		x >>= -exp;
+//	else
+//		x <<= exp;
+//
+//	// Two iterations of newton-raphson  x = x(2-ax)
+//	x = FpFMultiply<(32-q)>(x,((2<<(32-q)) - FpFMultiply<q>(a,x)));
+//	x = FpFMultiply<(32-q)>(x,((2<<(32-q)) - FpFMultiply<q>(a,x)));
+//
+//	if (sign)
+//		return -x;
+//	else
+//		return x;
+//}
 
 /// \brief		Converts from float to a raw 32-bit fixed-point number.
 /// \details	Do not write "myFpNum = FloatToRawFix32()"! This function outputs a raw
@@ -157,10 +157,10 @@ int32_t DoubleToRawFix32(double f) {
 
 
 
-int32_t fixcos16(int32_t a);
-int32_t fixsin16(int32_t a);
-int32_t fixrsqrt16(int32_t a);
-int32_t fixsqrt16(int32_t a);
+//int32_t fixcos16(int32_t a);
+//int32_t fixsin16(int32_t a);
+//int32_t fixrsqrt16(int32_t a);
+//int32_t fixsqrt16(int32_t a);
 
 /// \brief		Represents a 32-bit fixed point number, with the template argument providing
 ///				the number of fractional bits (and consequentially also defining the number of
@@ -232,7 +232,7 @@ class FpF {
 	/// \brief		Overlaod for '/=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
 	FpF& operator /= (FpF r) {
-		rawVal_ = fixdiv<numFracBits>(rawVal_, r.rawVal_);
+		rawVal_ = FpFDivide<numFracBits>(rawVal_, r.rawVal_);
 		return *this;
 	}
 	

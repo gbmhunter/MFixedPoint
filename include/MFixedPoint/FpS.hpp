@@ -174,7 +174,7 @@ class FpS {
 		return *this;
 	}
 	
-	/// \brief		Overlaod for '%=' operator.
+	/// \brief		Overload for '%=' operator.
 	FpS& operator %= (FpS r) {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).

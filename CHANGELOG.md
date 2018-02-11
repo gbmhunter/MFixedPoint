@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Fixed bug where code coverage library was looked for even if COVERAGE set to false, closes #91.
+- Removed un-used 'CountLeadingZeros()' and 'fixinv()' functions from 'FpF.hpp'.
 
 ## [v8.0.0-beta.2] - 2018-01-11
 
