@@ -48,7 +48,10 @@ inline BaseType FpFMultiply(int32_t a, int32_t b) {
 template <uint8_t q>
 inline int32_t FpFDivide(int32_t a, int32_t b)
 {
-	#if 0
+
+//    return (BaseType)((((OverflowType)a << numFracBits_) / (OverflowType)r.rawVal_));
+
+    #if 0
 		return (int32_t)((((int64_t)a) << q) / b);
 	#else
 		// The following produces the same results as the above but gcc 4.0.3
@@ -177,12 +180,8 @@ class FpF {
 	//================================== CONSTRUCTORS/DESTRUCTORS ===================================//
 	//===============================================================================================//		
 	
-	FpF()
-	{
-		#if(fpConfig_PRINT_DEBUG_GENERAL == 1)
-			//Port::DebugPrint("FP: New fixed-point object created.");
-		#endif
-	}
+	FpF() = default;
+    ~FpF() = default;
 
 	//===============================================================================================//
 	//========================================= GETTERS/SETTERS =====================================//
@@ -231,8 +230,16 @@ class FpF {
 	
 	/// \brief		Overlaod for '/=' operator.
 	/// \details	Uses intermediatary casting to int64_t to prevent overflows.
-	FpF& operator /= (FpF r) {
-		rawVal_ = FpFDivide<numFracBits>(rawVal_, r.rawVal_);
+    template <class BaseTypeR, class OverflowTypeR, uint8_t numFracBitsR>
+	FpF& operator /= (FpF<BaseTypeR, OverflowTypeR, numFracBitsR> r) {
+        // Following compile-time checks make sure the two fixed-point numbers have the
+        // same template parameters
+        static_assert(std::is_same<BaseType, BaseTypeR>::value, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+        static_assert(std::is_same<OverflowType, OverflowTypeR>::value, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+        static_assert(numFracBits == numFracBitsR, "FpF arithmetic must be done with fixed-point numbers whose template parameters are the same.");
+
+//        rawVal_ = FpFDivide<numFracBits>(rawVal_, r.rawVal_);
+        rawVal_ = (BaseType)((((OverflowType)rawVal_ << numFracBits) / (OverflowType)r.rawVal_));
 		return *this;
 	}
 	
@@ -294,8 +301,7 @@ class FpF {
 	
 	/// \brief		Overload for '/' operator.
 	/// \details	Uses '/=' operator.
-	FpF operator / (FpF r) const
-	{
+	FpF operator / (FpF r) const {
 		FpF x = *this;
 		x /= r;
 		return x;
@@ -303,8 +309,7 @@ class FpF {
 	
 	/// \brief		Overload for '%' operator.
 	/// \details	Uses '%=' operator.
-	FpF operator % (FpF r) const
-	{
+	FpF operator % (FpF r) const {
 		FpF x = *this;
 		x %= r;
 		return x;
@@ -312,33 +317,27 @@ class FpF {
 	
 	// FpF-FpF Binary Operator Overloads
 	
-	bool operator == (FpF r) const
-	{
+	bool operator == (FpF r) const {
 		return rawVal_ == r.rawVal_;
 	}
 	
-	bool operator != (const FpF &r)
-	{
+	bool operator != (const FpF &r)	{
 		return !(*this == r);
 	}
 	
-	bool operator <  (const FpF &r)
-	{
+	bool operator <  (const FpF &r)	{
 		return rawVal_ < r.rawVal_;
 	}
 	
-	bool operator >  (const FpF &r)
-	{
+	bool operator >  (const FpF &r)	{
 		return rawVal_ > r.rawVal_;
 	}
 	
-	bool operator <= (FpF r) const
-	{
+	bool operator <= (FpF r) const {
 		return rawVal_ <= r.rawVal_;
 	}
 	
-	bool operator >= (FpF r) const
-	{
+	bool operator >= (FpF r) const {
 		return rawVal_ >= r.rawVal_;
 	}
 	

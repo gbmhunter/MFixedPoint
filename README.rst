@@ -116,6 +116,20 @@ This library contains a benchmarking program in :code:`benchmark/` which runs op
 
 The benchmarking is compared to software-based float arithmetic (using the custom header SoftFloat.hpp), since most benchmarking will be run on a development computer which has an FPU which will be used if float + float was written in code. If benchmarking on a device which does not have an FPU, you should compare the fixed-point operations against the native software float arithmetic implementation instead. Software-based 32-bit float addition and multiplication are performed and compared with the equivalent fixed-point operations.
 
+These benchmark results were computed on a x64 Ubuntu machine running inside a virtual machine. 100k samples were taken for each type of test, and the average time provided.
+
++----------------+---------+-------+--------+--------+----------------+----------------+
+| Arithmetic     | FpF32  | FpF64  | FpS32  | FpS64  | Software Float | Hardware Float |
++================+========+========+========+========+================+================+
+| Addition       | 6.7ns  | 8.2ns  | 10.6ns | 14.2ns | 30.1ns         | 3.4ns          |
++----------------+--------+--------+--------+--------+----------------+----------------+
+| Subtraction    | 7.5ns  | 7.5ns  | 14sns  | 10.4ns | n/a            |                |
++----------------+--------+--------+--------+--------+----------------+----------------+
+| Multiplication | 10.3ns | 10.1ns | 12.2ns | 10.4ns | 32.0ns         | 2.5ns          |
++----------------+--------+--------+--------+--------+----------------+----------------+
+| Division       | 19.0ns | 18.0ns | 10.8ns | 19.8ns | n/a            | 5.1ns          |
++----------------+--------+--------+--------+--------+----------------+----------------+
+
 Platform Independent
 ====================
 
