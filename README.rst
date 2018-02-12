@@ -93,6 +93,16 @@ Conversion/Casting:
 	// Direct casting is also supported
 	printf("(int32_t)fp1 = %i\n", (int32_t)fp1); // Prints "(int32_t)fp1 = 2"
 	printf("(double)fp1 = %.2f\n", (double)fp1); // Prints "(double)fp1 = 2.22"
+
+String/Stream Support:
+
+:code:`FpS` provides a :code:`ToString()` method, as well as supporting a :code:`ostream` (e.g. :code:`std::cout`).
+
+.. code:: cpp
+
+	FpS32 fp1(4.87, 8);
+    printf(fp1.ToString());
+    std::cout << fp1 << std::endl; // Prints 4.87
 	
 
 Overflows
