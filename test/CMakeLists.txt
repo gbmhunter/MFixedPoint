@@ -1,11 +1,18 @@
 enable_testing()
 find_package (Threads)
+
+# The main header files do not actually have to be added here, but
+# this helps CLion recognize the header files as being part of a
+# project and allows auto-complete to work correctly.
+file(GLOB_RECURSE MFixedPoint_HEADERS
+        "${CMAKE_SOURCE_DIR}/include/*.hpp")
+
 file(GLOB_RECURSE MFixedPointTests_SRC
         "*.cpp"
         "*.hpp"
         )
 
-add_executable (MFixedPointTests ${MFixedPointTests_SRC})
+add_executable (MFixedPointTests ${MFixedPoint_HEADERS} ${MFixedPointTests_SRC})
 add_dependencies (MFixedPointTests MUnitTest_Project)
 
 if(COVERAGE)
@@ -24,4 +31,6 @@ add_custom_command(
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/MFixedPointTests)
 
 # Target name, executable that runs unit tests, output directory
-setup_target_for_coverage(${PROJECT_NAME}_coverage MFixedPointTests coverage)
+if(COVERAGE)
+    setup_target_for_coverage(${PROJECT_NAME}_coverage MFixedPointTests coverage)
+endif()

@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v8.0.0] - 2018-02-12
+
+### Added
+- Added CLion project files, closes 92.
+- Added overload support for printing To ostream using '<<' (and a 'ToString()' method), closes #67.
+- Added unit tests for arithmetic between 'FpF' and 'int' objects.
+
+### Fixed
+- Fixed bug where code coverage library was looked for even if COVERAGE set to false, closes #91.
+- Removed un-used 'CountLeadingZeros()' and 'fixinv()' functions from 'FpF.hpp'.
+- Improved speed of FpF division and fixed incorrect result when BaseType was greater than 32 bits, closes #93.
+
 ## [v8.0.0-beta.2] - 2018-01-11
 
 ### Added
@@ -50,7 +62,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changed the `Fp` namespace to `MFixedPoint` (to reflect actual project name), closes #86.
 - Modified header guard macros to include the text `MN_MFIXEDPOINT_...` (to include organization/project name).
 
-[Unreleased]: https://github.com/mbedded-ninja/CppTemplate/compare/v8.0.0-beta.2...HEAD
+[Unreleased]: https://github.com/mbedded-ninja/CppTemplate/compare/v8.0.0...HEAD
+[v8.0.0]: https://github.com/mbedded-ninja/CppTemplate/compare/v8.0.0-beta.2...v8.0.0
 [v8.0.0-beta.2]: https://github.com/mbedded-ninja/CppTemplate/compare/v8.0.0-beta.1...v8.0.0-beta.2
 [v8.0.0-beta.1]: https://github.com/mbedded-ninja/CppTemplate/compare/v7.0.1...v8.0.0-beta.1
 [v7.0.1]: https://github.com/mbedded-ninja/CppTemplate/compare/v7.0.0...v7.0.1

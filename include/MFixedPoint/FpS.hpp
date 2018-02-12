@@ -174,7 +174,7 @@ class FpS {
 		return *this;
 	}
 	
-	/// \brief		Overlaod for '%=' operator.
+	/// \brief		Overload for '%=' operator.
 	FpS& operator %= (FpS r) {
 		// Optimised for when numFracBits_ is the same for both
 		// operators (first if statement).
@@ -386,6 +386,22 @@ class FpS {
 	operator double() const { 
 		return ToDouble();
 	}
+
+    //===============================================================================================//
+    //====================================== STRING/STREAM RELATED ==================================//
+    //===============================================================================================//
+
+	/// \brief		Converts the fixed-point number into a string representation, using a fixed-point->double->string
+	/// 				conversion process.
+	std::string ToString() const {
+		return std::to_string(ToDouble());
+	}
+
+    /// \brief      Overload so we can print to a ostream (e.g. std::cout).
+    friend std::ostream&operator<<(std::ostream& stream, FpS obj) {
+        stream << obj.ToDouble();
+        return stream;
+    }
 
 	private:
 
