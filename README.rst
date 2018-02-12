@@ -128,12 +128,12 @@ The benchmarking is compared to software-based float arithmetic (using the custo
 
 These benchmark results were computed on a x64 Ubuntu machine running inside a virtual machine. 100k samples were taken for each type of test, and the average time provided.
 
-+----------------+---------+-------+--------+--------+----------------+----------------+
++----------------+--------+--------+--------+--------+----------------+----------------+
 | Arithmetic     | FpF32  | FpF64  | FpS32  | FpS64  | Software Float | Hardware Float |
 +================+========+========+========+========+================+================+
 | Addition       | 6.7ns  | 8.2ns  | 10.6ns | 14.2ns | 30.1ns         | 3.4ns          |
 +----------------+--------+--------+--------+--------+----------------+----------------+
-| Subtraction    | 7.5ns  | 7.5ns  | 14sns  | 10.4ns | n/a            |                |
+| Subtraction    | 7.5ns  | 7.5ns  | 14.0ns | 10.4ns | n/a            | 2.6ns          |
 +----------------+--------+--------+--------+--------+----------------+----------------+
 | Multiplication | 10.3ns | 10.1ns | 12.2ns | 10.4ns | 32.0ns         | 2.5ns          |
 +----------------+--------+--------+--------+--------+----------------+----------------+
