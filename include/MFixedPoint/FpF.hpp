@@ -218,7 +218,9 @@ namespace mn {
             FpF(double f) :
                     rawVal_((BaseType) (f * (double) ((BaseType) 1 << numFracBits))) {}
 
-            // Compound Arithmetic Overloads
+            //===============================================================================================//
+            //================================= COMPOUND ARITHMETIC OVERLOADS ===============================//
+            //===============================================================================================//
 
             FpF& operator += (FpF r) {
                 rawVal_ += r.rawVal_;
@@ -232,7 +234,9 @@ namespace mn {
 
             /// \brief		Overlaod for '*=' operator.
             /// \details	Uses intermediatary casting to int64_t to prevent overflows.
-            FpF& operator *= (FpF r) {
+            template<class BaseTypeR, class OverflowTypeR, uint8_t numFracBitsR>
+            FpF& operator *= (FpF<BaseTypeR, OverflowTypeR, numFracBitsR> r) {
+                SAME_TEMPLATE_PARAM_CHECK();
                 rawVal_ = FpFMultiply<BaseType, OverflowType, numFracBits>(rawVal_, r.rawVal_);
                 return *this;
             }
@@ -253,20 +257,10 @@ namespace mn {
             }
 
 
-            FpF& operator *= (int r) {
-                rawVal_ *= r;
-                return *this;
-            }
-
-            FpF& operator /= (int r) {
-                rawVal_ /= r;
-                return *this;
-            }
-
             // Simple Arithmetic Overloads
 
             /// \brief		Overload for '-itself' operator.
-            FpF operator-() const {
+            FpF operator - () const {
                 FpF x;
                 x.rawVal_ = -rawVal_;
                 return x;
@@ -274,7 +268,7 @@ namespace mn {
 
             /// \brief		Overload for '+' operator.
             /// \details	Uses '+=' operator.
-            FpF operator+(FpF r) const {
+            FpF operator + (const FpF& r) const {
                 FpF x = *this;
                 x += r;
                 return x;
@@ -282,7 +276,7 @@ namespace mn {
 
             /// \brief		Overload for '-' operator.
             /// \details	Uses '-=' operator.
-            FpF operator-(FpF r) const {
+            FpF operator - (const FpF& r) const {
                 FpF x = *this;
                 x -= r;
                 return x;
@@ -310,7 +304,7 @@ namespace mn {
 
             /// \brief		Overload for '%' operator.
             /// \details	Uses '%=' operator.
-            FpF operator%(FpF r) const {
+            FpF operator % (const FpF& r) const {
                 FpF x = *this;
                 x %= r;
                 return x;
@@ -318,27 +312,27 @@ namespace mn {
 
             // FpF-FpF Binary Operator Overloads
 
-            bool operator==(FpF r) const {
+            bool operator == (const FpF& r) const {
                 return rawVal_ == r.rawVal_;
             }
 
-            bool operator!=(const FpF &r) {
+            bool operator != (const FpF &r) {
                 return !(*this == r);
             }
 
-            bool operator<(const FpF &r) {
+            bool operator < (const FpF &r) {
                 return rawVal_ < r.rawVal_;
             }
 
-            bool operator>(const FpF &r) {
+            bool operator > (const FpF &r) {
                 return rawVal_ > r.rawVal_;
             }
 
-            bool operator<=(FpF r) const {
+            bool operator <= (const FpF& r) const {
                 return rawVal_ <= r.rawVal_;
             }
 
-            bool operator>=(FpF r) const {
+            bool operator >= (const FpF& r) const {
                 return rawVal_ >= r.rawVal_;
             }
 
@@ -368,42 +362,52 @@ namespace mn {
 
             /// \brief		Conversion operator from fixed-point to int16_t.
             /// \details    Truncates answer.
-            operator int16_t() {
+            explicit operator int16_t() {
                 // Right-shift to get rid of all the decimal bits (truncate)
                 return (int16_t) (rawVal_ >> numFracBits);
             }
 
             /// \brief		Conversion operator from fixed-point to int32_t.
             /// \details    Truncates answer.
-            operator int32_t() {
+            explicit operator int32_t() {
                 // Right-shift to get rid of all the decimal bits (truncate)
                 return (int32_t)(rawVal_ >> numFracBits);
             }
 
             /// \brief		Conversion operator from fixed-point to int64_t.
             /// \details    Truncates answer.
-            operator int64_t() {
+            explicit operator int64_t() {
                 // Right-shift to get rid of all the decimal bits (truncate)
                 return (int64_t) (rawVal_ >> numFracBits);
             }
 
             /// \brief		Conversion operator from fixed-point to float.
-            operator float() {
+            explicit operator float() {
                 return (float) rawVal_ / (float) (1 << numFracBits);
             }
 
             /// \brief		Conversion operator from fixed-point to double.
             /// \note		Similar to float conversion.
-            operator double() {
+            explicit operator double() {
                 return (double) rawVal_ / (double) (1 << numFracBits);
             }
 
             /// \}
 
-            /// \addgroup Overloads Between FpF And int32_t
-            /// \{
+            //===============================================================================================//
+            //================================== OVERLOADS BETWEEN FpF AND int ==============================//
+            //===============================================================================================//
 
-            /// \brief		Addition operator overload.
+            FpF& operator *= (int r) {
+                rawVal_ *= r;
+                return *this;
+            }
+
+            FpF& operator /= (int r) {
+                rawVal_ /= r;
+                return *this;
+            }
+
             FpF operator + (int r) const {
                 FpF x = *this;
                 x += FpF(r);
@@ -412,7 +416,7 @@ namespace mn {
 
             FpF operator - (int r) const {
                 FpF x = *this;
-                x -= FpF<BaseType, OverflowType, numFracBits>(r);
+                x -= r;
                 return x;
             }
 
@@ -428,31 +432,29 @@ namespace mn {
                 return x;
             }
 
-//            bool operator>(int32_t r) const {
-//                return rawVal_ > (r << numFracBits);
-//            }
-//
-//            bool operator>=(int32_t r) const {
-//                return rawVal_ >= (r << numFracBits);
-//            }
-//
-//            bool operator<(int32_t r) const {
-//                return rawVal_ < (r << numFracBits);
-//            }
-//
-//            bool operator<=(int32_t r) const {
-//                return rawVal_ < (r << numFracBits);
-//            }
-//
-//            bool operator==(int32_t r) const {
-//                return rawVal_ == (r << numFracBits);
-//            }
-//
-//            bool operator!=(int32_t r) const {
-//                return rawVal_ != (r << numFracBits);
-//            }
+            bool operator >(int r) const {
+                return rawVal_ > ((BaseType)r << numFracBits);
+            }
 
-            /// \}
+            bool operator >=(int r) const {
+                return rawVal_ >= ((BaseType)r << numFracBits);
+            }
+
+            bool operator < (int r) const {
+                return rawVal_ < ((BaseType)r << numFracBits);
+            }
+
+            bool operator <= (int r) const {
+                return rawVal_ <= ((BaseType)r << numFracBits);
+            }
+
+            bool operator ==(int r) const {
+                return rawVal_ == ((BaseType)r << numFracBits);
+            }
+
+            bool operator !=(int r) const {
+                return rawVal_ != ((BaseType)r << numFracBits);
+            }
 
             //===============================================================================================//
             //====================================== STRING/STREAM RELATED ==================================//
@@ -464,6 +466,7 @@ namespace mn {
                 return std::to_string(ToDouble());
             }
 
+            /// \brief      Overload so we can print to a ostream (e.g. std::cout).
             friend std::ostream &operator<<(std::ostream &stream, FpF obj) {
                 stream << obj.ToDouble();
                 return stream;
@@ -488,34 +491,6 @@ namespace mn {
         template<uint8_t numFracBits>
         using FpF64 = FpF<int64_t, int64_t, numFracBits>;
 
-// Specializations for use with plain integers
-
-/// \note 		Assumes integer has the same precision as FpF
-// template <uint8_t numFracBits>
-// inline FpF<numFracBits> operator + (int32_t a, FpF<numFracBits> b)
-// { 
-// 	return b + a; 
-// }
-
-// /// \note 		Assumes integer has the same precision as FpF
-// template <uint8_t numFracBits>
-// inline FpF<numFracBits> operator - (int32_t a, FpF<numFracBits> b)
-// {
-// 	return -b + a;
-// }
-
-// /// \note 		Assumes integer has the same precision as FpF
-// template <uint8_t numFracBits>
-// inline FpF<numFracBits> operator * (int32_t a, FpF<numFracBits> b)
-// { return b * a; }
-
-// template <uint8_t numFracBits>
-// inline FpF<numFracBits> operator / (int32_t a, FpF<numFracBits> b)
-// { 
-// 	FpF<numFracBits> r(a); 
-// 	r /= b; 
-// 	return r;
-// }
 
 // math functions
 // no default implementation

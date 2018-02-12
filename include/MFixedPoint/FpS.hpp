@@ -397,6 +397,7 @@ class FpS {
 		return std::to_string(ToDouble());
 	}
 
+    /// \brief      Overload so we can print to a ostream (e.g. std::cout).
     friend std::ostream&operator<<(std::ostream& stream, FpS obj) {
         stream << obj.ToDouble();
         return stream;
