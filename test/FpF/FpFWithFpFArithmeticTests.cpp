@@ -1,9 +1,9 @@
 //!
-//! \file 				FpFArithmeticTests.cpp
+//! \file 				FpFWithFpFArithmeticTests.cpp
 //! \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! \edited 			n/a
 //! \created			2013-07-22
-//! \last-modified		2018-01-10
+//! \last-modified		2018-02-11
 //! \brief 				Performs unit tests on the fixed point FpF class.
 //! \details
 //!						See README.rst in root dir for more info.
