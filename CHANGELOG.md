@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Fixed bug where `std::string` and `std::ostream` headers were not included in `FpF.hpp`, closes #95.
+
 ## [v8.0.0] - 2018-02-12
 
 ### Added
