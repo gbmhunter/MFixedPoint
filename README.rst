@@ -23,7 +23,7 @@ The libraries are designed to be a fully-functional data types within their limi
 
 Fixed-point numbers are signed.
 
-NOTE: This fixed point library will usually be slower when running of a CPU which has associated floating point unit (FPU), e.g. when running on your desktop/laptop. The benchmark performance tests (found in :code:`benchmark/`) suggest simple fixed-point operations such as addition/subtraction/multiplication/division are about 10x slower than their float/double counterparts when there is a FPU. However, this library is designed to be used on CPU's where there is no FPU present. This library comes in useful when there is no FPU present, which is the case for lower-end microcontrollers such as ARM Cortex M0/M3, Atmel ATMEGA, TI MSP430's e.t.c.
+NOTE: This fixed point library will usually be slower when running of a CPU which has associated floating point unit (FPU), e.g. when running on your desktop/laptop. The benchmark performance tests (found in :code:`benchmark/`) suggest simple fixed-point operations such as addition/subtraction/multiplication/division are about 10x slower than their float/double counterparts when there is a FPU. However, this library is designed to be used on CPU's where there is no FPU present, which is the case for lower-end microcontrollers such as ARM Cortex M0/M3, Atmel ATMEGA, TI MSP430's e.t.c.
 
 The "Slow" Fixed-Point Library (FpS)
 ------------------------------------
