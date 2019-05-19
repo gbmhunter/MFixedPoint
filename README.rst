@@ -6,12 +6,12 @@ MFixedPoint
 A microcontroller-friendly fixed-point library specifically designed for embedded systems.
 ------------------------------------------------------------------------------------------
 
-.. image:: https://travis-ci.org/mbedded-ninja/MFixedPoint.png?branch=master   
-	:target: https://travis-ci.org/mbedded-ninja/MFixedPoint
+.. image:: https://travis-ci.org/gbmhunter/MFixedPoint.png?branch=master   
+	:target: https://travis-ci.org/gbmhunter/MFixedPoint
 
 
-.. image:: https://codecov.io/gh/mbedded-ninja/MFixedPoint/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/mbedded-ninja/MFixedPoint
+.. image:: https://codecov.io/gh/gbmhunter/MFixedPoint/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/gbmhunter/MFixedPoint
 
 
 Description
