@@ -42,7 +42,7 @@ namespace MFixedPoint {
 /// 			prevent intermediary overflow problems.
 /// \note 		Slower than FpF::FixMulF()
 template<class BaseType, class OverflowType, uint8_t numFracBits>
-inline BaseType FpFMultiply(int32_t a, int32_t b) {
+inline BaseType FpFMultiply(BaseType a, BaseType b) {
     return (BaseType) (((OverflowType) a * b) >> numFracBits);
 }
 
