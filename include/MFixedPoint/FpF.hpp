@@ -204,13 +204,13 @@ public:
     }
 
     FpF(int8_t i) :
-            rawVal_((int32_t) i << numFracBits) {}
+            rawVal_((BaseType) i << numFracBits) {}
 
     FpF(int16_t i) :
-            rawVal_((int32_t) i << numFracBits) {}
+            rawVal_((BaseType) i << numFracBits) {}
 
     FpF(int32_t i) :
-            rawVal_(i << numFracBits) {}
+            rawVal_((BaseType)i << numFracBits) {}
 
     /// \brief		Constructor that accepts a float.
     FpF(float f) :
