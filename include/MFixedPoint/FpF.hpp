@@ -42,7 +42,7 @@ namespace MFixedPoint {
 /// 			prevent intermediary overflow problems.
 /// \note 		Slower than FpF::FixMulF()
 template<class BaseType, class OverflowType, uint8_t numFracBits>
-inline BaseType FpFMultiply(int32_t a, int32_t b) {
+inline BaseType FpFMultiply(BaseType a, BaseType b) {
     return (BaseType) (((OverflowType) a * b) >> numFracBits);
 }
 
@@ -204,13 +204,13 @@ public:
     }
 
     FpF(int8_t i) :
-            rawVal_((int32_t) i << numFracBits) {}
+            rawVal_((BaseType) i << numFracBits) {}
 
     FpF(int16_t i) :
-            rawVal_((int32_t) i << numFracBits) {}
+            rawVal_((BaseType) i << numFracBits) {}
 
     FpF(int32_t i) :
-            rawVal_(i << numFracBits) {}
+            rawVal_((BaseType)i << numFracBits) {}
 
     /// \brief		Constructor that accepts a float.
     FpF(float f) :
