@@ -161,7 +161,7 @@ The cmake method will build the fixed point library and automatically runs all u
 
 .. code:: bash
 
-	~$ git clone https://github.com/mbedded-ninja/MFixedPoint.git
+	~$ git clone https://github.com/gbmhunter/MFixedPoint.git
 	~$ cd MFixedPoint
 	~/MFixedPoint$ mkdir build
 	~/MFixedPoint$ cd build
@@ -253,6 +253,9 @@ The following table lists all of MFixedPoint's dependencies.
 ====================== ==================== ======================================================================
 Dependency             Delivery             Usage
 ====================== ==================== ======================================================================
-<cstdint>              C standard library   For platform agnostic fixed-width integers.
+<cstdint.h>            C std lib.           For platform agnostic fixed-width integers.
+<ostream>              C++ std lib.
+<string>               C++ std lib.
+<type_traits>          C++ std lib.
 MUnitTest              External module      Framework for unit tests.
 ====================== ==================== ======================================================================
