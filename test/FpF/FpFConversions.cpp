@@ -3,7 +3,7 @@
 //! \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! \edited 			n/a
 //! \created			2013-07-22
-//! \last-modified		2018-01-10
+//! \last-modified		2019-05-22
 //! \brief 				Performs unit tests on the fixed point FpF class.
 //! \details
 //!						See README.rst in root dir for more info.
@@ -17,12 +17,6 @@
 using namespace mn::MFixedPoint;
 
 MTEST_GROUP(FpFConversions) {
-
-	// MTEST(README) {
-	// 	FpS32 fp1(2.22, 8);	
-	// 	printf("ToInt<int32_t>() = %i\n", fp1.ToInt<int32_t>()); // Prints "ToInt<int32_t>() = 2"
-	// 	printf("ToDouble() = %.2f\n", fp1.ToDouble()); // Prints "ToDouble() = 2.22"
-	// }
 
 	// Check double->fixed conversion first as the
 	// rest of the tests depend on it
@@ -79,5 +73,10 @@ MTEST_GROUP(FpFConversions) {
 	MTEST(CastDouble) {
 		FpF32<15> fp1(-34.982);
         CHECK_CLOSE((double)fp1, -34.982, 0.01);
+	}
+
+	MTEST(ConstructFromIntTest) {
+		FpF<int64_t, int64_t, 25> fp1 = 75;
+		CHECK_CLOSE(fp1.ToInt<int64_t>(), 75, 0.1);		
 	}
 }

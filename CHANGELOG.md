@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v8.0.2] - 2019-05-22
+
+### Added
+- `.vscode/` directory added to `.gitignore`.
+
+### Fixed
+- Fixed bug where the `FpF` class was calculating incorrect results when peforming certain arithmetic (and when constructing), due to hard coded use of `int32_t`, where instead it should be using `BaseClass` (thanks [TheZoq2](https://github.com/TheZoq2) for finding this and sending in a MR). Added unit tests to prevent regresison.
+- Fixed URL to git repo in build section of README.
+- Updated dependencies in README.
+
 ## [v8.0.1] - 2018-06-02
 
 ### Fixed

@@ -3,7 +3,7 @@
 //! \author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! \edited 			n/a
 //! \created			2013-07-22
-//! \last-modified		2018-01-08
+//! \last-modified		2019-05-22
 //! \brief 				Performs unit tests on the fixed point FpS class.
 //! \details
 //!						See README.rst in root dir for more info.
@@ -17,16 +17,6 @@
 using namespace mn::MFixedPoint;
 
 MTEST_GROUP(FpSArithmeticTests) {
-
-	// MTEST(ArithmeticOnReadme) {
-	// 	FpS32 fp1(5.0, 8);
-	// 	FpS32 fp2(1.5, 8);
-
-	// 	printf("add = %.2f\n", (fp1 + fp2).ToDouble());
-	// 	printf("sub = %.2f\n", (fp1 - fp2).ToDouble());
-	// 	printf("mult = %.2f\n", (fp1 * fp2).ToDouble());
-	// 	printf("div = %.2f\n", (fp1 / fp2).ToDouble());
-	// }
 
 	MTEST(AdditionSameNumFracBits) {
 		FpS32 fp1(1.11, 8);
@@ -99,6 +89,13 @@ MTEST_GROUP(FpSArithmeticTests) {
 		
 		auto fp3 = fp1 * fp2;
 		CHECK_CLOSE(1.92, fp3.ToDouble(), 0.1);
+	}
+
+	MTEST(OverflowMultiplicationTest) {
+		FpS<int64_t, int64_t> fp1(-4000.0, 20);
+		FpS<int64_t, int64_t> fp2(-0.01, 20);
+		auto fp3 = fp1 * fp2;
+		CHECK_CLOSE(fp3.ToDouble(), 40.0, 0.1);		
 	}
 
 	MTEST(PositiveDivisionTest)	{
